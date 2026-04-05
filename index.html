@@ -69,6 +69,21 @@ input:focus,select:focus{outline:2px solid #2563eb;border-color:#2563eb}
 .tab.on{background:#1a1a1a;color:#fff}
 .panel{display:none}.panel.on{display:block}
 
+.tabs-main{width:100%;max-width:100%;flex-wrap:wrap;gap:6px;border:none;background:transparent;padding:0;margin-bottom:.35rem}
+.tabs-main .tab.tab-main{flex:1;min-width:min(100%,140px);border:1px solid #e0e0d8;border-radius:8px;margin:0}
+.tabs-main .tab.tab-main.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.uop-subnav-wrap{margin-bottom:1.1rem}
+.uop-sub-hint{font-size:12px;color:#64748b;margin:0 0 10px;line-height:1.55;max-width:52rem}
+.tabs-sub{width:100%;max-width:100%;flex-wrap:wrap;gap:4px;border:1px solid #e5e7eb;border-radius:9px;background:#f4f4ef;padding:5px;margin-bottom:0}
+.tabs-sub .tab.tab-sub{border:none;border-radius:7px;background:transparent;color:#475569;margin:0;font-size:11px;padding:8px 14px}
+.tabs-sub .tab.tab-sub.on{background:#fff;color:#0f172a;box-shadow:0 1px 3px rgba(15,23,42,.08);font-weight:700}
+.emp-section-title{font-size:11px;font-weight:700;margin:0 0 .35rem;color:#14532d;text-transform:uppercase;letter-spacing:.05em}
+.emp-bar-wrap{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#e5e7eb;margin-top:4px}
+.emp-bar{height:100%;min-width:2px}
+.emp-bar-g{background:#3b82f6}
+.emp-bar-e{background:#22c55e}
+.emp-bar-legend{font-size:10px;color:#64748b;margin-top:6px;line-height:1.4}
+
 /* Button */
 .btn{padding:10px 24px;font-size:14px;font-weight:700;border:none;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;margin-top:.5rem}
 .btn:hover{background:#333}
@@ -127,12 +142,18 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
   </div>
 </div>
 
-<div class="tabs">
-  <div class="tab on" onclick="go('cfg')" id="tab-cfg">Configuration</div>
-  <div class="tab" onclick="go('det')" id="tab-det">Monthly Breakdown</div>
-  <div class="tab" onclick="go('emp')" id="tab-emp">Employer Cost</div>
-  <div class="tab" onclick="go('rev')" id="tab-rev">Reverse Calculator</div>
-  <div class="tab" onclick="go('b2b')" id="tab-b2b">B2B</div>
+<div class="tabs tabs-main" role="tablist" aria-label="Calculator mode">
+  <div class="tab tab-main on" onclick="goMain('uop')" id="tab-uop" role="tab" aria-selected="true">Employment (UoP)</div>
+  <div class="tab tab-main" onclick="goMain('rev')" id="tab-rev" role="tab" aria-selected="false">Reverse calculator</div>
+  <div class="tab tab-main" onclick="goMain('b2b')" id="tab-b2b" role="tab" aria-selected="false">B2B</div>
+</div>
+<div class="uop-subnav-wrap" id="uop-subnav-wrap">
+  <p class="uop-sub-hint" id="uop-sub-hint"></p>
+  <div class="tabs tabs-sub" role="tablist" aria-label="UoP views">
+    <div class="tab tab-sub on" onclick="goUop('cfg')" id="tab-cfg" role="tab" aria-selected="true">Inputs</div>
+    <div class="tab tab-sub" onclick="goUop('det')" id="tab-det" role="tab" aria-selected="false">Take-home by month</div>
+    <div class="tab tab-sub" onclick="goUop('emp')" id="tab-emp" role="tab" aria-selected="false">Employer cost</div>
+  </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ CONFIG -->
@@ -343,7 +364,11 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
 <!-- ═══════════════════════════════════════════════════════ EMPLOYER -->
 <div id="p-emp" class="panel">
   <div id="al-emp"></div>
-  <p style="font-size:12px;color:#666;margin-bottom:1rem" id="emp-desc">Total cost of employing you — what your employer pays on top of your gross salary.</p>
+  <h2 class="emp-section-title" id="emp-h2"></h2>
+  <p class="hint" style="margin-bottom:12px;max-width:48rem" id="emp-desc"></p>
+  <div id="emp-hero" class="g3" style="margin-bottom:12px"></div>
+  <div id="emp-visual" style="margin-bottom:14px"></div>
+  <p class="hint" style="margin-bottom:8px;font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#64748b" id="emp-table-lede"></p>
   <div class="tw"><table id="t-emp"></table></div>
   <div class="note" id="note-emp"></div>
 
@@ -381,9 +406,7 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
     </div>
   </div>
   <div id="rev-result" style="margin-top:1rem"></div>
-  <div class="al al-gray" style="margin-top:1rem;font-size:11px" id="rev-note">
-    Uses your current KUP, PPK, deductions and tax relief settings from the Configuration tab. Change those settings first, then come back here.
-  </div>
+  <div class="al al-gray" style="margin-top:1rem;font-size:11px" id="rev-note"></div>
 
 <div id="src-rev" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
@@ -398,6 +421,11 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
   <div class="ibox ibox-gray" style="margin-bottom:1.25rem">
     <strong id="b2b-e1">What is B2B in Poland?</strong>
     <span id="b2b-e2"> You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use the other tabs for employment (<strong>UoP</strong>).</span>
+  </div>
+
+  <div class="ibox ibox-yellow" style="margin-bottom:1.25rem" id="b2b-trust-box">
+    <strong id="b2b-warn-title"></strong>
+    <div id="b2b-warn-body" style="margin-top:6px;font-size:12px;line-height:1.65"></div>
   </div>
 
   <h2 id="b2b-h-job">Job Title &amp; Tax Form</h2>
@@ -498,12 +526,16 @@ const T = {
   en: {
     title: 'UoP Salary Calculator',
     sub: 'Polish employment contract (umowa o pracę) · Month-by-month net pay',
-    'tab-cfg': 'Configuration', 'tab-det': 'Monthly Breakdown', 'tab-emp': 'Employer Cost', 'tab-rev': 'Reverse Calculator', 'tab-b2b': 'B2B',
+    'tab-uop': 'Employment (UoP)', 'tab-rev': 'Reverse calculator', 'tab-b2b': 'B2B',
+    'tab-cfg': 'Inputs', 'tab-det': 'Take-home by month', 'tab-emp': 'Employer cost',
+    'uop-sub-hint': '<strong>One contract</strong> — these three views use the <strong>same</strong> gross, KUP, PPK and vacation settings. Enter everything under <strong>Inputs</strong>, then open monthly net or employer totals; they update when you click <strong>Calculate</strong>.',
     'b2b-e1': 'What is B2B in Poland?',
-    'b2b-e2': 'You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use the other tabs for employment (<strong>UoP</strong>).',
+    'b2b-e2': 'You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use <strong>Employment (UoP)</strong> for salary on a work contract.',
     'b2b-h-job': 'Job Title &amp; Tax Form',
     'b2b-l-role': 'Your job title / position',
-    'b2b-h-role': 'Start typing — pick a role from the list. The calculator sets the taxation form from the matched <strong>PKWiU</strong> bucket; you can still override below.',
+    'b2b-h-role': 'Search roles below; choosing one updates the <strong>Taxation form</strong> dropdown to the matching ryczałt band. Change the dropdown manually if your PKWiU differs.',
+    'b2b-warn-title': 'Job title → ryczałt: shortcuts only — not a full legal check',
+    'b2b-warn-body': 'This is <strong>not tax advice</strong>. The role list is a <strong>heuristic</strong>: most lines were <strong>not</strong> checked against a <strong>KIS</strong> ruling for your exact services. What binds is <strong>your PKWiU</strong> in CEIDG, <strong>art. 12</strong> of the lump-sum act, and official interpretations. If unsure, set <strong>Taxation form</strong> yourself or ask an accountant. <a href="https://lexlege.pl/zryczl-pod-os-fiz/art-12/" target="_blank" rel="noopener" style="color:#92400e;font-weight:600">art. 12 (Lexlege)</a> · <a href="https://sip.mf.gov.pl/" target="_blank" rel="noopener" style="color:#92400e;font-weight:600">KIS — SIP MF</a>.',
     'h-salary': 'Salary & Year', 'l-brutto': 'Gross salary (PLN/month)', 'l-rok': 'Tax year',
     'opt-2027': '2027 (enter cap manually)', 'l-cap': 'ZUS 30× annual cap (PLN)',
     'h-cap': 'Announced each December in Monitor Polski. Formula: 30 × avg. monthly wage.<br><strong>2024:</strong> 234 720 · <strong>2025:</strong> 260 190 · <strong>2026:</strong> 282 600',
@@ -540,11 +572,20 @@ const T = {
     months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
     monthsS: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     'leg-both': 'ZUS cap + 32% tax — same month', 'leg-zus': 'ZUS 30× cap reached', 'leg-32': '32% tax bracket', 'leg-kup': 'Annual KUP limit used up',
-    'emp-desc': 'Total cost of employing you — what your employer pays on top of your gross salary.',
+    'emp-h2': 'What the company pays (besides your gross)',
+    'emp-desc': 'Your payslip shows gross and your deductions. Here you see the employer’s share: ZUS paid for you, accident insurance, Labour Fund, FGŚP, and employer PPK. Together with gross, that is the real monthly cost of your role.',
     'note-det': 'KUP formula (art. 22§9(3) PIT Act): 50% × honorarium fraction × (gross − social ZUS), proportional to working days. Annual KUP limit: 120 000 PLN; after: 250 PLN/month flat. ZUS cap announced annually in Monitor Polski. 32% bracket: cumulative taxable income > 120 000 PLN. * Nov/Dec are approximate — employer year-end reconciliation not modelled.',
-    'note-emp': 'Employer contributions are NOT deducted from your salary — they are additional costs on top of your gross. Wypadkowe rate varies by industry (default 1.67%). FP and FGŚP apply when gross ≥ minimum wage.',
+    'note-emp': 'Employer contributions are NOT deducted from your salary — they are extra cost on top of your gross. Wypadkowe rate varies by industry (default 1.67%). FP and FGŚP apply when gross ≥ minimum wage. The <strong>Total</strong> column in the table is gross + all employer-side items (full loaded cost per month).',
+    'emp_ml_gross_ann': 'Your gross (year)',
+    'emp_ms_salary': 'sum of monthly gross',
+    'emp_ml_extra_ann': 'Employer on top (year)',
+    'emp_ms_extra': 'ZUS + FP + FGŚP + wypadkowe + empl. PPK',
+    'emp_ml_loaded_ann': 'Total company cost (year)',
+    'emp_ms_loaded': 'gross + employer extras — full payroll load',
+    'emp_bar_legend': 'Blue = gross paid to you · Green = employer contributions (same scale, full year)',
+    'emp_table_lede': 'Month-by-month detail',
+    'rev-note': 'Uses the same KUP, PPK, deductions and tax reliefs as <strong>Employment (UoP) → Inputs</strong>. Adjust them there first, then run the reverse calculation here.',
     ml_annual: 'ANNUAL NET TOTAL ★', ml_typical: 'TYPICAL MONTH', ml_min: 'LOWEST MONTH', ml_max: 'HIGHEST MONTH', ml_vac: 'VACATION COST',
-    ml_empcost: 'TOTAL EMPLOYER COST', ml_empann: 'EMPLOYER COST/YEAR',
     th_month: 'Month', th_zus: 'ZUS Social', th_zdrow: 'Health ZUS', th_kup: 'KUP', th_taxbase: 'Tax Base', th_rate: 'Rate', th_tax: 'Tax', th_deduct: 'Deductions', th_vac: 'Vac', th_netto: 'Net',
     th_cem: 'Emeryt.(E)', th_cre: 'Rentow.(E)', th_cwyp: 'Wypad.(E)', th_cfp: 'FP', th_cfgsp: 'FGŚP', th_cppk: 'PPK(E)', th_total: 'Total Cost',
     th_model: 'Model', th_real: 'Real (mBank)', th_diff: 'Diff', th_events: 'Events',
@@ -563,12 +604,16 @@ const T = {
   pl: {
     title: 'Kalkulator Wynagrodzeń UoP',
     sub: 'Umowa o pracę · Netto miesiąc po miesiącu',
-    'tab-cfg': 'Konfiguracja', 'tab-det': 'Rozliczenie miesięczne', 'tab-emp': 'Koszt pracodawcy', 'tab-rev': 'Kalkulator odwrotny', 'tab-b2b': 'B2B',
+    'tab-uop': 'Umowa o pracę (UoP)', 'tab-rev': 'Kalkulator odwrotny', 'tab-b2b': 'B2B',
+    'tab-cfg': 'Dane i ustawienia', 'tab-det': 'Netto co miesiąc', 'tab-emp': 'Koszt pracodawcy',
+    'uop-sub-hint': '<strong>Jedna umowa</strong> — poniższe trzy widoki korzystają z <strong>tych samych</strong> danych (brutto, KUP, PPK, urlopy). Wszystko wpisz w <strong>Dane i ustawienia</strong>, potem przełączaj się na miesięczne netto lub koszt pracodawcy; po zmianach kliknij <strong>Oblicz</strong>.',
     'b2b-e1': 'Czym jest B2B w Polsce?',
-    'b2b-e2': 'Prowadzisz <strong>JDG</strong> (jednoosobową działalność): fakturujesz klientów, ewidencjonujesz przychód i sam płacisz <strong>ZUS</strong> oraz podatek dochodowy. Nierozliczone dni robocze zmniejszają przychód; dobrowolne <strong>chorobowe</strong> daje prawo do zasiłku chorobowego ZUS po okresie karencji. Ta zakładka szacuje netto <strong>B2B</strong> (ryczałt lub podatek od dochodu) — inne zakładki dotyczą <strong>UoP</strong>.',
+    'b2b-e2': 'Prowadzisz <strong>JDG</strong> (jednoosobową działalność): fakturujesz klientów, ewidencjonujesz przychód i sam płacisz <strong>ZUS</strong> oraz podatek dochodowy. Nierozliczone dni robocze zmniejszają przychód; dobrowolne <strong>chorobowe</strong> daje prawo do zasiłku chorobowego ZUS po okresie karencji. Ta zakładka szacuje netto <strong>B2B</strong> — wynagrodzenie na <strong>UoP</strong> jest w zakładce <strong>Umowa o pracę</strong>.',
     'b2b-h-job': 'Stanowisko i forma opodatkowania',
     'b2b-l-role': 'Stanowisko / rola zawodowa',
-    'b2b-h-role': 'Zacznij pisać — wybierz rolę z listy. Kalkulator ustawi formę opodatkowania wg dopasowanego <strong>PKWiU</strong>; poniżej nadal możesz zmienić formę ręcznie.',
+    'b2b-h-role': 'Wyszukaj rolę poniżej; wybór ustawia listę <strong>Forma opodatkowania</strong> na pasującą stawkę ryczałtu. Zmień ją ręcznie, jeśli Twój PKWiU jest inny.',
+    'b2b-warn-title': 'Stanowisko → ryczałt: skróty, nie pełna weryfikacja prawna',
+    'b2b-warn-body': 'To <strong>nie jest porada podatkowa</strong>. Lista ról to <strong>heurystyka</strong>. Wiążące są <strong>Twój PKWiU</strong> w CEIDG, <strong>art. 12</strong> ustawy o ryczałcie oraz interpretacje. W razie wątpliwości ustaw <strong>Formę opodatkowania</strong> samodzielnie lub skonsultuj się z księgowym. <a href="https://lexlege.pl/zryczl-pod-os-fiz/art-12/" target="_blank" rel="noopener" style="color:#92400e;font-weight:600">art. 12 (Lexlege)</a> · <a href="https://sip.mf.gov.pl/" target="_blank" rel="noopener" style="color:#92400e;font-weight:600">KIS — SIP MF</a>.',
     'h-salary': 'Wynagrodzenie i rok', 'l-brutto': 'Brutto (PLN/miesiąc)', 'l-rok': 'Rok podatkowy',
     'opt-2027': '2027 (podaj limit ręcznie)', 'l-cap': 'Limit 30-krotności ZUS (PLN)',
     'h-cap': 'Ogłaszany każdego grudnia w Monitorze Polskim. Wzór: 30 × prognozowane śr. wynagrodzenie.<br><strong>2024:</strong> 234 720 · <strong>2025:</strong> 260 190 · <strong>2026:</strong> 282 600',
@@ -605,11 +650,20 @@ const T = {
     months: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
     monthsS: ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'],
     'leg-both': 'ZUS cap + próg 32% — jednocześnie', 'leg-zus': 'Limit ZUS 30-krotności', 'leg-32': 'Próg 32% podatku', 'leg-kup': 'Wyczerpanie limitu KUP',
-    'emp-desc': 'Całkowity koszt zatrudnienia — co płaci pracodawca ponad Twoje brutto.',
+    'emp-h2': 'Co firma płaci oprócz Twojego brutto',
+    'emp-desc': 'Na pasku widać brutto i Twoje potrącenia. Tu widać stronę pracodawcy: ZUS od niego, wypadkowe, FP, FGŚP i jego część PPK. Razem z brutto to rzeczywisty miesięczny koszt Twojego stanowiska.',
     'note-det': 'Formuła KUP (art. 22 ust. 9 pkt 3 ustawy PIT): 50% × honorarium_fraction × (brutto − ZUS_społ), proporcjonalnie do dni roboczych. Limit roczny KUP: 120 000 zł; po wyczerpaniu: 250 zł/mc. Limit ZUS ogłaszany co roku w Monitorze Polskim. Próg 32%: skumulowany dochód > 120 000 zł. * Lis/Gru są przybliżone — roczne rozliczenie pracodawcy nie jest modelowane.',
-    'note-emp': 'Składki pracodawcy NIE są potrącane z Twojej pensji — to dodatkowy koszt ponad brutto. Stawka wypadkowa zależy od branży (domyślnie 1,67%). FP i FGŚP obowiązują gdy brutto ≥ płacy minimalnej.',
+    'note-emp': 'Składki pracodawcy NIE są potrącane z pensji — to koszt ponad brutto. Stawka wypadkowa zależy od branży (domyślnie 1,67%). FP i FGŚP obowiązują przy brutto ≥ płacy minimalnej. Kolumna <strong>Koszt całk.</strong> w tabeli to brutto + wszystkie składki po stronie pracodawcy (pełny koszt miesiąca).',
+    'emp_ml_gross_ann': 'Twoje brutto (rok)',
+    'emp_ms_salary': 'suma miesięcznych brutto',
+    'emp_ml_extra_ann': 'Dopłata pracodawcy (rok)',
+    'emp_ms_extra': 'ZUS + FP + FGŚP + wypadkowe + PPK pracodawcy',
+    'emp_ml_loaded_ann': 'Pełny koszt firmy (rok)',
+    'emp_ms_loaded': 'brutto + składki pracodawcy',
+    'emp_bar_legend': 'Niebieski = brutto dla Ciebie · Zielony = składki pracodawcy (cały rok, ta sama skala)',
+    'emp_table_lede': 'Szczegóły miesiąc po miesiącu',
+    'rev-note': 'Korzysta z tych samych ustawień KUP, PPK, potrąceń i ulg co <strong>UoP → Dane i ustawienia</strong>. Najpierw zmień je tam, potem wróć tutaj.',
     ml_annual: 'SUMA NETTO ROCZNIE ★', ml_typical: 'TYPOWY MIESIĄC', ml_min: 'MIN NETTO', ml_max: 'MAX NETTO', ml_vac: 'KOSZT URLOPÓW',
-    ml_empcost: 'KOSZT PRACODAWCY/MC', ml_empann: 'KOSZT PRACODAWCY/ROK',
     th_month: 'Miesiąc', th_zus: 'ZUS społ.', th_zdrow: 'Zdrowotna', th_kup: 'KUP', th_taxbase: 'Podst. pod.', th_rate: 'Stawka', th_tax: 'Podatek', th_deduct: 'Potrąc.', th_vac: 'Urlop', th_netto: 'Netto',
     th_cem: 'Emeryt.(P)', th_cre: 'Rentow.(P)', th_cwyp: 'Wypad.(P)', th_cfp: 'FP', th_cfgsp: 'FGŚP', th_cppk: 'PPK(P)', th_total: 'Koszt całk.',
     th_model: 'Model', th_real: 'Wyciąg (mBank)', th_diff: 'Różnica', th_events: 'Zdarzenia',
@@ -646,14 +700,14 @@ function applySources() {
 
 
 function applyLang() {
-  const ids = ['title','sub','tab-cfg','tab-det','tab-emp','tab-rev','tab-b2b',
-    'b2b-e1','b2b-e2','b2b-h-job','b2b-l-role','b2b-h-role',
+  const ids = ['title','sub','tab-uop','tab-cfg','tab-det','tab-emp','tab-rev','tab-b2b','uop-sub-hint',
+    'b2b-e1','b2b-e2','b2b-warn-title','b2b-warn-body','b2b-h-job','b2b-l-role','b2b-h-role',
     'opt-2027','l-cap','h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
     'l-kup-pct','h-kup-pct','ko-custom','l-kup-pln','h-kup-pln','kn-t1','kn-t2',
     'h-reliefs','l-pit0','po-no','po-yes','h-pit0','l-ppk','ppk-no','h-ppk',
     'l-powrot','pr-no','pr-yes','h-powrot','pw-t','pw-b','h-deduct','l-other',
     'h-vac','h-vac2','btn-calc','leg-both','leg-zus','leg-32','leg-kup',
-    'emp-desc','note-det','note-emp'];
+    'emp-h2','emp-desc','emp-table-lede','note-det','note-emp','rev-note'];
   ids.forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=t(id); });
   // ZUS panel and KUP preview need re-render
   liveKup(); updateZusPanel();
@@ -686,6 +740,7 @@ const TAX_BRACKET = 120000;
 const MIN_WAGE_2025 = 4666, MIN_WAGE_2026 = 4666; // approximate
 
 let RES = [], EMP = [];
+let uopSub = 'cfg';
 
 function getYear() { return parseInt(document.getElementById('rok').value) || 2026; }
 function getCap() { const y=getYear(); return CAPS[y]||(parseFloat(document.getElementById('cap-custom').value)||282600); }
@@ -1092,13 +1147,22 @@ function renderEmp() {
   tb+=`<tr class="tot"><td>${t('row_total')}</td><td>${fv(TE.e_em)}</td><td>${fv(TE.e_re)}</td><td>${fv(TE.e_wyp)}</td><td>${fv(TE.e_fp)}</td><td>${fv(TE.e_fg)}</td><td>${fv(TE.e_ppk)}</td><td class="n">${fv(TE.e_tot)}</td></tr></tbody>`;
   document.getElementById('t-emp').innerHTML=th+tb;
 
-  // Employer metrics
-  const avgTot=TE.e_tot/12;
-  const el=document.getElementById('al-emp');
-  if(el) el.innerHTML+=`<div class="g2" style="margin-bottom:1rem">
-    <div class="metric"><div class="ml">${t('ml_empcost')}</div><div class="mv">${fv(avgTot)}</div><div class="ms">${LANG==='en'?'avg per month':'śr. na miesiąc'}</div></div>
-    <div class="metric star"><div class="ml">${t('ml_empann')}</div><div class="mv">${fv(TE.e_tot)}</div><div class="ms">${LANG==='en'?'total annual employer cost':'całkowity roczny koszt pracodawcy'}</div></div>
-  </div>`;
+  const sumBr = EMP.reduce((s, r) => s + r.br, 0);
+  const extraAnn = TE.e_tot - sumBr;
+  const hero = document.getElementById('emp-hero');
+  if (hero) {
+    hero.innerHTML = `
+    <div class="metric"><div class="ml">${t('emp_ml_gross_ann')}</div><div class="mv">${fv(sumBr)}</div><div class="ms">${t('emp_ms_salary')}</div></div>
+    <div class="metric"><div class="ml">${t('emp_ml_extra_ann')}</div><div class="mv">${fv(extraAnn)}</div><div class="ms">${t('emp_ms_extra')}</div></div>
+    <div class="metric star"><div class="ml">${t('emp_ml_loaded_ann')}</div><div class="mv">${fv(TE.e_tot)}</div><div class="ms">${t('emp_ms_loaded')}</div></div>`;
+  }
+  const ev = document.getElementById('emp-visual');
+  if (ev && TE.e_tot > 0) {
+    const pg = Math.min(100, Math.max(0, Math.round((100 * sumBr) / TE.e_tot)));
+    const pe = 100 - pg;
+    ev.innerHTML = `<div class="emp-bar-wrap" role="img" aria-label="${t('emp_bar_legend')}"><div class="emp-bar emp-bar-g" style="width:${pg}%"></div><div class="emp-bar emp-bar-e" style="width:${pe}%"></div></div>
+      <div class="emp-bar-legend">${t('emp_bar_legend')}</div>`;
+  } else if (ev) ev.innerHTML = '';
   document.getElementById('note-emp').innerHTML=t('note-emp');
 }
 
@@ -1107,13 +1171,47 @@ const fv = n => Math.round(n).toLocaleString('pl-PL') + ' zł';
 const fd = n => parseFloat(n).toFixed(2).replace('.',',');
 const fds = n => parseFloat(n).toFixed(2).replace('.',',');
 
-function go(name) {
-  ['cfg','det','emp','rev','b2b'].forEach(x=>{
-    document.getElementById('tab-'+x).classList.toggle('on',x===name);
-    document.getElementById('p-'+x).classList.toggle('on',x===name);
+function goMain(name) {
+  const uopOn = name === 'uop';
+  document.querySelectorAll('.tabs-main .tab-main').forEach((el) => {
+    const on =
+      (name === 'uop' && el.id === 'tab-uop') ||
+      (name === 'rev' && el.id === 'tab-rev') ||
+      (name === 'b2b' && el.id === 'tab-b2b');
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-selected', on ? 'true' : 'false');
   });
-  if (!RES.length && name!=='cfg' && name!=='rev' && name!=='b2b') calc();
-  if (name==='b2b') calcB2B();
+  const subnav = document.getElementById('uop-subnav-wrap');
+  if (subnav) subnav.style.display = uopOn ? 'block' : 'none';
+
+  ['p-cfg', 'p-det', 'p-emp', 'p-rev', 'p-b2b'].forEach((id) => {
+    document.getElementById(id).classList.remove('on');
+  });
+
+  if (name === 'uop') {
+    ['cfg', 'det', 'emp'].forEach((x) => {
+      const on = x === uopSub;
+      const te = document.getElementById('tab-' + x);
+      const pe = document.getElementById('p-' + x);
+      if (te) {
+        te.classList.toggle('on', on);
+        te.setAttribute('aria-selected', on ? 'true' : 'false');
+      }
+      if (pe) pe.classList.toggle('on', on);
+    });
+    if (!RES.length && (uopSub === 'det' || uopSub === 'emp')) calc();
+  } else if (name === 'rev') {
+    document.getElementById('p-rev').classList.add('on');
+    if (!RES.length) calc();
+  } else {
+    document.getElementById('p-b2b').classList.add('on');
+    calcB2B();
+  }
+}
+
+function goUop(sub) {
+  uopSub = sub;
+  goMain('uop');
 }
 
 // ─── REVERSE CALCULATOR ────────────────────────────────────────────────────────
@@ -1299,606 +1397,70 @@ const ZUS_RATES = {
 //        5.5% wytwórcza + roboty budowlane | 3% handel | 2% produkty rolne własne
 // ⚠ 17% wolne zawody: only when working PERSONALLY without employees doing core work
 
-const JOB_RULES = [
-
-  // ── IT: SOFTWARE (12%) ──────────────────────────────────────────────────────
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Software Developer / Engineer', pl:'Programista / Software Engineer',
-    solo_note: false,
-    kw:['developer','engineer','programmer','programist','software','frontend','backend',
-        'fullstack','full-stack','full stack','ios dev','android dev','mobile dev',
-        'web dev','webdev','node','react dev','vue dev','angular','django','rails',
-        'spring dev','develo','koduje','koder','koderka'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'QA Automation Engineer', pl:'QA Automation Engineer',
-    solo_note: false,
-    kw:['qa auto','automation engineer','test automation','automat tester','sdet',
-        'quality automat','automation qa','tester automatyczny','automatyzacja testów'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'QA Manual Tester', pl:'Tester manualny',
-    solo_note: false,
-    kw:['manual tester','qa manual','tester manual','quality assur','test engineer',
-        'qa engineer','functional test','regression test','tester oprogramowania',
-        'tester aplikacji','testowanie manualne'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'DevOps / Platform / SRE Engineer', pl:'DevOps / Platform / SRE Engineer',
-    solo_note: false,
-    kw:['devops','platform engineer','sre engineer','site reliability','infrastructure eng',
-        'cloud engineer','devsecops','mlops','dataops','inżynier devops','inżynier chmury'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Data Engineer', pl:'Data Engineer',
-    solo_note: false,
-    kw:['data engineer','data pipeline','etl developer','elt developer','data platform',
-        'spark engineer','kafka engineer','airflow','dbt developer','inżynier danych'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Data Scientist / ML Engineer', pl:'Data Scientist / ML Engineer',
-    solo_note: false,
-    kw:['data scientist','machine learning','ml engineer','ai engineer','deep learning',
-        'nlp engineer','computer vision','naukowiec danych','inżynier ml'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Game Developer', pl:'Game Developer',
-    solo_note: false,
-    kw:['game dev','game engineer','unity dev','unreal dev','twórca gier','programista gier',
-        'game programmer'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Embedded / Firmware Engineer', pl:'Programista embedded / firmware',
-    solo_note: false,
-    kw:['embedded','firmware','iot engineer','rtos','microcontroller','programista embedded',
-        'inżynier firmware'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Software Architect / Solution Architect', pl:'Architekt oprogramowania',
-    solo_note: false,
-    kw:['software architect','solution architect','technical architect','enterprise architect',
-        'system architect','architekt oprogramowania','architekt rozwiązań'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'Security Engineer / Pentester', pl:'Security Engineer / Pentester',
-    solo_note: false,
-    kw:['security engineer','pentest','penetrat','cybersec','infosec','appsec',
-        'soc analyst','vulnerability','bezpieczeństwo it','inżynier bezpieczeństwa'] },
-
-  { rate:'ryczalt_12', pkwiu:'62.01.1',
-    en:'ERP / SAP / Salesforce Consultant', pl:'Konsultant ERP / SAP / Salesforce',
-    solo_note: false,
-    kw:['erp consultant','sap consultant','salesforce dev','salesforce consultant',
-        'dynamics consultant','oracle consultant','konsultant sap','wdrożeniowiec'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'IT Support / System Administrator', pl:'IT Support / Administrator systemów',
-    solo_note: false,
-    kw:['it support','helpdesk','help desk','sysadmin','system admin','network admin',
-        'it administrator','wsparcie it','administrator systemów','admin sieci'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'Business Analyst (IT)', pl:'Business Analyst (IT)',
-    solo_note: false,
-    kw:['business analyst','analityk biznesowy','ba it','wymagania biznesowe',
-        'business analysis','requirements analyst','analiza wymagań'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'Technical Writer', pl:'Technical Writer',
-    solo_note: false,
-    kw:['technical writer','tech writer','dokumentacja techniczna','pisarz techniczny'] },
-
-  // ── IT: MANAGEMENT (15%) ────────────────────────────────────────────────────
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Project Manager (IT)', pl:'Project Manager (IT)',
-    solo_note: false,
-    kw:['project manager','kierownik projektu','project lead','delivery manager',
-        'programme manager','kierownik it'] },
-
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Scrum Master / Agile Coach', pl:'Scrum Master / Agile Coach',
-    solo_note: false,
-    kw:['scrum master','agile coach','kanban coach','agile master','coach agile'] },
-
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Product Manager / Product Owner', pl:'Product Manager / Product Owner',
-    solo_note: false,
-    kw:['product manager','product owner','head of product','vp product',
-        'product lead','kierownik produktu'] },
-
-  // ── DESIGN & CREATIVE (14%) ─────────────────────────────────────────────────
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'UX/UI Designer', pl:'UX/UI Designer',
-    solo_note: false,
-    kw:['ux designer','ui designer','ux/ui','product designer','interaction designer',
-        'user experience','user interface','figma designer','projektant ux','projektant ui'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'Graphic Designer', pl:'Grafik / Graphic Designer',
-    solo_note: false,
-    kw:['graphic designer','grafik','visual designer','brand designer','logo designer',
-        'projektant graficzny','projekt graficzny'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'Motion Designer / Animator', pl:'Motion Designer / Animator',
-    solo_note: false,
-    kw:['motion designer','motion graphic','animator','animacja','motion artist'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'Art Director / Creative Director', pl:'Art Director / Creative Director',
-    solo_note: false,
-    kw:['art director','creative director','dyrektor artystyczny','dyrektor kreatywny'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'Illustrator', pl:'Ilustrator',
-    solo_note: false,
-    kw:['illustrator','ilustrator','book illustrator','comic artist','ilustracja'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'3D Artist / Visual Effects', pl:'Artysta 3D / VFX',
-    solo_note: false,
-    kw:['3d artist','3d designer','vfx artist','visual effects','artysta 3d',
-        'modelowanie 3d','blender artist'] },
-
-  // ── MUSIC & AUDIO ───────────────────────────────────────────────────────────
-  // Production/composing = 5.5% wytwórcza (own original works, rights transferred)
-  // Performing live = 15% (PKWiU 90.01 usługi kulturalne)
-  // Licensing = 8.5%
-  { rate:'ryczalt_55', pkwiu:'59.20.x (wytwórcza)',
-    en:'Music Producer / Composer (selling own works)', pl:'Producent muzyczny / Kompozytor (sprzedaż własnych utworów)',
-    solo_note: false,
-    kw:['music producer','music composer','producent muzyczny','kompozytor','beat maker',
-        'beatmaker','music creation','tworzenie muzyki','komponowanie'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.01.10.0',
-    en:'Musician / Performer / Singer (live)', pl:'Muzyk / Piosenkarz / Artysta wykonawca',
-    solo_note: false,
-    kw:['musician','piosenkarz','muzyk','singer','vocalist','performer','live music',
-        'koncerty','artysta wykonawca','wokalista','gitarzysta','pianista','skrzypek'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'Sound Designer / Audio Engineer', pl:'Sound Designer / Realizator dźwięku',
-    solo_note: false,
-    kw:['sound designer','audio engineer','sound engineer','realizator dźwięku',
-        'dźwiękowiec','mix engineer','mastering engineer','foley'] },
-
-  { rate:'ryczalt_85', pkwiu:'59.20.4',
-    en:'DJ / Music Licensing', pl:'DJ / Licencjonowanie muzyki',
-    solo_note: false,
-    kw:['dj ','disc jockey','music licensing','licencjonowanie muzyki'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.03.11.0',
-    en:'Songwriter / Lyricist', pl:'Autor tekstów / Tekściarz',
-    solo_note: false,
-    kw:['songwriter','lyricist','tekściarz','autor tekstów','autor piosenek'] },
-
-  { rate:'ryczalt_85', pkwiu:'62.02.30.0',
-    en:'Podcast Producer', pl:'Twórca podcastów',
-    solo_note: false,
-    kw:['podcast producer','podcaster','podcast'] },
-
-  // ── VIDEO & PHOTO ───────────────────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'74.20',
-    en:'Photographer', pl:'Fotograf',
-    solo_note: false,
-    kw:['photographer','fotograf','zdjęcia','photo','photography','fotografia',
-        'wedding photo','foto'] },
-
-  { rate:'ryczalt_85', pkwiu:'59.11-59.12',
-    en:'Videographer / Video Editor', pl:'Videograf / Montażysta',
-    solo_note: false,
-    kw:['videographer','video editor','montażysta','wideofilmowanie','kamerzysta',
-        'video production','post production','postprodukcja'] },
-
-  { rate:'ryczalt_85', pkwiu:'59.11',
-    en:'Film / TV Director', pl:'Reżyser filmowy / TV',
-    solo_note: false,
-    kw:['film director','tv director','reżyser','director of photography','dop'] },
-
-  // ── ARTS & CREATIVE (15%) ───────────────────────────────────────────────────
-  { rate:'ryczalt_15', pkwiu:'90.03.11.0',
-    en:'Author / Writer', pl:'Autor / Pisarz',
-    solo_note: false,
-    kw:['author','writer','pisarz','novelist','fiction writer','autor książek','powieściopisarz'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.03.11.0',
-    en:'Copywriter / Content Writer', pl:'Copywriter / Content Writer',
-    solo_note: false,
-    kw:['copywriter','content writer','content creator','pisanie treści','twórca treści'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.03.11.0',
-    en:'Journalist / Reporter', pl:'Dziennikarz / Reporter',
-    solo_note: false,
-    kw:['journalist','reporter','dziennikarz','reporter','korespondent','publicysta'] },
-
-  { rate:'ryczalt_14', pkwiu:'74.1',
-    en:'Painter / Fine Artist', pl:'Malarz / Artysta plastyk',
-    solo_note: false,
-    kw:['painter','malarz','fine artist','artysta plastyk','artysta malarz','sculptor',
-        'rzeźbiarz','ceramics artist','ceramik'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.01.10.0',
-    en:'Actor / Voice Actor', pl:'Aktor / Lektor',
-    solo_note: false,
-    kw:['actor','aktor','voice actor','lektor','narrator','dubbing','aktorka'] },
-
-  { rate:'ryczalt_15', pkwiu:'90.01.10.0',
-    en:'Dancer / Choreographer', pl:'Tancerz / Choreograf',
-    solo_note: false,
-    kw:['dancer','tancerz','choreographer','choreograf','tancerka','dance instructor'] },
-
-  // ── MARKETING & CONTENT (8.5%) ──────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'73.1',
-    en:'Marketing Manager / Specialist', pl:'Marketing Manager / Specjalista ds. marketingu',
-    solo_note: false,
-    kw:['marketing manager','marketing specialist','digital marketing','performance marketing',
-        'specjalista marketingu','marketing online','email marketing'] },
-
-  { rate:'ryczalt_85', pkwiu:'73.1',
-    en:'SEO / SEM Specialist', pl:'Specjalista SEO / SEM',
-    solo_note: false,
-    kw:['seo specialist','sem specialist','seo expert','pozycjonowanie','specjalista seo',
-        'google ads','ppc specialist'] },
-
-  { rate:'ryczalt_85', pkwiu:'73.1',
-    en:'Social Media Manager', pl:'Social Media Manager',
-    solo_note: false,
-    kw:['social media manager','social media','community manager','instagram manager',
-        'tiktok creator','influencer manager'] },
-
-  { rate:'ryczalt_85', pkwiu:'73.1',
-    en:'PR Specialist / Brand Manager', pl:'Specjalista PR / Brand Manager',
-    solo_note: false,
-    kw:['pr specialist','brand manager','public relations','rzecznik prasowy','specjalista pr',
-        'komunikacja marketingowa'] },
-
-  { rate:'ryczalt_85', pkwiu:'73.1',
-    en:'Influencer / Content Creator', pl:'Influencer / Twórca internetowy',
-    solo_note: false,
-    kw:['influencer','content creator','youtuber','tiktoker','streamer','twitch',
-        'twórca internetowy','creator'] },
-
-  // ── MANAGEMENT & CONSULTING (15%) ───────────────────────────────────────────
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Management Consultant', pl:'Konsultant zarządzania',
-    solo_note: false,
-    kw:['management consultant','konsultant zarządzania','strategy consultant',
-        'business consultant','doradca biznesowy','konsultant strategiczny'] },
-
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Operations Manager / COO', pl:'Dyrektor operacyjny / Operations Manager',
-    solo_note: false,
-    kw:['operations manager','coo','chief operating','dyrektor operacyjny',
-        'kierownik operacyjny'] },
-
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'HR Manager / Recruiter', pl:'HR Manager / Rekruter',
-    solo_note: false,
-    kw:['hr manager','recruiter','rekruter','human resources','talent acquisition',
-        'headhunter','specjalista hr','kierownik hr'] },
-
-  // ── FINANCE & ACCOUNTING ────────────────────────────────────────────────────
-  // Biegły rewident, księgowy = 17% (wolny zawód)
-  // Financial analyst (non-licensed) = 15%
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Accountant / Bookkeeper (licensed)', pl:'Księgowy / Biegły rewident',
-    solo_note: true,
-    kw:['accountant','bookkeeper','księgowy','biegły rewident','certified accountant',
-        'rachunkowość','biuro rachunkowe'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Tax Advisor / Doradca podatkowy', pl:'Doradca podatkowy',
-    solo_note: true,
-    kw:['tax advisor','doradca podatkowy','tax consultant','doradztwo podatkowe'] },
-
-  { rate:'ryczalt_15', pkwiu:'70.22.20.0',
-    en:'Financial Analyst / CFO', pl:'Analityk finansowy / CFO',
-    solo_note: false,
-    kw:['financial analyst','analityk finansowy','cfo','chief financial','finance manager',
-        'dyrektor finansowy','controller finansowy'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Insurance Agent / Broker', pl:'Agent ubezpieczeniowy / Broker',
-    solo_note: true,
-    kw:['insurance agent','insurance broker','agent ubezpieczeniowy','broker ubezpieczeniowy',
-        'ubezpieczenia'] },
-
-  { rate:'ryczalt_15', pkwiu:'46.1',
-    en:'Financial Broker / Intermediary', pl:'Pośrednik finansowy',
-    solo_note: false,
-    kw:['financial broker','mortgage broker','pośrednik finansowy','pośrednik kredytowy',
-        'broker finansowy','doradca kredytowy'] },
-
-  // ── LEGAL (17%) ─────────────────────────────────────────────────────────────
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Lawyer / Attorney / Radca prawny', pl:'Prawnik / Adwokat / Radca prawny',
-    solo_note: true,
-    kw:['lawyer','attorney','adwokat','radca prawny','solicitor','counsel','legal counsel',
-        'prawnik','kancelaria prawna'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Notary', pl:'Notariusz',
-    solo_note: true,
-    kw:['notary','notariusz','kancelaria notarialna'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Patent Attorney', pl:'Rzecznik patentowy',
-    solo_note: true,
-    kw:['patent attorney','rzecznik patentowy','patent agent'] },
-
-  { rate:'ryczalt_85', pkwiu:'69.10',
-    en:'Paralegal / Legal Assistant', pl:'Asystent prawny / Paralegal',
-    solo_note: false,
-    kw:['paralegal','legal assistant','asystent prawny','asystent adwokata'] },
-
-  // ── HEALTHCARE (17% wolny zawód) ─────────────────────────────────────────────
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Doctor / Physician', pl:'Lekarz / Lekarka',
-    solo_note: true,
-    kw:['doctor','physician','lekarz','lekarka','medic','gp ','general practitioner',
-        'internist','surgeon','chirurg','kardiolog','dermatolog','psychiatra','neurolog'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Dentist', pl:'Dentysta / Stomatolog',
-    solo_note: true,
-    kw:['dentist','stomatolog','dentysta','dental surgeon','orthodontist','ortodonta'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Veterinarian', pl:'Weterynarz',
-    solo_note: true,
-    kw:['veterinarian','vet ','weterynarz','lekarz weterynarii','animal doctor'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Nurse / Midwife', pl:'Pielęgniarka / Położna',
-    solo_note: true,
-    kw:['nurse','pielęgniarka','pielęgniarz','midwife','położna','nursing'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Physiotherapist / Rehabilitant', pl:'Fizjoterapeuta / Rehabilitant',
-    solo_note: true,
-    kw:['physiotherapist','fizjoterapeuta','rehabilitant','physical therapist',
-        'rehabilitacja','fizjoterapia'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Psychologist / Therapist', pl:'Psycholog / Terapeuta',
-    solo_note: true,
-    kw:['psychologist','psycholog','therapist','terapeuta','psychoterapeuta',
-        'psychotherapy','terapia','coaching psychologiczny'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Pharmacist', pl:'Farmaceuta',
-    solo_note: true,
-    kw:['pharmacist','farmaceuta','apothecary'] },
-
-  { rate:'ryczalt_14', pkwiu:'86.90',
-    en:'Paramedic / Medical Technician', pl:'Ratownik medyczny / Technik medyczny',
-    solo_note: false,
-    kw:['paramedic','ratownik medyczny','medical technician','technik medyczny',
-        'dental technician','technik dentystyczny','optician','optyk'] },
-
-  // ── EDUCATION (17% wolny zawód for private lessons) ──────────────────────────
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Teacher / Tutor (private lessons)', pl:'Nauczyciel / Korepetytor',
-    solo_note: true,
-    kw:['teacher','nauczyciel','tutor','korepetytor','private lessons','korepetycje',
-        'language teacher','lektor języka','nauczycielka'] },
-
-  { rate:'ryczalt_85', pkwiu:'85.59',
-    en:'Trainer / Instructor (groups / online)', pl:'Trener / Instruktor (grupy / online)',
-    solo_note: false,
-    kw:['trainer','trener','instructor','instruktor','online course','kurs online',
-        'szkolenia','szkoleniowiec','life coach','coach biznesowy'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Translator / Interpreter', pl:'Tłumacz / Interpreter',
-    solo_note: true,
-    kw:['translator','interpreter','tłumacz','tłumaczka','sworn translator',
-        'tłumacz przysięgły','tłumaczenia'] },
-
-  // ── BEAUTY & WELLNESS (8.5%) ─────────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'96.02',
-    en:'Hairdresser / Barber', pl:'Fryzjer / Barber',
-    solo_note: false,
-    kw:['hairdresser','fryzjer','barber','fryzjerka','hair stylist','stylista włosów',
-        'salon fryzjerski'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.02',
-    en:'Nail Technician', pl:'Manicurzystka / Paznokcie',
-    solo_note: false,
-    kw:['nail tech','nail technician','manicure','paznokcie','stylizacja paznokci',
-        'manicurzystka','pedicure','hybryda'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.02',
-    en:'Beautician / Cosmetologist', pl:'Kosmetyczka / Kosmetolog',
-    solo_note: false,
-    kw:['beautician','cosmetologist','kosmetyczka','kosmetolog','beauty therapist',
-        'aesthetician','estetyczka','zabiegi kosmetyczne'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.02',
-    en:'Makeup Artist', pl:'Makijażysta / Charakteryzator',
-    solo_note: false,
-    kw:['makeup artist','makijażysta','makijażystka','makijaż','charakteryzator',
-        'mua ','bridal makeup'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.04',
-    en:'Massage Therapist / SPA', pl:'Masażysta / SPA',
-    solo_note: false,
-    kw:['massage therapist','masażysta','masażystka','massage','masaż','spa therapist',
-        'wellness therapist'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.09',
-    en:'Tattoo Artist / Piercing', pl:'Tatuażysta / Piercing',
-    solo_note: false,
-    kw:['tattoo artist','tatuażysta','tatuaż','piercing','tattoo studio'] },
-
-  // ── PERSONAL FITNESS (8.5%) ──────────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'93.13',
-    en:'Personal Trainer / Fitness Coach', pl:'Trener personalny / Fitness Coach',
-    solo_note: false,
-    kw:['personal trainer','trener personalny','fitness coach','fitness trainer',
-        'gym trainer','trener fitness','trener siłowni'] },
-
-  { rate:'ryczalt_85', pkwiu:'93.1',
-    en:'Sports Coach / Athlete', pl:'Trener sportowy / Sportowiec',
-    solo_note: false,
-    kw:['sports coach','trener sportowy','athletic coach','swimming coach','tennis coach',
-        'trener pływania','trener tenisa','football coach','trener piłki'] },
-
-  // ── CONSTRUCTION (5.5%) ──────────────────────────────────────────────────────
-  { rate:'ryczalt_55', pkwiu:'roboty budowlane (dz.43)',
-    en:'Builder / Construction Contractor', pl:'Budowlaniec / Wykonawca',
-    solo_note: false,
-    kw:['builder','budowlaniec','contractor','wykonawca budowlany','construction',
-        'budowa','roboty budowlane','general contractor'] },
-
-  { rate:'ryczalt_55', pkwiu:'43.9',
-    en:'Carpenter / Joiner', pl:'Stolarz / Cieśla',
-    solo_note: false,
-    kw:['carpenter','cieśla','stolarz','joiner','woodworker','meble na zamówienie',
-        'stolarstwo'] },
-
-  { rate:'ryczalt_55', pkwiu:'43.2',
-    en:'Electrician (installation)', pl:'Elektryk (instalacje)',
-    solo_note: false,
-    kw:['electrician','elektryk','electrical install','instalacje elektryczne',
-        'elektroinstalator'] },
-
-  { rate:'ryczalt_55', pkwiu:'43.2',
-    en:'Plumber / HVAC (installation)', pl:'Hydraulik / Instalator',
-    solo_note: false,
-    kw:['plumber','hydraulik','hvac','instalator','sanitarny','ogrzewanie','klimatyzacja',
-        'plumbing','wod-kan'] },
-
-  { rate:'ryczalt_55', pkwiu:'43.3',
-    en:'Painter / Plasterer / Tiler', pl:'Malarz / Tynkarz / Kafelkarz',
-    solo_note: false,
-    kw:['painter','malarz budowlany','tynkarz','plasterer','tiler','kafelkarz',
-        'wykończenia','floor layer','posadzkarz'] },
-
-  { rate:'ryczalt_55', pkwiu:'43.1',
-    en:'Roofer / Welder', pl:'Dekarz / Spawacz',
-    solo_note: false,
-    kw:['roofer','dekarz','welder','spawacz','blacha','dach','roofing'] },
-
-  // ── ENGINEERING non-IT (17% wolny zawód) ─────────────────────────────────────
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Civil / Structural Engineer (licensed)', pl:'Inżynier budownictwa / Konstruktor',
-    solo_note: true,
-    kw:['civil engineer','structural engineer','inżynier budownictwa','konstruktor',
-        'building engineer','inżynier konstrukcji'] },
-
-  { rate:'ryczalt_17', pkwiu:'wolny zawód',
-    en:'Architect (building)', pl:'Architekt (budowlany)',
-    solo_note: true,
-    kw:['building architect','architekt budowlany','licensed architect','architect reg',
-        'uprawnienia budowlane'] },
-
-  { rate:'ryczalt_85', pkwiu:'71.1',
-    en:'Mechanical / Industrial Engineer', pl:'Inżynier mechanik / Technolog',
-    solo_note: false,
-    kw:['mechanical engineer','inżynier mechanik','industrial engineer','technolog',
-        'manufacturing engineer','process engineer','inżynier produkcji'] },
-
-  { rate:'ryczalt_85', pkwiu:'71.2',
-    en:'Environmental / Energy Engineer', pl:'Inżynier środowiska / Energetyki',
-    solo_note: false,
-    kw:['environmental engineer','energy engineer','inżynier środowiska','odnawialne źródła',
-        'eko inżynier','solar energy','energia odnawialna'] },
-
-  // ── FOOD & HOSPITALITY ───────────────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'56.1',
-    en:'Chef / Cook (services)', pl:'Kucharz / Chef',
-    solo_note: false,
-    kw:['chef','kucharz','cook','catering chef','personal chef','kucharka','catering'] },
-
-  { rate:'ryczalt_85', pkwiu:'56.2',
-    en:'Baker / Confectioner (services)', pl:'Cukiernik / Piekarz (usługi)',
-    solo_note: false,
-    kw:['baker','piekarz','confectioner','cukiernik','cake maker','torty na zamówienie',
-        'słodycze'] },
-
-  { rate:'ryczalt_3', pkwiu:'handel (dz.47)',
-    en:'Restaurant / Café Owner (food sales)', pl:'Właściciel restauracji / kawiarni',
-    solo_note: false,
-    kw:['restaurant owner','café owner','właściciel restauracji','kawiarnia','bistro',
-        'food truck','bar owner'] },
-
-  // ── RETAIL & TRADE (3%) ──────────────────────────────────────────────────────
-  { rate:'ryczalt_3', pkwiu:'handel (dz.45-47)',
-    en:'Shop Owner / Retailer', pl:'Właściciel sklepu / Handlarz',
-    solo_note: false,
-    kw:['shop owner','właściciel sklepu','retailer','sklep','sprzedawca','trader',
-        'merchant','handel detaliczny','sklep internetowy','e-commerce','marketplace'] },
-
-  { rate:'ryczalt_3', pkwiu:'46.x',
-    en:'Wholesaler / Distributor', pl:'Hurtownik / Dystrybutor',
-    solo_note: false,
-    kw:['wholesaler','hurtownik','distributor','dystrybutor','import export','handel hurtowy'] },
-
-  // ── REAL ESTATE (10%) ────────────────────────────────────────────────────────
-  { rate:'ryczalt_10', pkwiu:'68.31',
-    en:'Estate Agent / Real Estate', pl:'Pośrednik nieruchomości',
-    solo_note: false,
-    kw:['estate agent','real estate agent','pośrednik nieruchomości','agent nieruchomości',
-        'realtor','broker nieruchomości'] },
-
-  // ── TRANSPORT & LOGISTICS (8.5%) ─────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'49.4',
-    en:'Driver / Courier / Delivery', pl:'Kierowca / Kurier / Dostawa',
-    solo_note: false,
-    kw:['driver','kierowca','courier','kurier','delivery','dostawa','transport drogowy',
-        'taksówkarz','uber driver','bolt driver'] },
-
-  { rate:'ryczalt_85', pkwiu:'52.29',
-    en:'Logistics Manager / Freight', pl:'Menedżer logistyki / Spedytor',
-    solo_note: false,
-    kw:['logistics manager','spedytor','freight','logistyka','supply chain',
-        'łańcuch dostaw','menedżer logistyki'] },
-
-  // ── CLEANING & MAINTENANCE (8.5%) ─────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'81.2',
-    en:'Cleaning Service', pl:'Firma sprzątająca',
-    solo_note: false,
-    kw:['cleaning service','sprzątanie','cleaner','sprzątaczka','cleaning company',
-        'housekeeping','sprzątanie biur'] },
-
-  { rate:'ryczalt_85', pkwiu:'81.3',
-    en:'Gardener / Landscaper', pl:'Ogrodnik / Landscaping',
-    solo_note: false,
-    kw:['gardener','ogrodnik','landscaper','lawn care','pielęgnacja ogrodu',
-        'landscaping','zieleń'] },
-
-  // ── OTHER SERVICES (8.5%) ────────────────────────────────────────────────────
-  { rate:'ryczalt_85', pkwiu:'74.3',
-    en:'Event Organizer / Wedding Planner', pl:'Organizator eventów / Wedding Planner',
-    solo_note: false,
-    kw:['event organizer','wedding planner','event manager','organizator eventów',
-        'organizacja wesel','event planning','animator imprez'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.09',
-    en:'Florist', pl:'Florysta / Kwiaciarnia',
-    solo_note: false,
-    kw:['florist','florysta','kwiaciarnia','flower shop','aranżacje kwiatowe'] },
-
-  { rate:'ryczalt_85', pkwiu:'95.2',
-    en:'Repair Service (electronics/appliances)', pl:'Serwis naprawy sprzętu',
-    solo_note: false,
-    kw:['repair service','serwis','naprawa','electronics repair','appliance repair',
-        'naprawa sprzętu','naprawa telefonów'] },
-
-  { rate:'ryczalt_85', pkwiu:'96.09',
-    en:'Pet Groomer / Dog Walker', pl:'Groomer / Opiekun zwierząt',
-    solo_note: false,
-    kw:['pet groomer','groomer','dog walker','opiekun zwierząt','psi fryzjer',
-        'hotel dla zwierząt','dog sitter'] },
-
-];
+let JOB_RULES = [];
+
+function resolveAppAssetUrl(filename) {
+  let p = window.location.pathname;
+  if (!p.endsWith('/')) {
+    if (/\.html?$/i.test(p)) p = p.replace(/[^/]+$/, '');
+    else p = p + '/';
+  }
+  return new URL(filename, window.location.origin + p).href;
+}
+
+(async function loadJobRulesFromJson() {
+  window.__JOB_RULES_READY = false;
+  window.__JOB_RULES_OK = false;
+  try {
+    const res = await fetch(resolveAppAssetUrl('job-rules.json'), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const rules = Array.isArray(data) ? data : (data.rules || []);
+    if (!Array.isArray(rules) || rules.length < 1) throw new Error('empty rules');
+    JOB_RULES = rules;
+    window.__JOB_RULES_OK = true;
+  } catch (err) {
+    console.error('JOB_RULES load failed', err);
+    JOB_RULES = [];
+    window.__JOB_RULES_LOAD_ERROR = String(err && err.message ? err.message : err);
+  } finally {
+    window.__JOB_RULES_READY = true;
+    if (!window.__JOB_RULES_OK) {
+      var wb = document.getElementById('b2b-warn-body');
+      if (wb && !wb.querySelector('.job-rules-load-err')) {
+        var en = typeof LANG !== 'undefined' && LANG === 'en';
+        wb.insertAdjacentHTML('beforeend', '<p class="job-rules-load-err" style="margin-top:10px;color:#b91c1c">' +
+          (en
+            ? '<strong>Role list unavailable.</strong> Use a web server (<code>npm run dev</code>) or the GitHub Pages URL — <code>file://</code> cannot load <code>job-rules.json</code>. You can still set the tax form manually.'
+            : '<strong>Lista ról niedostępna.</strong> Użyj serwera (<code>npm run dev</code>) lub adresu GitHub Pages — przy <code>file://</code> nie załaduje się <code>job-rules.json</code>. Formę ustawisz ręcznie.') +
+          '</p>');
+      }
+    }
+  }
+})();
 
 
 let b2bBlurTimer = null;
 let b2bSuggestRules = [];
 let b2bSuggestIndex = -1;
 let b2bSelectedRule = null;
+let b2bTaxProgrammatic = false;
+
+function setB2bTaxSelectValue(rate) {
+  const taxEl = document.getElementById('b2b-tax');
+  if (!taxEl || !rate) return;
+  b2bTaxProgrammatic = true;
+  try {
+    let idx = -1;
+    for (let i = 0; i < taxEl.options.length; i++) {
+      if (taxEl.options[i].value === rate) { idx = i; break; }
+    }
+    if (idx >= 0) taxEl.selectedIndex = idx;
+    else console.warn('B2B: no <option> for taxation rate', rate);
+  } finally {
+    queueMicrotask(function () { b2bTaxProgrammatic = false; });
+  }
+}
 
 function searchJobRules(query, limit) {
   const q = (query || '').toLowerCase().trim();
@@ -2016,7 +1578,7 @@ function applyB2bRoleMessage(rule) {
   const taxEl = document.getElementById('b2b-tax');
   if (!rule || !box || !taxEl) return;
   const en = LANG === 'en';
-  taxEl.value = rule.rate;
+  setB2bTaxSelectValue(rule.rate);
   const title = en ? rule.en : (rule.pl || rule.en);
   const rateLabel = RATE_LABELS[rule.rate] ? RATE_LABELS[rule.rate][en ? 'en' : 'pl'] : rule.rate;
   const solo = rule.solo_note
@@ -2046,6 +1608,7 @@ function refreshB2bRoleMessage() {
 }
 
 function onB2bTaxManualChange() {
+  if (b2bTaxProgrammatic) return;
   b2bSelectedRule = null;
   const box = document.getElementById('b2b-role-result');
   if (box) {
@@ -2300,6 +1863,7 @@ buildVacGrid();
 liveKup();
 checkPit0Kup();
 buildB2BVacGrid();
+applyLang();
 applySources();
 </script>
 </body>

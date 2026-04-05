@@ -1,0 +1,17 @@
+{
+  "$comment": "Maps B2B dropdown rate keys to art. 12 ust. 1 (lump-sum tax act). Used for CI validation only — not row-by-row KIS proof.",
+  "source_title_pl": "art. 12 ust. 1 ustawy o zryczałtowanym podatku dochodowym",
+  "lexlege_url": "https://lexlege.pl/zryczl-pod-os-fiz/art-12/",
+  "by_rate": {
+    "ryczalt_17": { "pkt": "1", "label_pl": "m.in. wolne zawody (praca osobiście)", "label_en": "e.g. liberal professions (personal performance)" },
+    "ryczalt_15": { "pkt": "2", "label_pl": "działalność w zakresie pkt 2 ustawy", "label_en": "activities under point 2 of the Act" },
+    "ryczalt_14": { "pkt": "2a", "label_pl": "m.in. ochrona zdrowia, usługi architektoniczne (pkt 2a)", "label_en": "health, architectural services, etc. (point 2a)" },
+    "ryczalt_125": { "pkt": "4", "label_pl": "część przychodów z najmu — 12,5% (pkt 4)", "label_en": "certain rental revenues at 12.5% (point 4)" },
+    "ryczalt_12": { "pkt": "2b", "label_pl": "m.in. usługi informatyczne (PKWiU 62…)", "label_en": "e.g. IT services (PKWiU 62… per statute)" },
+    "ryczalt_10": { "pkt": "3", "label_pl": "m.in. usługi hotelarskie, najem mieszkaniowy (wg ustawy)", "label_en": "hotel-like services, residential letting (per statute)" },
+    "ryczalt_85": { "pkt": "4_5", "label_pl": "8,5% — często pkt 5 lit. a lub część z pkt 4", "label_en": "8.5% — often point 5(a) or point 4 scope" },
+    "ryczalt_55": { "pkt": "6", "label_pl": "m.in. wytwórczość, roboty budowlane, produkcja filmów (wg ustawy)", "label_en": "manufacturing, construction, film production (per statute)" },
+    "ryczalt_3": { "pkt": "7", "label_pl": "m.in. handel, gastronomia (wg ustawy)", "label_en": "e.g. retail, food service (per statute)" },
+    "ryczalt_2": { "pkt": "8", "label_pl": "m.in. sprzedaż produktów rolnych własnej produkcji", "label_en": "e.g. sale of self-produced farm products" }
+  }
+}

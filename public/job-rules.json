@@ -1,0 +1,1599 @@
+{
+  "version": 1,
+  "generated": "2026-04-05",
+  "rules": [
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Software Developer / Engineer",
+      "pl": "Programista / Software Engineer",
+      "solo_note": false,
+      "kw": [
+        "developer",
+        "engineer",
+        "programmer",
+        "programist",
+        "software",
+        "frontend",
+        "backend",
+        "fullstack",
+        "full-stack",
+        "full stack",
+        "ios dev",
+        "android dev",
+        "mobile dev",
+        "web dev",
+        "webdev",
+        "node",
+        "react dev",
+        "vue dev",
+        "angular",
+        "django",
+        "rails",
+        "spring dev",
+        "develo",
+        "koduje",
+        "koder",
+        "koderka"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "QA Automation Engineer",
+      "pl": "QA Automation Engineer",
+      "solo_note": false,
+      "kw": [
+        "qa auto",
+        "automation engineer",
+        "test automation",
+        "automat tester",
+        "sdet",
+        "quality automat",
+        "automation qa",
+        "tester automatyczny",
+        "automatyzacja testów"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "62.02.30.0",
+      "en": "QA Manual Tester",
+      "pl": "Tester manualny",
+      "solo_note": false,
+      "kw": [
+        "manual tester",
+        "qa manual",
+        "tester manual",
+        "quality assur",
+        "test engineer",
+        "qa engineer",
+        "functional test",
+        "regression test",
+        "tester oprogramowania",
+        "tester aplikacji",
+        "testowanie manualne"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "DevOps / Platform / SRE Engineer",
+      "pl": "DevOps / Platform / SRE Engineer",
+      "solo_note": false,
+      "kw": [
+        "devops",
+        "platform engineer",
+        "sre engineer",
+        "site reliability",
+        "infrastructure eng",
+        "cloud engineer",
+        "devsecops",
+        "mlops",
+        "dataops",
+        "inżynier devops",
+        "inżynier chmury"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Data Engineer",
+      "pl": "Data Engineer",
+      "solo_note": false,
+      "kw": [
+        "data engineer",
+        "data pipeline",
+        "etl developer",
+        "elt developer",
+        "data platform",
+        "spark engineer",
+        "kafka engineer",
+        "airflow",
+        "dbt developer",
+        "inżynier danych"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Data Scientist / ML Engineer",
+      "pl": "Data Scientist / ML Engineer",
+      "solo_note": false,
+      "kw": [
+        "data scientist",
+        "machine learning",
+        "ml engineer",
+        "ai engineer",
+        "deep learning",
+        "nlp engineer",
+        "computer vision",
+        "naukowiec danych",
+        "inżynier ml"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Game Developer",
+      "pl": "Game Developer",
+      "solo_note": false,
+      "kw": [
+        "game dev",
+        "game engineer",
+        "unity dev",
+        "unreal dev",
+        "twórca gier",
+        "programista gier",
+        "game programmer"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Embedded / Firmware Engineer",
+      "pl": "Programista embedded / firmware",
+      "solo_note": false,
+      "kw": [
+        "embedded",
+        "firmware",
+        "iot engineer",
+        "rtos",
+        "microcontroller",
+        "programista embedded",
+        "inżynier firmware"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Software Architect / Solution Architect",
+      "pl": "Architekt oprogramowania",
+      "solo_note": false,
+      "kw": [
+        "software architect",
+        "solution architect",
+        "technical architect",
+        "enterprise architect",
+        "system architect",
+        "architekt oprogramowania",
+        "architekt rozwiązań"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "Security Engineer / Pentester",
+      "pl": "Security Engineer / Pentester",
+      "solo_note": false,
+      "kw": [
+        "security engineer",
+        "pentest",
+        "penetrat",
+        "cybersec",
+        "infosec",
+        "appsec",
+        "soc analyst",
+        "vulnerability",
+        "bezpieczeństwo it",
+        "inżynier bezpieczeństwa"
+      ]
+    },
+    {
+      "rate": "ryczalt_12",
+      "pkwiu": "62.01.1",
+      "en": "ERP / SAP / Salesforce Consultant",
+      "pl": "Konsultant ERP / SAP / Salesforce",
+      "solo_note": false,
+      "kw": [
+        "erp consultant",
+        "sap consultant",
+        "salesforce dev",
+        "salesforce consultant",
+        "dynamics consultant",
+        "oracle consultant",
+        "konsultant sap",
+        "wdrożeniowiec"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "62.02.30.0",
+      "en": "IT Support / System Administrator",
+      "pl": "IT Support / Administrator systemów",
+      "solo_note": false,
+      "kw": [
+        "it support",
+        "helpdesk",
+        "help desk",
+        "sysadmin",
+        "system admin",
+        "network admin",
+        "it administrator",
+        "wsparcie it",
+        "administrator systemów",
+        "admin sieci"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "62.02.30.0",
+      "en": "Business Analyst (IT)",
+      "pl": "Business Analyst (IT)",
+      "solo_note": false,
+      "kw": [
+        "business analyst",
+        "analityk biznesowy",
+        "ba it",
+        "wymagania biznesowe",
+        "business analysis",
+        "requirements analyst",
+        "analiza wymagań"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "62.02.30.0",
+      "en": "Technical Writer",
+      "pl": "Technical Writer",
+      "solo_note": false,
+      "kw": [
+        "technical writer",
+        "tech writer",
+        "dokumentacja techniczna",
+        "pisarz techniczny"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Project Manager (IT)",
+      "pl": "Project Manager (IT)",
+      "solo_note": false,
+      "kw": [
+        "project manager",
+        "kierownik projektu",
+        "project lead",
+        "delivery manager",
+        "programme manager",
+        "kierownik it"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Scrum Master / Agile Coach",
+      "pl": "Scrum Master / Agile Coach",
+      "solo_note": false,
+      "kw": [
+        "scrum master",
+        "agile coach",
+        "kanban coach",
+        "agile master",
+        "coach agile"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Product Manager / Product Owner",
+      "pl": "Product Manager / Product Owner",
+      "solo_note": false,
+      "kw": [
+        "product manager",
+        "product owner",
+        "head of product",
+        "vp product",
+        "product lead",
+        "kierownik produktu"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "UX/UI Designer",
+      "pl": "UX/UI Designer",
+      "solo_note": false,
+      "kw": [
+        "ux designer",
+        "ui designer",
+        "ux/ui",
+        "product designer",
+        "interaction designer",
+        "user experience",
+        "user interface",
+        "figma designer",
+        "projektant ux",
+        "projektant ui"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "Graphic Designer",
+      "pl": "Grafik / Graphic Designer",
+      "solo_note": false,
+      "kw": [
+        "graphic designer",
+        "grafik",
+        "visual designer",
+        "brand designer",
+        "logo designer",
+        "projektant graficzny",
+        "projekt graficzny"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "Motion Designer / Animator",
+      "pl": "Motion Designer / Animator",
+      "solo_note": false,
+      "kw": [
+        "motion designer",
+        "motion graphic",
+        "animator",
+        "animacja",
+        "motion artist"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "Art Director / Creative Director",
+      "pl": "Art Director / Creative Director",
+      "solo_note": false,
+      "kw": [
+        "art director",
+        "creative director",
+        "dyrektor artystyczny",
+        "dyrektor kreatywny"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "Illustrator",
+      "pl": "Ilustrator",
+      "solo_note": false,
+      "kw": [
+        "illustrator",
+        "ilustrator",
+        "book illustrator",
+        "comic artist",
+        "ilustracja"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "3D Artist / Visual Effects",
+      "pl": "Artysta 3D / VFX",
+      "solo_note": false,
+      "kw": [
+        "3d artist",
+        "3d designer",
+        "vfx artist",
+        "visual effects",
+        "artysta 3d",
+        "modelowanie 3d",
+        "blender artist"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "59.20.x (wytwórcza)",
+      "en": "Music Producer / Composer (selling own works)",
+      "pl": "Producent muzyczny / Kompozytor (sprzedaż własnych utworów)",
+      "solo_note": false,
+      "kw": [
+        "music producer",
+        "music composer",
+        "producent muzyczny",
+        "kompozytor",
+        "beat maker",
+        "beatmaker",
+        "music creation",
+        "tworzenie muzyki",
+        "komponowanie"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.01.10.0",
+      "en": "Musician / Performer / Singer (live)",
+      "pl": "Muzyk / Piosenkarz / Artysta wykonawca",
+      "solo_note": false,
+      "kw": [
+        "musician",
+        "piosenkarz",
+        "muzyk",
+        "singer",
+        "vocalist",
+        "performer",
+        "live music",
+        "koncerty",
+        "artysta wykonawca",
+        "wokalista",
+        "gitarzysta",
+        "pianista",
+        "skrzypek"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "59.20.x (wytwórcza)",
+      "en": "Sound Designer / Audio Engineer",
+      "pl": "Sound Designer / Realizator dźwięku",
+      "solo_note": false,
+      "kw": [
+        "sound designer",
+        "audio engineer",
+        "sound engineer",
+        "realizator dźwięku",
+        "dźwiękowiec",
+        "mix engineer",
+        "mastering engineer",
+        "foley"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "59.20.4",
+      "en": "DJ / Music Licensing",
+      "pl": "DJ / Licencjonowanie muzyki",
+      "solo_note": false,
+      "kw": [
+        "dj ",
+        "disc jockey",
+        "music licensing",
+        "licencjonowanie muzyki"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.03.11.0",
+      "en": "Songwriter / Lyricist",
+      "pl": "Autor tekstów / Tekściarz",
+      "solo_note": false,
+      "kw": [
+        "songwriter",
+        "lyricist",
+        "tekściarz",
+        "autor tekstów",
+        "autor piosenek"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "62.02.30.0",
+      "en": "Podcast Producer",
+      "pl": "Twórca podcastów",
+      "solo_note": false,
+      "kw": [
+        "podcast producer",
+        "podcaster",
+        "podcast"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "74.20",
+      "en": "Photographer",
+      "pl": "Fotograf",
+      "solo_note": false,
+      "kw": [
+        "photographer",
+        "fotograf",
+        "zdjęcia",
+        "photo",
+        "photography",
+        "fotografia",
+        "wedding photo",
+        "foto"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "59.11-59.12",
+      "en": "Videographer / Video Editor",
+      "pl": "Videograf / Montażysta",
+      "solo_note": false,
+      "kw": [
+        "videographer",
+        "video editor",
+        "montażysta",
+        "wideofilmowanie",
+        "kamerzysta",
+        "video production",
+        "post production",
+        "postprodukcja"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "59.11",
+      "en": "Film / TV Director",
+      "pl": "Reżyser filmowy / TV",
+      "solo_note": false,
+      "kw": [
+        "film director",
+        "tv director",
+        "reżyser",
+        "director of photography",
+        "dop"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.03.11.0",
+      "en": "Author / Writer",
+      "pl": "Autor / Pisarz",
+      "solo_note": false,
+      "kw": [
+        "author",
+        "writer",
+        "pisarz",
+        "novelist",
+        "fiction writer",
+        "autor książek",
+        "powieściopisarz"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.03.11.0",
+      "en": "Copywriter / Content Writer",
+      "pl": "Copywriter / Content Writer",
+      "solo_note": false,
+      "kw": [
+        "copywriter",
+        "content writer",
+        "content creator",
+        "pisanie treści",
+        "twórca treści"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.03.11.0",
+      "en": "Journalist / Reporter",
+      "pl": "Dziennikarz / Reporter",
+      "solo_note": false,
+      "kw": [
+        "journalist",
+        "reporter",
+        "dziennikarz",
+        "reporter",
+        "korespondent",
+        "publicysta"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "74.1",
+      "en": "Painter / Fine Artist",
+      "pl": "Malarz / Artysta plastyk",
+      "solo_note": false,
+      "kw": [
+        "painter",
+        "malarz",
+        "fine artist",
+        "artysta plastyk",
+        "artysta malarz",
+        "sculptor",
+        "rzeźbiarz",
+        "ceramics artist",
+        "ceramik"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.01.10.0",
+      "en": "Actor / Voice Actor",
+      "pl": "Aktor / Lektor",
+      "solo_note": false,
+      "kw": [
+        "actor",
+        "aktor",
+        "voice actor",
+        "lektor",
+        "narrator",
+        "dubbing",
+        "aktorka"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "90.01.10.0",
+      "en": "Dancer / Choreographer",
+      "pl": "Tancerz / Choreograf",
+      "solo_note": false,
+      "kw": [
+        "dancer",
+        "tancerz",
+        "choreographer",
+        "choreograf",
+        "tancerka",
+        "dance instructor"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "73.1",
+      "en": "Marketing Manager / Specialist",
+      "pl": "Marketing Manager / Specjalista ds. marketingu",
+      "solo_note": false,
+      "kw": [
+        "marketing manager",
+        "marketing specialist",
+        "digital marketing",
+        "performance marketing",
+        "specjalista marketingu",
+        "marketing online",
+        "email marketing"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "73.1",
+      "en": "SEO / SEM Specialist",
+      "pl": "Specjalista SEO / SEM",
+      "solo_note": false,
+      "kw": [
+        "seo specialist",
+        "sem specialist",
+        "seo expert",
+        "pozycjonowanie",
+        "specjalista seo",
+        "google ads",
+        "ppc specialist"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "73.1",
+      "en": "Social Media Manager",
+      "pl": "Social Media Manager",
+      "solo_note": false,
+      "kw": [
+        "social media manager",
+        "social media",
+        "community manager",
+        "instagram manager",
+        "tiktok creator",
+        "influencer manager"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "73.1",
+      "en": "PR Specialist / Brand Manager",
+      "pl": "Specjalista PR / Brand Manager",
+      "solo_note": false,
+      "kw": [
+        "pr specialist",
+        "brand manager",
+        "public relations",
+        "rzecznik prasowy",
+        "specjalista pr",
+        "komunikacja marketingowa"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "73.1",
+      "en": "Influencer / Content Creator",
+      "pl": "Influencer / Twórca internetowy",
+      "solo_note": false,
+      "kw": [
+        "influencer",
+        "content creator",
+        "youtuber",
+        "tiktoker",
+        "streamer",
+        "twitch",
+        "twórca internetowy",
+        "creator"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Management Consultant",
+      "pl": "Konsultant zarządzania",
+      "solo_note": false,
+      "kw": [
+        "management consultant",
+        "konsultant zarządzania",
+        "strategy consultant",
+        "business consultant",
+        "doradca biznesowy",
+        "konsultant strategiczny"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Operations Manager / COO",
+      "pl": "Dyrektor operacyjny / Operations Manager",
+      "solo_note": false,
+      "kw": [
+        "operations manager",
+        "coo",
+        "chief operating",
+        "dyrektor operacyjny",
+        "kierownik operacyjny"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "HR Manager / Recruiter",
+      "pl": "HR Manager / Rekruter",
+      "solo_note": false,
+      "kw": [
+        "hr manager",
+        "recruiter",
+        "rekruter",
+        "human resources",
+        "talent acquisition",
+        "headhunter",
+        "specjalista hr",
+        "kierownik hr"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Accountant / Bookkeeper (licensed)",
+      "pl": "Księgowy / Biegły rewident",
+      "solo_note": true,
+      "kw": [
+        "accountant",
+        "bookkeeper",
+        "księgowy",
+        "biegły rewident",
+        "certified accountant",
+        "rachunkowość",
+        "biuro rachunkowe"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Tax Advisor / Doradca podatkowy",
+      "pl": "Doradca podatkowy",
+      "solo_note": true,
+      "kw": [
+        "tax advisor",
+        "doradca podatkowy",
+        "tax consultant",
+        "doradztwo podatkowe"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "70.22.20.0",
+      "en": "Financial Analyst / CFO",
+      "pl": "Analityk finansowy / CFO",
+      "solo_note": false,
+      "kw": [
+        "financial analyst",
+        "analityk finansowy",
+        "cfo",
+        "chief financial",
+        "finance manager",
+        "dyrektor finansowy",
+        "controller finansowy"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Insurance Agent / Broker",
+      "pl": "Agent ubezpieczeniowy / Broker",
+      "solo_note": true,
+      "kw": [
+        "insurance agent",
+        "insurance broker",
+        "agent ubezpieczeniowy",
+        "broker ubezpieczeniowy",
+        "ubezpieczenia"
+      ]
+    },
+    {
+      "rate": "ryczalt_15",
+      "pkwiu": "46.1",
+      "en": "Financial Broker / Intermediary",
+      "pl": "Pośrednik finansowy",
+      "solo_note": false,
+      "kw": [
+        "financial broker",
+        "mortgage broker",
+        "pośrednik finansowy",
+        "pośrednik kredytowy",
+        "broker finansowy",
+        "doradca kredytowy"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Lawyer / Attorney / Radca prawny",
+      "pl": "Prawnik / Adwokat / Radca prawny",
+      "solo_note": true,
+      "kw": [
+        "lawyer",
+        "attorney",
+        "adwokat",
+        "radca prawny",
+        "solicitor",
+        "counsel",
+        "legal counsel",
+        "prawnik",
+        "kancelaria prawna"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Notary",
+      "pl": "Notariusz",
+      "solo_note": true,
+      "kw": [
+        "notary",
+        "notariusz",
+        "kancelaria notarialna"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Patent Attorney",
+      "pl": "Rzecznik patentowy",
+      "solo_note": true,
+      "kw": [
+        "patent attorney",
+        "rzecznik patentowy",
+        "patent agent"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "69.10",
+      "en": "Paralegal / Legal Assistant",
+      "pl": "Asystent prawny / Paralegal",
+      "solo_note": false,
+      "kw": [
+        "paralegal",
+        "legal assistant",
+        "asystent prawny",
+        "asystent adwokata"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Doctor / Physician",
+      "pl": "Lekarz / Lekarka",
+      "solo_note": true,
+      "kw": [
+        "doctor",
+        "physician",
+        "lekarz",
+        "lekarka",
+        "medic",
+        "gp ",
+        "general practitioner",
+        "internist",
+        "surgeon",
+        "chirurg",
+        "kardiolog",
+        "dermatolog",
+        "psychiatra",
+        "neurolog"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Dentist",
+      "pl": "Dentysta / Stomatolog",
+      "solo_note": true,
+      "kw": [
+        "dentist",
+        "stomatolog",
+        "dentysta",
+        "dental surgeon",
+        "orthodontist",
+        "ortodonta"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Veterinarian",
+      "pl": "Weterynarz",
+      "solo_note": true,
+      "kw": [
+        "veterinarian",
+        "vet ",
+        "weterynarz",
+        "lekarz weterynarii",
+        "animal doctor"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Nurse / Midwife",
+      "pl": "Pielęgniarka / Położna",
+      "solo_note": true,
+      "kw": [
+        "nurse",
+        "pielęgniarka",
+        "pielęgniarz",
+        "midwife",
+        "położna",
+        "nursing"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Physiotherapist / Rehabilitant",
+      "pl": "Fizjoterapeuta / Rehabilitant",
+      "solo_note": true,
+      "kw": [
+        "physiotherapist",
+        "fizjoterapeuta",
+        "rehabilitant",
+        "physical therapist",
+        "rehabilitacja",
+        "fizjoterapia"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Psychologist / Therapist",
+      "pl": "Psycholog / Terapeuta",
+      "solo_note": true,
+      "kw": [
+        "psychologist",
+        "psycholog",
+        "therapist",
+        "terapeuta",
+        "psychoterapeuta",
+        "psychotherapy",
+        "terapia",
+        "coaching psychologiczny"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Pharmacist",
+      "pl": "Farmaceuta",
+      "solo_note": true,
+      "kw": [
+        "pharmacist",
+        "farmaceuta",
+        "apothecary"
+      ]
+    },
+    {
+      "rate": "ryczalt_14",
+      "pkwiu": "86.90",
+      "en": "Paramedic / Medical Technician",
+      "pl": "Ratownik medyczny / Technik medyczny",
+      "solo_note": false,
+      "kw": [
+        "paramedic",
+        "ratownik medyczny",
+        "medical technician",
+        "technik medyczny",
+        "dental technician",
+        "technik dentystyczny",
+        "optician",
+        "optyk"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Teacher / Tutor (private lessons)",
+      "pl": "Nauczyciel / Korepetytor",
+      "solo_note": true,
+      "kw": [
+        "teacher",
+        "nauczyciel",
+        "tutor",
+        "korepetytor",
+        "private lessons",
+        "korepetycje",
+        "language teacher",
+        "lektor języka",
+        "nauczycielka"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "85.59",
+      "en": "Trainer / Instructor (groups / online)",
+      "pl": "Trener / Instruktor (grupy / online)",
+      "solo_note": false,
+      "kw": [
+        "trainer",
+        "trener",
+        "instructor",
+        "instruktor",
+        "online course",
+        "kurs online",
+        "szkolenia",
+        "szkoleniowiec",
+        "life coach",
+        "coach biznesowy"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Translator / Interpreter",
+      "pl": "Tłumacz / Interpreter",
+      "solo_note": true,
+      "kw": [
+        "translator",
+        "interpreter",
+        "tłumacz",
+        "tłumaczka",
+        "sworn translator",
+        "tłumacz przysięgły",
+        "tłumaczenia"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.02",
+      "en": "Hairdresser / Barber",
+      "pl": "Fryzjer / Barber",
+      "solo_note": false,
+      "kw": [
+        "hairdresser",
+        "fryzjer",
+        "barber",
+        "fryzjerka",
+        "hair stylist",
+        "stylista włosów",
+        "salon fryzjerski"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.02",
+      "en": "Nail Technician",
+      "pl": "Manicurzystka / Paznokcie",
+      "solo_note": false,
+      "kw": [
+        "nail tech",
+        "nail technician",
+        "manicure",
+        "paznokcie",
+        "stylizacja paznokci",
+        "manicurzystka",
+        "pedicure",
+        "hybryda"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.02",
+      "en": "Beautician / Cosmetologist",
+      "pl": "Kosmetyczka / Kosmetolog",
+      "solo_note": false,
+      "kw": [
+        "beautician",
+        "cosmetologist",
+        "kosmetyczka",
+        "kosmetolog",
+        "beauty therapist",
+        "aesthetician",
+        "estetyczka",
+        "zabiegi kosmetyczne"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.02",
+      "en": "Makeup Artist",
+      "pl": "Makijażysta / Charakteryzator",
+      "solo_note": false,
+      "kw": [
+        "makeup artist",
+        "makijażysta",
+        "makijażystka",
+        "makijaż",
+        "charakteryzator",
+        "mua ",
+        "bridal makeup"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.04",
+      "en": "Massage Therapist / SPA",
+      "pl": "Masażysta / SPA",
+      "solo_note": false,
+      "kw": [
+        "massage therapist",
+        "masażysta",
+        "masażystka",
+        "massage",
+        "masaż",
+        "spa therapist",
+        "wellness therapist"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.09",
+      "en": "Tattoo Artist / Piercing",
+      "pl": "Tatuażysta / Piercing",
+      "solo_note": false,
+      "kw": [
+        "tattoo artist",
+        "tatuażysta",
+        "tatuaż",
+        "piercing",
+        "tattoo studio"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "93.13",
+      "en": "Personal Trainer / Fitness Coach",
+      "pl": "Trener personalny / Fitness Coach",
+      "solo_note": false,
+      "kw": [
+        "personal trainer",
+        "trener personalny",
+        "fitness coach",
+        "fitness trainer",
+        "gym trainer",
+        "trener fitness",
+        "trener siłowni"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "93.1",
+      "en": "Sports Coach / Athlete",
+      "pl": "Trener sportowy / Sportowiec",
+      "solo_note": false,
+      "kw": [
+        "sports coach",
+        "trener sportowy",
+        "athletic coach",
+        "swimming coach",
+        "tennis coach",
+        "trener pływania",
+        "trener tenisa",
+        "football coach",
+        "trener piłki"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "roboty budowlane (dz.43)",
+      "en": "Builder / Construction Contractor",
+      "pl": "Budowlaniec / Wykonawca",
+      "solo_note": false,
+      "kw": [
+        "builder",
+        "budowlaniec",
+        "contractor",
+        "wykonawca budowlany",
+        "construction",
+        "budowa",
+        "roboty budowlane",
+        "general contractor"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "43.9",
+      "en": "Carpenter / Joiner",
+      "pl": "Stolarz / Cieśla",
+      "solo_note": false,
+      "kw": [
+        "carpenter",
+        "cieśla",
+        "stolarz",
+        "joiner",
+        "woodworker",
+        "meble na zamówienie",
+        "stolarstwo"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "43.2",
+      "en": "Electrician (installation)",
+      "pl": "Elektryk (instalacje)",
+      "solo_note": false,
+      "kw": [
+        "electrician",
+        "elektryk",
+        "electrical install",
+        "instalacje elektryczne",
+        "elektroinstalator"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "43.2",
+      "en": "Plumber / HVAC (installation)",
+      "pl": "Hydraulik / Instalator",
+      "solo_note": false,
+      "kw": [
+        "plumber",
+        "hydraulik",
+        "hvac",
+        "instalator",
+        "sanitarny",
+        "ogrzewanie",
+        "klimatyzacja",
+        "plumbing",
+        "wod-kan"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "43.3",
+      "en": "Painter / Plasterer / Tiler",
+      "pl": "Malarz / Tynkarz / Kafelkarz",
+      "solo_note": false,
+      "kw": [
+        "painter",
+        "malarz budowlany",
+        "tynkarz",
+        "plasterer",
+        "tiler",
+        "kafelkarz",
+        "wykończenia",
+        "floor layer",
+        "posadzkarz"
+      ]
+    },
+    {
+      "rate": "ryczalt_55",
+      "pkwiu": "43.1",
+      "en": "Roofer / Welder",
+      "pl": "Dekarz / Spawacz",
+      "solo_note": false,
+      "kw": [
+        "roofer",
+        "dekarz",
+        "welder",
+        "spawacz",
+        "blacha",
+        "dach",
+        "roofing"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Civil / Structural Engineer (licensed)",
+      "pl": "Inżynier budownictwa / Konstruktor",
+      "solo_note": true,
+      "kw": [
+        "civil engineer",
+        "structural engineer",
+        "inżynier budownictwa",
+        "konstruktor",
+        "building engineer",
+        "inżynier konstrukcji"
+      ]
+    },
+    {
+      "rate": "ryczalt_17",
+      "pkwiu": "wolny zawód",
+      "en": "Architect (building)",
+      "pl": "Architekt (budowlany)",
+      "solo_note": true,
+      "kw": [
+        "building architect",
+        "architekt budowlany",
+        "licensed architect",
+        "architect reg",
+        "uprawnienia budowlane"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "71.1",
+      "en": "Mechanical / Industrial Engineer",
+      "pl": "Inżynier mechanik / Technolog",
+      "solo_note": false,
+      "kw": [
+        "mechanical engineer",
+        "inżynier mechanik",
+        "industrial engineer",
+        "technolog",
+        "manufacturing engineer",
+        "process engineer",
+        "inżynier produkcji"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "71.2",
+      "en": "Environmental / Energy Engineer",
+      "pl": "Inżynier środowiska / Energetyki",
+      "solo_note": false,
+      "kw": [
+        "environmental engineer",
+        "energy engineer",
+        "inżynier środowiska",
+        "odnawialne źródła",
+        "eko inżynier",
+        "solar energy",
+        "energia odnawialna"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "56.1",
+      "en": "Chef / Cook (services)",
+      "pl": "Kucharz / Chef",
+      "solo_note": false,
+      "kw": [
+        "chef",
+        "kucharz",
+        "cook",
+        "catering chef",
+        "personal chef",
+        "kucharka",
+        "catering"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "56.2",
+      "en": "Baker / Confectioner (services)",
+      "pl": "Cukiernik / Piekarz (usługi)",
+      "solo_note": false,
+      "kw": [
+        "baker",
+        "piekarz",
+        "confectioner",
+        "cukiernik",
+        "cake maker",
+        "torty na zamówienie",
+        "słodycze"
+      ]
+    },
+    {
+      "rate": "ryczalt_3",
+      "pkwiu": "handel (dz.47)",
+      "en": "Restaurant / Café Owner (food sales)",
+      "pl": "Właściciel restauracji / kawiarni",
+      "solo_note": false,
+      "kw": [
+        "restaurant owner",
+        "café owner",
+        "właściciel restauracji",
+        "kawiarnia",
+        "bistro",
+        "food truck",
+        "bar owner"
+      ]
+    },
+    {
+      "rate": "ryczalt_3",
+      "pkwiu": "handel (dz.45-47)",
+      "en": "Shop Owner / Retailer",
+      "pl": "Właściciel sklepu / Handlarz",
+      "solo_note": false,
+      "kw": [
+        "shop owner",
+        "właściciel sklepu",
+        "retailer",
+        "sklep",
+        "sprzedawca",
+        "trader",
+        "merchant",
+        "handel detaliczny",
+        "sklep internetowy",
+        "e-commerce",
+        "marketplace"
+      ]
+    },
+    {
+      "rate": "ryczalt_3",
+      "pkwiu": "46.x",
+      "en": "Wholesaler / Distributor",
+      "pl": "Hurtownik / Dystrybutor",
+      "solo_note": false,
+      "kw": [
+        "wholesaler",
+        "hurtownik",
+        "distributor",
+        "dystrybutor",
+        "import export",
+        "handel hurtowy"
+      ]
+    },
+    {
+      "rate": "ryczalt_10",
+      "pkwiu": "68.31",
+      "en": "Estate Agent / Real Estate",
+      "pl": "Pośrednik nieruchomości",
+      "solo_note": false,
+      "kw": [
+        "estate agent",
+        "real estate agent",
+        "pośrednik nieruchomości",
+        "agent nieruchomości",
+        "realtor",
+        "broker nieruchomości"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "49.4",
+      "en": "Driver / Courier / Delivery",
+      "pl": "Kierowca / Kurier / Dostawa",
+      "solo_note": false,
+      "kw": [
+        "driver",
+        "kierowca",
+        "courier",
+        "kurier",
+        "delivery",
+        "dostawa",
+        "transport drogowy",
+        "taksówkarz",
+        "uber driver",
+        "bolt driver"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "52.29",
+      "en": "Logistics Manager / Freight",
+      "pl": "Menedżer logistyki / Spedytor",
+      "solo_note": false,
+      "kw": [
+        "logistics manager",
+        "spedytor",
+        "freight",
+        "logistyka",
+        "supply chain",
+        "łańcuch dostaw",
+        "menedżer logistyki"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "81.2",
+      "en": "Cleaning Service",
+      "pl": "Firma sprzątająca",
+      "solo_note": false,
+      "kw": [
+        "cleaning service",
+        "sprzątanie",
+        "cleaner",
+        "sprzątaczka",
+        "cleaning company",
+        "housekeeping",
+        "sprzątanie biur"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "81.3",
+      "en": "Gardener / Landscaper",
+      "pl": "Ogrodnik / Landscaping",
+      "solo_note": false,
+      "kw": [
+        "gardener",
+        "ogrodnik",
+        "landscaper",
+        "lawn care",
+        "pielęgnacja ogrodu",
+        "landscaping",
+        "zieleń"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "74.3",
+      "en": "Event Organizer / Wedding Planner",
+      "pl": "Organizator eventów / Wedding Planner",
+      "solo_note": false,
+      "kw": [
+        "event organizer",
+        "wedding planner",
+        "event manager",
+        "organizator eventów",
+        "organizacja wesel",
+        "event planning",
+        "animator imprez"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.09",
+      "en": "Florist",
+      "pl": "Florysta / Kwiaciarnia",
+      "solo_note": false,
+      "kw": [
+        "florist",
+        "florysta",
+        "kwiaciarnia",
+        "flower shop",
+        "aranżacje kwiatowe"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "95.2",
+      "en": "Repair Service (electronics/appliances)",
+      "pl": "Serwis naprawy sprzętu",
+      "solo_note": false,
+      "kw": [
+        "repair service",
+        "serwis",
+        "naprawa",
+        "electronics repair",
+        "appliance repair",
+        "naprawa sprzętu",
+        "naprawa telefonów"
+      ]
+    },
+    {
+      "rate": "ryczalt_85",
+      "pkwiu": "96.09",
+      "en": "Pet Groomer / Dog Walker",
+      "pl": "Groomer / Opiekun zwierząt",
+      "solo_note": false,
+      "kw": [
+        "pet groomer",
+        "groomer",
+        "dog walker",
+        "opiekun zwierząt",
+        "psi fryzjer",
+        "hotel dla zwierząt",
+        "dog sitter"
+      ]
+    }
+  ],
+  "trust": {
+    "pkwiu_mapping": "heuristic",
+    "note_pl": "Lista mapuje tytuły słowne na PKWiU i stawkę orientacyjnie. Wiążące są PKWiU w CEIDG, art. 12 ustawy oraz ewentualna interpretacja indywidualna.",
+    "note_en": "This list maps job titles to PKWiU and rate heuristically. Binding: your PKWiU in CEIDG, art. 12 of the Act, and any individual tax interpretation."
+  }
+}

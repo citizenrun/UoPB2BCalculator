@@ -1,0 +1,31 @@
+---
+description: MANDATORY — read AGENTS.md and matching skills before repo work
+alwaysApply: true
+---
+
+# Mandatory policy (this repository)
+
+These steps are **required**, not suggestions. Ignoring them is wrong for this project.
+
+## 1. Read `AGENTS.md` before substantive work
+
+Before your **first** code edit or detailed answer about this codebase in a thread, read repo-root **`AGENTS.md`** with the Read tool unless its **full current contents** are already in your context.
+
+## 2. Read matching skills with the Read tool
+
+When the user’s task matches a row below, you **must** read that skill file **in full** with the Read tool **before** editing files or giving domain-specific guidance:
+
+| Task matches | You must read |
+|--------------|----------------|
+| UoP, B2B, JDG, ryczałt, PKWiU, payroll, ZUS, KUP, brutto/netto, `index.html`, `public/job-rules.json`, calculator UI, i18n, or tests (`smoke.spec.js`, `job-rules.validation.test.mjs`) for this app | `.cursor/skills/uop-kalkulator/SKILL.md` |
+| Git history, stash, reset, force-push, `filter-branch` / `filter-repo`, aggressive `gc`, bulk delete, or any operation that could **lose** uncommitted work or rewrite history; or large multi-file refactors | `.cursor/skills/agent-workflow/SKILL.md` |
+
+If **both** rows apply, read **both** skills before proceeding.
+
+## 3. If you cannot read a file
+
+Say that explicitly and ask the user; do **not** improvise without the skill text.
+
+## 4. Other always-applied rules
+
+Still follow **`agent-workflow.mdc`** (plan → confirm → risky Git) and **`calculator-project.mdc`** (stack, tests).

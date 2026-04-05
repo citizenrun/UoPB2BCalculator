@@ -1,5 +1,8 @@
 node_modules/
 dist/
+
+# Packaged Cursor skill archives (keep .cursor/skills/**/SKILL.md in git)
+*.skill
 playwright-report/
 test-results/
 .DS_Store

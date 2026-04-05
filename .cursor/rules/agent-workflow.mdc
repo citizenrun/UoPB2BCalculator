@@ -1,0 +1,14 @@
+---
+description: Plan → confirm → implement; no silent risky Git ops
+alwaysApply: true
+---
+
+# Safe workflow
+
+**Compliance:** For risky Git or loss-prone work, **`agents-mandatory.mdc`** requires reading **`.cursor/skills/agent-workflow/SKILL.md`** in full — do not skip.
+
+- **Before risky Git commands**: ensure local work is safe — see **`AGENTS.md`** (*Protect local work*). Run `git status`; prefer **commit** (or user-approved stash), never stash + aggressive GC without confirmation.
+- **Plan first**: say what will change, list risks (especially **uncommitted work**, **stash**, **history rewrite**).
+- **Confirm**: do not run `git filter-branch`, `git filter-repo`, `push --force`, `git stash` + aggressive `git gc`, or bulk deletes until the user explicitly agrees in-thread (or their message is clearly a one-shot approval for that exact plan).
+- **Prefer commits** over stash before any history or GC operation that can drop unreachable objects.
+- For calculator work, follow **`agents-mandatory.mdc`** (includes **`AGENTS.md`** + **`uop-kalkulator`** skill).

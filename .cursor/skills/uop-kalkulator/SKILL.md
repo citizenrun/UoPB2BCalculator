@@ -15,9 +15,14 @@ description: >
 ## What This Is
 A standalone HTML salary calculator for Polish UoP (umowa o pracę) employment.
 **Target audience:** expats in Polish IT (primary user: Serhii, QA automation engineer, Exadel Poland, Wrocław).
-**Output:** single self-contained `index.html` (open in a browser as-is; optional Vite for local dev).
-**Current file:** `index.html` at repository root. Local preview: `npm run dev`. Production static build: `npm run build` → `dist/`.
-**Public site:** `https://citizenrun.github.io/UoPB2BCalculator/` (GitHub Actions → GitHub Pages; build uses project `base` path `/UoPB2BCalculator/`).
+**Output:** `index.html` at repo root plus **`public/job-rules.json`** (B2B role list; loaded via `fetch`). Use **`npm run dev`** / **`vite preview`** / **GitHub Pages** — `file://` on `index.html` alone will not load job rules.
+**Build:** `npm run build` runs `scripts/build-job-rules.mjs` then Vite → `dist/` (includes `job-rules.json`).
+**Public site:** `https://citizenrun.github.io/UoPB2BCalculator/` (GitHub Actions → GitHub Pages; `base` `/UoPB2BCalculator/`).
+
+### Trust: B2B job rules
+- **`public/job-rules.json`** is the source of truth; PKWiU↔title mapping is **heuristic**, not fully KIS-verified per row.
+- CI: `tests/job-rules.validation.test.mjs` (Vitest) + Playwright `tests/smoke.spec.js`. **`data/ryczalt-art12-by-rate.json`** maps rate keys to art. 12 buckets for consistency checks only.
+- Read repo **`AGENTS.md`** and follow **`.cursor/rules/agent-workflow.mdc`** (plan → confirm → implement) before destructive Git ops or large refactors.
 
 ---
 

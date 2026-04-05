@@ -5,16 +5,18 @@ alwaysApply: true
 
 # UoP / B2B Calculator (this repo)
 
+**Compliance:** **`agents-mandatory.mdc`** requires reading **`AGENTS.md`** and **`.cursor/skills/uop-kalkulator/SKILL.md`** before calculator/payroll/B2B work — do not skip.
+
 ## Stack
 
-- **App:** single `index.html` at repo root (large inline CSS + JS). **Vite** wraps it for dev/build (`npm run dev`, `npm run build` → `dist/`).
+- **App:** `index.html` at repo root + **`public/job-rules.json`** (B2B roles). **Vite** dev/build (`npm run dev`, `npm run build` → `dist/`).
 - **Deploy:** GitHub Actions deploys to **GitHub Pages** at `https://citizenrun.github.io/UoPB2BCalculator/` (production build must use `base` `/UoPB2BCalculator/` — see `.github/workflows/deploy-pages.yml`).
 
 ## When editing
 
-- Prefer **small, focused diffs** in `index.html`; match existing patterns for i18n (`T.en` / `T.pl`, `applyLang` ids) and B2B (`JOB_RULES`, `searchJobRules`, `selectB2bJobRule`).
-- After logic or UI changes that affect payroll or B2B job matching: run **`npm run build`** and **`npm test`** (Playwright smoke in `tests/smoke.spec.js`).
-- **Domain knowledge** (formulas, calibration, PKWiU notes): read `.cursor/skills/uop-kalkulator/SKILL.md` first for UoP + B2B context.
+- Prefer **small, focused diffs** in `index.html`; match existing patterns for i18n (`T.en` / `T.pl`, `applyLang` ids) and B2B (`searchJobRules`, `selectB2bJobRule`, **`public/job-rules.json`**).
+- After payroll or B2B job data changes: **`npm run test:unit`** and **`npm test`** (Vitest contract + Playwright `tests/smoke.spec.js`).
+- **Domain knowledge:** **`uop-kalkulator` skill is mandatory** when this section applies (see `agents-mandatory.mdc`).
 
 ## Do not
 

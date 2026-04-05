@@ -2,6 +2,8 @@
 
 Polish **umowa o pracę (UoP)** salary calculator: bilingual (PL/EN), month-by-month net, ZUS cap, KUP modes, calibration data, and employer-cost view. Single-page static app.
 
+**Live site (GitHub Pages):** [citizenrun.github.io/UoPB2BCalculator](https://citizenrun.github.io/UoPB2BCalculator/)
+
 ## Quick start
 
 Open `index.html` in a browser, or use a local dev server:
@@ -23,6 +25,20 @@ Static files are written to `dist/`. Deploy `dist/` to any static host (GitHub P
 
 For GitHub **project** pages (`https://<user>.github.io/<repo>/`), the workflow below passes `--base=/<repo>/` automatically. For other hosts, `npm run build` with `base: './'` in `vite.config.js` is usually enough.
 
+## Testing
+
+**You do not need integration tests** for the app to work; `npm run build` is the minimum sanity check.
+
+Optional **smoke tests** (Playwright) cover: page loads, B2B tab opens, job autocomplete selects a role and sets **Ryczałt 12%** for a software match.
+
+```bash
+npm install
+npx playwright install chromium   # once per machine
+npm test                          # build + run tests
+```
+
+GitHub Actions runs the same on every push/PR (`.github/workflows/ci.yml`). Add more cases in `tests/smoke.spec.js` when you change payroll logic.
+
 ## GitHub (this project)
 
 ### Private repository and Pages
@@ -36,7 +52,7 @@ For GitHub **project** pages (`https://<user>.github.io/<repo>/`), the workflow 
 2. Under **Build and deployment** → **Source**, choose **GitHub Actions** (not “Deploy from a branch”).
 3. Push to `main` (or run the workflow manually: **Actions** → **Deploy to GitHub Pages** → **Run workflow**).
 
-After the first successful run, Settings → Pages shows the site URL (typically `https://<your-username>.github.io/UoPB2BCalculator/` if that is your repo name).
+After the first successful run, Settings → Pages shows the site URL. This repo is published at **`https://citizenrun.github.io/UoPB2BCalculator/`** (Vite build uses `base: '/UoPB2BCalculator/'` in CI via `vite build --base=/…/`).
 
 ### `gh` CLI (optional)
 
@@ -49,9 +65,10 @@ gh workflow run "Deploy to GitHub Pages"   # manual deploy
 
 No deploy secrets are required for this workflow; `GITHUB_TOKEN` is enough.
 
-## Cursor skill
+## Cursor (agents)
 
-Domain rules and calibration notes for agents live in [`.cursor/skills/uop-kalkulator/SKILL.md`](.cursor/skills/uop-kalkulator/SKILL.md).
+- **Rules:** [`.cursor/rules/calculator-project.mdc`](.cursor/rules/calculator-project.mdc) — stack, main files, verify commands.
+- **Skill:** [`.cursor/skills/uop-kalkulator/SKILL.md`](.cursor/skills/uop-kalkulator/SKILL.md) — Polish payroll domain (UoP + B2B/ryczałt), formulas, calibration notes.
 
 ## License
 

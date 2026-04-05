@@ -1,0 +1,22 @@
+---
+description: UoPB2BCalculator repo — stack, files, verify before merge
+alwaysApply: true
+---
+
+# UoP / B2B Calculator (this repo)
+
+## Stack
+
+- **App:** single `index.html` at repo root (large inline CSS + JS). **Vite** wraps it for dev/build (`npm run dev`, `npm run build` → `dist/`).
+- **Deploy:** GitHub Actions deploys to **GitHub Pages** at `https://citizenrun.github.io/UoPB2BCalculator/` (production build must use `base` `/UoPB2BCalculator/` — see `.github/workflows/deploy-pages.yml`).
+
+## When editing
+
+- Prefer **small, focused diffs** in `index.html`; match existing patterns for i18n (`T.en` / `T.pl`, `applyLang` ids) and B2B (`JOB_RULES`, `searchJobRules`, `selectB2bJobRule`).
+- After logic or UI changes that affect payroll or B2B job matching: run **`npm run build`** and **`npm test`** (Playwright smoke in `tests/smoke.spec.js`).
+- **Domain knowledge** (formulas, calibration, PKWiU notes): read `.cursor/skills/uop-kalkulator/SKILL.md` first for UoP + B2B context.
+
+## Do not
+
+- Commit secrets, `.env`, or personal payslip data into the public repo.
+- Change `vite.config.js` `base` without aligning **deploy workflow** and **Pages URL** (project site lives under `/UoPB2BCalculator/`).

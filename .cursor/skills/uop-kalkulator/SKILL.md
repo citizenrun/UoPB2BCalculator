@@ -2,11 +2,11 @@
 name: uop-kalkulator
 description: >
   Build, update, or extend the Polish UoP salary calculator (kalkulator wynagrodzeń UoP).
-  Use this skill whenever the user asks to work on the UoP calculator (`index.html` at repo root), add features,
-  fix calculations, change the UI, add bilingual support, or discuss Polish payroll tax formulas
+  Use this skill whenever the user asks to work on the UoP/B2B calculator (`index.html` at repo root), add features,
+  fix calculations, change the UI, add bilingual support, B2B JDG/ryczałt tab, job-title PKWiU matching, or discuss Polish payroll tax formulas
   (KUP, ZUS 30x cap, 32% bracket, koszty autorskie). Also use when the user asks about
   Polish tax calculations, brutto-netto conversion, or anything related to Polish employment
-  contracts and salary math. Trigger on any mention of: kalkulator, UoP, brutto, netto,
+  contracts and salary math. Trigger on any mention of: kalkulator, UoP, B2B, JDG, ryczałt, PKWiU, brutto, netto,
   ZUS, KUP, koszty autorskie, Polish salary, pasek płac, or the calculator HTML file.
 ---
 
@@ -17,6 +17,7 @@ A standalone HTML salary calculator for Polish UoP (umowa o pracę) employment.
 **Target audience:** expats in Polish IT (primary user: Serhii, QA automation engineer, Exadel Poland, Wrocław).
 **Output:** single self-contained `index.html` (open in a browser as-is; optional Vite for local dev).
 **Current file:** `index.html` at repository root. Local preview: `npm run dev`. Production static build: `npm run build` → `dist/`.
+**Public site:** `https://citizenrun.github.io/UoPB2BCalculator/` (GitHub Actions → GitHub Pages; build uses project `base` path `/UoPB2BCalculator/`).
 
 ---
 

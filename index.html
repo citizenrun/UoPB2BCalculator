@@ -73,6 +73,13 @@ input:focus,select:focus{outline:2px solid #2563eb;border-color:#2563eb}
 .btn{padding:10px 24px;font-size:14px;font-weight:700;border:none;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;margin-top:.5rem}
 .btn:hover{background:#333}
 
+/* B2B job title autocomplete */
+.role-wrap{position:relative;max-width:480px}
+.role-suggest{position:absolute;left:0;right:0;top:100%;z-index:50;margin:2px 0 0;padding:0;list-style:none;background:#fff;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.08);max-height:240px;overflow-y:auto}
+.role-suggest li{padding:0;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.role-suggest li:last-child{border-bottom:none}
+.role-suggest li:hover,.role-suggest li.on{background:#eff6ff}
+
 /* Table */
 .tw{overflow-x:auto;margin-bottom:.75rem}
 table{width:100%;border-collapse:collapse;font-size:12px}
@@ -125,7 +132,7 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
   <div class="tab" onclick="go('det')" id="tab-det">Monthly Breakdown</div>
   <div class="tab" onclick="go('emp')" id="tab-emp">Employer Cost</div>
   <div class="tab" onclick="go('rev')" id="tab-rev">Reverse Calculator</div>
-  <div class="tab" onclick="go('b2b')" id="tab-b2b">UoP vs B2B</div>
+  <div class="tab" onclick="go('b2b')" id="tab-b2b">B2B</div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ CONFIG -->
@@ -390,22 +397,25 @@ tr:not(.tot):not(.r-both):not(.r-zus):not(.r-32):not(.r-kup):not(.r-dim):hover t
 
   <div class="ibox ibox-gray" style="margin-bottom:1.25rem">
     <strong id="b2b-e1">What is B2B in Poland?</strong>
-    <span id="b2b-e2"> Instead of an employment contract, you register a sole proprietorship (JDG — Jednoosobowa Działalność Gospodarcza) and invoice your client directly. You pay your own ZUS social contributions and taxes. No employer pays anything on top — you handle everything yourself. The key differences vs UoP: <strong>no paid vacation</strong> (days off = lost invoice), <strong>no sick pay from employer</strong> (ZUS pays ~80% after 30 days if you pay voluntary chorobowe), <strong>no employment protections</strong>. Most senior IT professionals in Poland work B2B.</span>
+    <span id="b2b-e2"> You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use the other tabs for employment (<strong>UoP</strong>).</span>
   </div>
 
   <h2 id="b2b-h-job">Job Title &amp; Tax Form</h2>
   <div style="margin-bottom:12px">
     <label id="b2b-l-role">Your job title / position</label>
-    <input type="text" id="b2b-role-input" placeholder="e.g. QA Automation Engineer, Scrum Master, UX Designer…"
-      style="width:100%;max-width:480px;padding:7px 9px;font-size:13px;border:1px solid #ddd;border-radius:6px"
-      oninput="onJobTitleInput()">
-    <div id="b2b-role-result" style="margin-top:6px;font-size:11px;line-height:1.6;min-height:1.4em"></div>
-    <p class="hint" id="b2b-h-role" style="margin-top:4px">Type your job title → auto-matches PKWiU code → sets correct ryczałt rate. Override below if needed.</p>
+    <div class="role-wrap">
+    <input type="text" id="b2b-role-input" placeholder="e.g. QA Automation Engineer, Scrum Master, UX Designer…" autocomplete="off"
+      style="width:100%;padding:7px 9px;font-size:13px;border:1px solid #ddd;border-radius:6px"
+      oninput="onB2bRoleInput()" onkeydown="onB2bRoleKeydown(event)" onfocus="onB2bRoleFocus()" onblur="onB2bRoleBlur()">
+    <ul id="b2b-role-suggest" class="role-suggest" style="display:none" role="listbox" aria-label="Job roles"></ul>
+    </div>
+    <div id="b2b-role-result" style="margin-top:6px;font-size:11px;line-height:1.65;min-height:1.4em"></div>
+    <p class="hint" id="b2b-h-role" style="margin-top:4px">Start typing — pick a role from the list. The calculator sets the taxation form from the matched <strong>PKWiU</strong> bucket; you can still override below.</p>
   </div>
   <div class="g3">
     <div>
       <label id="b2b-l-tax">Taxation form</label>
-      <select id="b2b-tax" onchange="calcB2B()">
+      <select id="b2b-tax" onchange="onB2bTaxManualChange()">
         <option value="ryczalt_17">Ryczałt 17% — wolny zawód (lekarz, prawnik, tłumacz…)</option>
         <option value="ryczalt_15">Ryczałt 15% — kultura, doradztwo zarządzania, PM</option>
         <option value="ryczalt_14">Ryczałt 14% — UX/UI, design, ochrona zdrowia</option>
@@ -488,6 +498,12 @@ const T = {
   en: {
     title: 'UoP Salary Calculator',
     sub: 'Polish employment contract (umowa o pracę) · Month-by-month net pay',
+    'tab-cfg': 'Configuration', 'tab-det': 'Monthly Breakdown', 'tab-emp': 'Employer Cost', 'tab-rev': 'Reverse Calculator', 'tab-b2b': 'B2B',
+    'b2b-e1': 'What is B2B in Poland?',
+    'b2b-e2': 'You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use the other tabs for employment (<strong>UoP</strong>).',
+    'b2b-h-job': 'Job Title &amp; Tax Form',
+    'b2b-l-role': 'Your job title / position',
+    'b2b-h-role': 'Start typing — pick a role from the list. The calculator sets the taxation form from the matched <strong>PKWiU</strong> bucket; you can still override below.',
     'h-salary': 'Salary & Year', 'l-brutto': 'Gross salary (PLN/month)', 'l-rok': 'Tax year',
     'opt-2027': '2027 (enter cap manually)', 'l-cap': 'ZUS 30× annual cap (PLN)',
     'h-cap': 'Announced each December in Monitor Polski. Formula: 30 × avg. monthly wage.<br><strong>2024:</strong> 234 720 · <strong>2025:</strong> 260 190 · <strong>2026:</strong> 282 600',
@@ -547,6 +563,12 @@ const T = {
   pl: {
     title: 'Kalkulator Wynagrodzeń UoP',
     sub: 'Umowa o pracę · Netto miesiąc po miesiącu',
+    'tab-cfg': 'Konfiguracja', 'tab-det': 'Rozliczenie miesięczne', 'tab-emp': 'Koszt pracodawcy', 'tab-rev': 'Kalkulator odwrotny', 'tab-b2b': 'B2B',
+    'b2b-e1': 'Czym jest B2B w Polsce?',
+    'b2b-e2': 'Prowadzisz <strong>JDG</strong> (jednoosobową działalność): fakturujesz klientów, ewidencjonujesz przychód i sam płacisz <strong>ZUS</strong> oraz podatek dochodowy. Nierozliczone dni robocze zmniejszają przychód; dobrowolne <strong>chorobowe</strong> daje prawo do zasiłku chorobowego ZUS po okresie karencji. Ta zakładka szacuje netto <strong>B2B</strong> (ryczałt lub podatek od dochodu) — inne zakładki dotyczą <strong>UoP</strong>.',
+    'b2b-h-job': 'Stanowisko i forma opodatkowania',
+    'b2b-l-role': 'Stanowisko / rola zawodowa',
+    'b2b-h-role': 'Zacznij pisać — wybierz rolę z listy. Kalkulator ustawi formę opodatkowania wg dopasowanego <strong>PKWiU</strong>; poniżej nadal możesz zmienić formę ręcznie.',
     'h-salary': 'Wynagrodzenie i rok', 'l-brutto': 'Brutto (PLN/miesiąc)', 'l-rok': 'Rok podatkowy',
     'opt-2027': '2027 (podaj limit ręcznie)', 'l-cap': 'Limit 30-krotności ZUS (PLN)',
     'h-cap': 'Ogłaszany każdego grudnia w Monitorze Polskim. Wzór: 30 × prognozowane śr. wynagrodzenie.<br><strong>2024:</strong> 234 720 · <strong>2025:</strong> 260 190 · <strong>2026:</strong> 282 600',
@@ -625,6 +647,7 @@ function applySources() {
 
 function applyLang() {
   const ids = ['title','sub','tab-cfg','tab-det','tab-emp','tab-rev','tab-b2b',
+    'b2b-e1','b2b-e2','b2b-h-job','b2b-l-role','b2b-h-role',
     'opt-2027','l-cap','h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
     'l-kup-pct','h-kup-pct','ko-custom','l-kup-pln','h-kup-pln','kn-t1','kn-t2',
     'h-reliefs','l-pit0','po-no','po-yes','h-pit0','l-ppk','ppk-no','h-ppk',
@@ -635,6 +658,7 @@ function applyLang() {
   // ZUS panel and KUP preview need re-render
   liveKup(); updateZusPanel();
   buildVacGrid();
+  refreshB2bRoleMessage();
 }
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
@@ -1871,45 +1895,186 @@ const JOB_RULES = [
 ];
 
 
-function classifyJobTitle(input) {
-  if (!input || input.trim().length < 2) return null;
-  const q = input.toLowerCase().trim();
-  let best = null, bestScore = 0;
+let b2bBlurTimer = null;
+let b2bSuggestRules = [];
+let b2bSuggestIndex = -1;
+let b2bSelectedRule = null;
+
+function searchJobRules(query, limit) {
+  const q = (query || '').toLowerCase().trim();
+  if (q.length < 1) return [];
+  const lim = limit || 14;
+  const scored = [];
   for (const rule of JOB_RULES) {
-    for (const kw of (rule.kw || rule.keywords || [])) {
-      if (q.includes(kw)) {
-        const score = kw.length;
-        if (score > bestScore) { best = rule; bestScore = score; }
+    let score = 0;
+    const titles = [rule.en, rule.pl].filter(Boolean);
+    for (const title of titles) {
+      const tl = title.toLowerCase();
+      if (tl === q) score = Math.max(score, 1000 + tl.length);
+      else {
+        const ix = tl.indexOf(q);
+        if (ix === 0) score = Math.max(score, 600 + q.length);
+        else if (ix > 0) {
+          const prev = tl[ix - 1];
+          const wordStart = /[\s\-\/(]/.test(prev);
+          score = Math.max(score, wordStart ? 450 : 250);
+        }
       }
     }
+    const kws = rule.kw || rule.keywords || [];
+    for (let kw of kws) {
+      kw = String(kw || '').toLowerCase().trim();
+      if (kw.length < 2) continue;
+      if (q === kw) score = Math.max(score, 520 + kw.length);
+      else if (kw.startsWith(q)) score = Math.max(score, 380 + q.length);
+      else if (kw.includes(q)) score = Math.max(score, 200 + Math.min(kw.length, 40));
+    }
+    if (score > 0) scored.push({ rule, score });
   }
-  return best;
+  scored.sort((a, b) => b.score - a.score);
+  const out = [];
+  const seen = new Set();
+  for (const { rule } of scored) {
+    const key = rule.en + '|' + rule.pkwiu;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(rule);
+    if (out.length >= lim) break;
+  }
+  return out;
 }
 
-function onJobTitleInput() {
-  const input = document.getElementById('b2b-role-input')?.value || '';
-  const result = classifyJobTitle(input);
-  const box = document.getElementById('b2b-role-result');
-  const en = LANG === 'en';
-  if (!result) {
-    box.innerHTML = input.length > 2
-      ? `<span style="color:#888">${en ? 'No match — choose tax form manually or consult a tax advisor.' : 'Brak dopasowania — wybierz formę opodatkowania ręcznie lub skonsultuj z doradcą.'}</span>`
-      : '';
+function renderB2bSuggestList(rules) {
+  const ul = document.getElementById('b2b-role-suggest');
+  if (!ul) return;
+  if (!rules || !rules.length) {
+    ul.style.display = 'none';
+    ul.innerHTML = '';
+    b2bSuggestRules = [];
     return;
   }
-  document.getElementById('b2b-tax').value = result.rate;
-  const rateLabel = RATE_LABELS[result.rate]?.[en?'en':'pl'] || result.rate;
-  const soloNote = result.solo_note
-    ? (en ? ' <span style="color:#92400e">⚠ Only when working personally without employees doing core work (wolny zawód condition)</span>'
-           : ' <span style="color:#92400e">⚠ Tylko gdy wykonujesz osobiście bez pracowników wykonujących istotę zawodu (warunek wolnego zawodu)</span>')
+  b2bSuggestRules = rules;
+  if (b2bSuggestIndex < 0) b2bSuggestIndex = 0;
+  if (b2bSuggestIndex >= rules.length) b2bSuggestIndex = rules.length - 1;
+  const en = LANG === 'en';
+  ul.innerHTML = rules.map((rule, i) => {
+    const label = en ? rule.en : (rule.pl || rule.en);
+    const sub = 'PKWiU ' + rule.pkwiu;
+    const on = i === b2bSuggestIndex ? ' on' : '';
+    return '<li role="option" class="' + on + '" aria-selected="' + (i === b2bSuggestIndex) + '" onmousedown="b2bSuggestPick(event,' + i + ')"><div style="padding:8px 10px;font-size:12px;font-weight:600">' + label + '</div><div style="padding:0 10px 8px;font-size:10px;color:#64748b">' + sub + '</div></li>';
+  }).join('');
+  ul.style.display = 'block';
+}
+
+function b2bSuggestPick(ev, idx) {
+  if (ev) ev.preventDefault();
+  if (b2bBlurTimer) { clearTimeout(b2bBlurTimer); b2bBlurTimer = null; }
+  const rule = b2bSuggestRules[idx];
+  if (rule) selectB2bJobRule(rule);
+}
+
+function onB2bRoleInput() {
+  if (b2bBlurTimer) { clearTimeout(b2bBlurTimer); b2bBlurTimer = null; }
+  b2bSelectedRule = null;
+  b2bSuggestIndex = 0;
+  const input = document.getElementById('b2b-role-input');
+  const q = (input && input.value) || '';
+  const box = document.getElementById('b2b-role-result');
+  const en = LANG === 'en';
+  if (q.length < 1) {
+    renderB2bSuggestList([]);
+    if (box) box.innerHTML = '';
+    return;
+  }
+  const rules = searchJobRules(q);
+  renderB2bSuggestList(rules);
+  if (!box) return;
+  if (!rules.length && q.length >= 2) {
+    box.innerHTML = '<span style="color:#888">' + (en ? 'No matching role — keep typing or set the tax form manually.' : 'Brak dopasowania — dopisz tekst lub ustaw formę ręcznie.') + '</span>';
+  } else if (rules.length) {
+    box.innerHTML = '<span style="color:#64748b;font-size:11px">' + (en ? 'Click a role or press Enter to apply PKWiU and tax form.' : 'Kliknij rolę lub Enter, aby ustawić PKWiU i formę opodatkowania.') + '</span>';
+  } else {
+    box.innerHTML = '';
+  }
+}
+
+function onB2bRoleFocus() {
+  if (b2bBlurTimer) { clearTimeout(b2bBlurTimer); b2bBlurTimer = null; }
+  onB2bRoleInput();
+}
+
+function onB2bRoleBlur() {
+  b2bBlurTimer = setTimeout(function () {
+    const ul = document.getElementById('b2b-role-suggest');
+    if (ul) ul.style.display = 'none';
+    b2bBlurTimer = null;
+  }, 220);
+}
+
+function applyB2bRoleMessage(rule) {
+  const box = document.getElementById('b2b-role-result');
+  const taxEl = document.getElementById('b2b-tax');
+  if (!rule || !box || !taxEl) return;
+  const en = LANG === 'en';
+  taxEl.value = rule.rate;
+  const title = en ? rule.en : (rule.pl || rule.en);
+  const rateLabel = RATE_LABELS[rule.rate] ? RATE_LABELS[rule.rate][en ? 'en' : 'pl'] : rule.rate;
+  const solo = rule.solo_note
+    ? (en ? ' <span style="color:#92400e;font-weight:600">⚠ Only when working personally without employees doing core work (wolny zawód).</span>'
+          : ' <span style="color:#92400e;font-weight:600">⚠ Tylko przy wykonywaniu osobistym bez pracowników w istocie zawodu (wolny zawód).</span>')
     : '';
-  box.innerHTML = `
-    <span style="font-weight:700;color:#1d4ed8">${rateLabel}</span>
-    &nbsp;·&nbsp; <span style="color:#777;font-size:10px">PKWiU ${result.pkwiu}</span>
-    &nbsp;·&nbsp; <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19980440176" target="_blank" style="color:#2563eb;font-size:10px">📖 art. 12 ustawy</a>
-    ${soloNote}
-  `;
+  const lead = en
+    ? '<strong>Selected:</strong> ' + title + ' — taxation form set to <strong style="color:#1d4ed8">' + rateLabel + '</strong> (PKWiU ' + rule.pkwiu + '). Override below if your contract or accountant uses a different PKWiU.'
+    : '<strong>Wybrano:</strong> ' + title + ' — forma opodatkowania: <strong style="color:#1d4ed8">' + rateLabel + '</strong> (PKWiU ' + rule.pkwiu + '). Zmień poniżej, jeśli umowa lub księgowy wskazuje inny PKWiU.';
+  const law = ' <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19980440176" target="_blank" style="color:#2563eb;font-size:10px">📖 art. 12</a>';
+  box.innerHTML = lead + law + solo;
+}
+
+function selectB2bJobRule(rule) {
+  if (!rule) return;
+  const input = document.getElementById('b2b-role-input');
+  if (input) input.value = LANG === 'en' ? rule.en : (rule.pl || rule.en);
+  const ul = document.getElementById('b2b-role-suggest');
+  if (ul) ul.style.display = 'none';
+  b2bSelectedRule = rule;
+  applyB2bRoleMessage(rule);
   calcB2B();
+}
+
+function refreshB2bRoleMessage() {
+  if (b2bSelectedRule) applyB2bRoleMessage(b2bSelectedRule);
+}
+
+function onB2bTaxManualChange() {
+  b2bSelectedRule = null;
+  const box = document.getElementById('b2b-role-result');
+  if (box) {
+    const en = LANG === 'en';
+    box.innerHTML = '<span style="color:#64748b;font-size:11px">' + (en ? 'Tax form set manually — it may no longer match the job title above.' : 'Forma ustawiona ręcznie — może nie odpowiadać stanowisku powyżej.') + '</span>';
+  }
+  calcB2B();
+}
+
+function onB2bRoleKeydown(ev) {
+  const ul = document.getElementById('b2b-role-suggest');
+  if (!ul || ul.style.display === 'none') return;
+  const rules = b2bSuggestRules;
+  if (!rules.length) return;
+  if (ev.key === 'ArrowDown') {
+    ev.preventDefault();
+    b2bSuggestIndex = Math.min(b2bSuggestIndex + 1, rules.length - 1);
+    renderB2bSuggestList(rules);
+  } else if (ev.key === 'ArrowUp') {
+    ev.preventDefault();
+    b2bSuggestIndex = Math.max(b2bSuggestIndex - 1, 0);
+    renderB2bSuggestList(rules);
+  } else if (ev.key === 'Enter') {
+    ev.preventDefault();
+    const idx = b2bSuggestIndex >= 0 ? b2bSuggestIndex : 0;
+    selectB2bJobRule(rules[idx]);
+  } else if (ev.key === 'Escape') {
+    ul.style.display = 'none';
+  }
 }
 
 

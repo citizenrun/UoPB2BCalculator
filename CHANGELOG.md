@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.1] - 2026-04-06
+- Manual deploy
+
+
 All notable changes are listed here. **Patch version** (`package.json`) is bumped automatically on each successful **Deploy to GitHub Pages** workflow; the new entry’s bullet text is taken from the **first line of the triggering commit message** (merge / squash title). Edit older sections manually when you need clearer release notes.
 
 ## [0.1.0] - 2026-04-06

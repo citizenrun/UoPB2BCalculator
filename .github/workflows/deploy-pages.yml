@@ -6,7 +6,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -49,7 +48,7 @@ jobs:
       - name: Prepare release metadata
         env:
           DEPLOY_RELEASE: "1"
-          RELEASE_SUMMARY: ${{ github.event_name == 'workflow_dispatch' && 'Manual deploy' || github.event.head_commit.message }}
+          RELEASE_SUMMARY: ${{ github.event.head_commit.message }}
         run: node scripts/release-meta.mjs
       # Project Pages live at https://<user>.github.io/<repo>/
       - run: npx vite build --base=/${{ github.event.repository.name }}/

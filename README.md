@@ -37,7 +37,7 @@ npx playwright install chromium   # once per machine
 npm test                          # build + run tests
 ```
 
-GitHub Actions: **pull requests** run `.github/workflows/ci.yml` (unit + Playwright). **Pushes to `main`** run *Deploy to GitHub Pages* (`.github/workflows/deploy-pages.yml`): **tests**, then a **patch version bump** (`package.json`), new **CHANGELOG.md** entry (first line of the triggering commit), refresh of **`public/release.json`**, Vite build, upload, and a **`[skip ci]`** commit so the bot push does not re-trigger the workflow. The live site shows **version** + **release history** (from `release.json`) and links **`changelog.md`** (copy of the changelog). Edit **`CHANGELOG.md`** in the repo for clearer release notes. Add more cases in `tests/smoke.spec.js` when you change payroll logic.
+GitHub Actions: **`.github/workflows/ci.yml`** runs **unit + Playwright** on **pull requests** and on **every push to `main`**. **`.github/workflows/deploy-pages.yml`** runs only on **push to `main`**: it **tests first**, then **patch-bumps** `package.json`, appends **`CHANGELOG.md`** (first line of that commit), refreshes **`public/release.json`**, builds, publishes Pages, and pushes **`chore(release): … [skip ci]`** so the bot commit does not re-trigger deploy. The site shows **version** + **history** from `release.json` and links **`changelog.md`**. Edit **`CHANGELOG.md`** for clearer notes. Add cases in **`tests/smoke.spec.js`** when payroll logic changes.
 
 ## GitHub (this project)
 
@@ -50,7 +50,7 @@ GitHub Actions: **pull requests** run `.github/workflows/ci.yml` (unit + Playwri
 
 1. Open the repo → **Settings** → **Pages**.
 2. Under **Build and deployment** → **Source**, choose **GitHub Actions** (not “Deploy from a branch”).
-3. Push to `main` (or run the workflow manually: **Actions** → **Deploy to GitHub Pages** → **Run workflow**).
+3. Push to `main` to build and deploy (or re-run the latest **Deploy to GitHub Pages** job in **Actions** if a run failed).
 
 After the first successful run, Settings → Pages shows the site URL. This repo is published at **`https://citizenrun.github.io/UoPB2BCalculator/`** (Vite build uses `base: '/UoPB2BCalculator/'` in CI via `vite build --base=/…/`).
 
@@ -59,9 +59,10 @@ After the first successful run, Settings → Pages shows the site URL. This repo
 If you use [GitHub CLI](https://cli.github.com/):
 
 ```bash
-gh repo view --web              # open repo settings in browser
-gh workflow run "Deploy to GitHub Pages"   # manual deploy
+gh repo view --web              # open repo in browser
 ```
+
+Deploy is triggered by **push to `main`**; use the **Actions** tab to re-run a failed **Deploy to GitHub Pages** job.
 
 No deploy secrets are required for this workflow; `GITHUB_TOKEN` is enough.
 

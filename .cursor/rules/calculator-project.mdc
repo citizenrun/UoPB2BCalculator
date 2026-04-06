@@ -10,7 +10,7 @@ alwaysApply: true
 ## Stack
 
 - **App:** `index.html` at repo root + **`public/job-rules.json`** (B2B roles). **Vite** dev/build (`npm run dev`, `npm run build` → `dist/`).
-- **Deploy:** GitHub Actions deploys to **GitHub Pages** at `https://citizenrun.github.io/UoPB2BCalculator/` (production build must use `base` `/UoPB2BCalculator/` — see `.github/workflows/deploy-pages.yml`). **Tests run before** build/upload; each deploy bumps **patch** in `package.json`, appends **`CHANGELOG.md`**, refreshes **`public/release.json`**, and commits with **`[skip ci]`**. The UI footer loads **`release.json`**; **`public/changelog.md`** is build output (gitignored). PRs use `.github/workflows/ci.yml`.
+- **CI:** `.github/workflows/ci.yml` — tests on **PRs** and **push to `main`**. **Deploy:** `.github/workflows/deploy-pages.yml` — only **push to `main`**; **tests before** build/upload; bump **patch** in `package.json`, append **`CHANGELOG.md`**, refresh **`public/release.json`**, commit **`[skip ci]`**. Site **`/UoPB2BCalculator/`** needs matching Vite `base`. UI footer loads **`release.json`**; **`public/changelog.md`** is build output (gitignored).
 
 ## When editing
 

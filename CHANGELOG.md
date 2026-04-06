@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.4] - 2026-04-06
+- docs(readme): version badge from live release.json (matches site footer)
+
+
 ## [0.1.3] - 2026-04-06
 - docs(readme): show deployed version badge from package.json on main
 

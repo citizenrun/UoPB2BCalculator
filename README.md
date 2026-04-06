@@ -1,8 +1,8 @@
 # UoP B2B Calculator
 
-[![Deployed version](https://img.shields.io/github/package-json/v/citizenrun/UoPB2BCalculator/main?label=deployed%20version&style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/) [![Live site](https://img.shields.io/badge/Pages-live-0366d6?style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/)
+[![Live version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fcitizenrun.github.io%2FUoPB2BCalculator%2Frelease.json&query=%24.version&label=live%20version&prefix=v&style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/release.json) [![Live site](https://img.shields.io/badge/Pages-live-0366d6?style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/)
 
-*Version = `package.json` on `main` after each release commit from deploy (may lag a few minutes in the badge cache).*
+*Same source as the in-app footer: [`release.json`](https://citizenrun.github.io/UoPB2BCalculator/release.json) on GitHub Pages (not `package.json` on `main`). Repo `package.json` is updated by the deploy job’s release commit and can briefly disagree if that push fails or Shields caches an old GitHub response.*
 
 Polish **umowa o pracę (UoP)** salary calculator: bilingual (PL/EN), month-by-month net, ZUS cap, KUP modes, calibration data, and employer-cost view. Single-page static app.
 

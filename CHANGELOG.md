@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.2] - 2026-04-06
+- fix(ci): restore CI on main push; deploy only via push to main
+
+
 ## [0.1.1] - 2026-04-06
 - Manual deploy
 

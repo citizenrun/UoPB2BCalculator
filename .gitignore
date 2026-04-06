@@ -1,5 +1,7 @@
 node_modules/
 dist/
+# Generated from CHANGELOG.md at build time (see scripts/release-meta.mjs)
+public/changelog.md
 
 # Packaged Cursor skill archives (keep .cursor/skills/**/SKILL.md in git)
 *.skill

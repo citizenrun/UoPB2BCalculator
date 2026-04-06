@@ -37,7 +37,7 @@ npx playwright install chromium   # once per machine
 npm test                          # build + run tests
 ```
 
-GitHub Actions runs the same on every push/PR (`.github/workflows/ci.yml`). Add more cases in `tests/smoke.spec.js` when you change payroll logic.
+GitHub Actions: **pull requests** run `.github/workflows/ci.yml` (unit + Playwright). **Pushes to `main`** run *Deploy to GitHub Pages* (`.github/workflows/deploy-pages.yml`): **tests**, then a **patch version bump** (`package.json`), new **CHANGELOG.md** entry (first line of the triggering commit), refresh of **`public/release.json`**, Vite build, upload, and a **`[skip ci]`** commit so the bot push does not re-trigger the workflow. The live site shows **version** + **release history** (from `release.json`) and links **`changelog.md`** (copy of the changelog). Edit **`CHANGELOG.md`** in the repo for clearer release notes. Add more cases in `tests/smoke.spec.js` when you change payroll logic.
 
 ## GitHub (this project)
 

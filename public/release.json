@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "history": [
+    {
+      "version": "0.1.0",
+      "date": "2026-04-06",
+      "changes": [
+        "Initial documented baseline for the public calculator: bilingual UoP month-by-month net (ZUS cap, KUP autorskie, PIT-0 / powrót, variable bonuses grid, employer cost view), reverse gross-from-net solver, B2B JDG tab (ryczałt / liniowy / skala, ZUS phases, day-rate invoicing, monthly extras, VAT settlement note), job-rules PKWiU autocomplete, GitHub Pages deploy with tests-before-build."
+      ]
+    }
+  ],
+  "generated": "2026-04-06"
+}

@@ -1,4 +1,5 @@
 # Build Vite app and publish to GitHub Pages.
+# Tests first; then patch bump + CHANGELOG entry + commit [skip ci]; then build + deploy.
 # One-time: Repo → Settings → Pages → Source → GitHub Actions.
 name: Deploy to GitHub Pages
 
@@ -8,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -17,7 +18,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  test:
+    if: ${{ !(github.event_name == 'push' && github.event.head_commit != null && contains(github.event.head_commit.message, '[skip ci]')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,13 +28,49 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - run: npx playwright install chromium --with-deps
+      - run: npm test
+
+  build:
+    if: ${{ !(github.event_name == 'push' && github.event.head_commit != null && contains(github.event.head_commit.message, '[skip ci]')) }}
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: node scripts/build-job-rules.mjs
+      # Bump patch + prepend CHANGELOG + refresh public/release.json (then Vite copies public/ into dist)
+      - name: Prepare release metadata
+        env:
+          DEPLOY_RELEASE: "1"
+          RELEASE_SUMMARY: ${{ github.event_name == 'workflow_dispatch' && 'Manual deploy' || github.event.head_commit.message }}
+        run: node scripts/release-meta.mjs
       # Project Pages live at https://<user>.github.io/<repo>/
-      - run: npm run build -- --base=/${{ github.event.repository.name }}/
+      - run: npx vite build --base=/${{ github.event.repository.name }}/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      - name: Commit version and changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json CHANGELOG.md public/release.json
+          if git diff --staged --quiet; then
+            echo "Nothing to commit"
+          else
+            VER=$(node -p "require('./package.json').version")
+            git commit -m "chore(release): v${VER} [skip ci]"
+            git push
+          fi
 
   deploy:
+    if: ${{ !(github.event_name == 'push' && github.event.head_commit != null && contains(github.event.head_commit.message, '[skip ci]')) }}
     needs: build
     runs-on: ubuntu-latest
     environment:

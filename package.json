@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/build-job-rules.mjs && vite build",
+    "build": "node scripts/build-job-rules.mjs && node scripts/release-meta.mjs && vite build",
     "preview": "vite preview",
     "test:unit": "vitest run",
     "test": "npm run test:unit && npm run build && playwright test",

@@ -1,8 +1,8 @@
+# Unit + Playwright on pull requests. Pushes to main use "Deploy to GitHub Pages"
+# (tests run there before build/deploy) so the suite is not run twice per merge.
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:

@@ -147,6 +147,17 @@ details.b2b-details th,details.b2b-details td{border:1px solid #e5e7eb;padding:6
 details.b2b-details th{background:#f9fafb;font-weight:700}
 .badge{font-size:9px;padding:1px 5px;border-radius:3px;background:#e5e7eb;color:#666;margin-left:3px;font-weight:700}
 .note{font-size:11px;color:#777;line-height:1.6;padding:10px 12px;border:1px solid #e5e7eb;border-radius:7px;margin-top:.75rem;background:#fafafa}
+.app-footer{margin-top:1.35rem;padding-top:14px;border-top:1px solid #e8e8e0;font-size:11px;color:#64748b;line-height:1.55}
+.app-footer a{color:#2563eb;text-decoration:none;border-bottom:1px solid #93c5fd}
+.app-footer a:hover{color:#1e3a8a}
+.app-changelog-details{margin-top:10px;max-width:46rem}
+.app-changelog-details summary{cursor:pointer;font-weight:700;color:#374151;list-style:none;user-select:none;padding:4px 0}
+.app-changelog-details summary::-webkit-details-marker{display:none}
+.app-changelog-details[open] summary{margin-bottom:6px;border-bottom:1px solid #e5e7eb;padding-bottom:8px}
+.app-changelog-details ul{margin:4px 0 4px 1.1rem;padding:0;line-height:1.5}
+.app-changelog-details .rel-h{margin-bottom:12px}
+.app-changelog-details .rel-t{font-weight:700;color:#334155}
+.app-changelog-details .rel-d{font-weight:600;color:#94a3b8;margin-left:6px}
 
 /* Diff colors */
 .dg{color:#059669;font-weight:700}
@@ -610,6 +621,18 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 </div>
 </div>
 
+<footer class="app-footer" aria-label="Release metadata">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;justify-content:space-between">
+    <span><span id="footer-ver-lbl"></span> <strong id="app-version">—</strong></span>
+    <a href="changelog.md" id="footer-changelog-md" target="_blank" rel="noopener"></a>
+  </div>
+  <p class="hint" style="margin-top:8px;max-width:46rem" id="footer-release-note"></p>
+  <details class="app-changelog-details" id="app-changelog-details">
+    <summary id="footer-history-sum"></summary>
+    <div id="app-changelog-body"></div>
+  </details>
+</footer>
+
 </div></div>
 
 <script>
@@ -618,6 +641,10 @@ const T = {
   en: {
     title: 'UoP Salary Calculator',
     sub: 'Polish employment contract (umowa o pracę) · Month-by-month net pay',
+    'footer-ver-lbl': 'Version',
+    'footer-history-sum': 'Release history',
+    'footer-changelog-md': 'Full changelog (Markdown)',
+    'footer-release-note': 'The patch number in <strong>package.json</strong> is bumped on each successful GitHub Pages deploy; new bullets use the <strong>first line</strong> of that deploy’s commit message. Edit <strong>CHANGELOG.md</strong> in the repo for clearer notes.',
     'tab-uop': 'Employment (UoP)', 'tab-rev': 'Reverse calculator', 'tab-b2b': 'B2B',
     'tab-cfg': 'Inputs', 'tab-det': 'Net pay by month', 'tab-emp': 'Employer cost',
     'h-uop-det': 'Your net pay — full month-by-month breakdown',
@@ -766,6 +793,10 @@ const T = {
   pl: {
     title: 'Kalkulator Wynagrodzeń UoP',
     sub: 'Umowa o pracę · Netto miesiąc po miesiącu',
+    'footer-ver-lbl': 'Wersja',
+    'footer-history-sum': 'Historia wydań',
+    'footer-changelog-md': 'Pełny changelog (Markdown)',
+    'footer-release-note': '<strong>package.json</strong> — numer patch rośnie przy każdym udanym wdrożeniu na GitHub Pages; nowy wpis bierze <strong>pierwszą linię</strong> komunikatu tego commita. Dokładniejsze opisy dopisz w <strong>CHANGELOG.md</strong> w repozytorium.',
     'tab-uop': 'Umowa o pracę (UoP)', 'tab-rev': 'Kalkulator odwrotny', 'tab-b2b': 'B2B',
     'tab-cfg': 'Dane i ustawienia', 'tab-det': 'Netto wg miesięcy', 'tab-emp': 'Koszt pracodawcy',
     'h-uop-det': 'Twoje netto — pełne rozliczenie miesiąc po miesiącu',
@@ -930,9 +961,38 @@ function applySources() {
   document.querySelectorAll('.src-pl').forEach(el => el.style.display = en ? 'none' : '');
 }
 
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function loadReleaseMeta() {
+  const verEl = document.getElementById('app-version');
+  const bodyEl = document.getElementById('app-changelog-body');
+  const en = LANG === 'en';
+  const fail = en ? 'Could not load release history.' : 'Nie udało się wczytać historii wydań.';
+  try {
+    const r = await fetch('release.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error('bad');
+    const data = await r.json();
+    if (verEl) verEl.textContent = 'v' + (data.version || '—');
+    if (bodyEl && Array.isArray(data.history)) {
+      bodyEl.innerHTML = data.history.map(h => {
+        const items = (h.changes || []).map(c => `<li>${escHtml(c)}</li>`).join('');
+        return `<div class="rel-h"><span class="rel-t">${escHtml(h.version)}</span><span class="rel-d">${escHtml(h.date)}</span><ul>${items}</ul></div>`;
+      }).join('');
+    }
+  } catch (e) {
+    if (verEl) verEl.textContent = '—';
+    if (bodyEl) bodyEl.textContent = fail;
+  }
+}
 
 function applyLang() {
-  const ids = ['title','sub','tab-uop','tab-rev','tab-b2b','uop-sub-hint','h-uop-det',
+  const ids = ['title','sub','footer-ver-lbl','footer-history-sum','footer-release-note','tab-uop','tab-rev','tab-b2b','uop-sub-hint','h-uop-det',
     'b2b-e1','b2b-e2','b2b-warn-title','b2b-warn-body','b2b-h-job','b2b-l-role','b2b-h-role',
     'opt-2027','l-cap','l-brutto','l-br-add','l-br-add-exempt','h-br-add','h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
     'l-kup-pct','h-kup-pct','ko-custom','l-kup-pln','h-kup-pln','kn-t1','kn-t2',
@@ -942,6 +1002,11 @@ function applyLang() {
     'emp-h2','emp-desc','emp-table-lede','note-det','note-emp','rev-note',
     'b2b-h-bill','b2b-l-bill','b2b-h-bill-note','b2b-h-time','b2b-h-time2','b2b-h-bonus','b2b-h-bonus2','b2b-h-vat','b2b-h-chorob'];
   ids.forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=t(id); });
+  const cla = document.getElementById('footer-changelog-md');
+  if (cla) {
+    cla.textContent = t('footer-changelog-md');
+    cla.setAttribute('href', 'changelog.md');
+  }
   const b2bExLbl = document.getElementById('b2b-l-example-month');
   if (b2bExLbl) b2bExLbl.textContent = t('b2b-ex-month') + ':';
   const jdet = document.getElementById('uop-jump-det');
@@ -968,6 +1033,7 @@ function applyLang() {
   renderB2BBillExample();
   refreshB2bRoleMessage();
   renderHeroResults();
+  void loadReleaseMeta();
 }
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────

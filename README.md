@@ -1,5 +1,9 @@
 # UoP B2B Calculator
 
+[![Deployed version](https://img.shields.io/github/package-json/v/citizenrun/UoPB2BCalculator/main?label=deployed%20version&style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/) [![Live site](https://img.shields.io/badge/Pages-live-0366d6?style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/)
+
+*Version = `package.json` on `main` after each release commit from deploy (may lag a few minutes in the badge cache).*
+
 Polish **umowa o pracę (UoP)** salary calculator: bilingual (PL/EN), month-by-month net, ZUS cap, KUP modes, calibration data, and employer-cost view. Single-page static app.
 
 **Live site (GitHub Pages):** [citizenrun.github.io/UoPB2BCalculator](https://citizenrun.github.io/UoPB2BCalculator/)

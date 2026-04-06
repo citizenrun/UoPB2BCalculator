@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.3] - 2026-04-06
+- docs(readme): show deployed version badge from package.json on main
+
+
 ## [0.1.2] - 2026-04-06
 - fix(ci): restore CI on main push; deploy only via push to main
 

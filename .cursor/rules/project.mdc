@@ -1,0 +1,35 @@
+---
+description: UoP salary calculator project context. Always load this.
+globs:
+alwaysApply: true
+---
+
+# Project: UoP Salary Calculator
+
+## What it is
+Standalone HTML salary calculator for Polish UoP (umowa o pracę) + B2B comparison.
+Target audience: **expats in Polish IT**. Primary user: Serhii, QA Automation Engineer, Wrocław.
+
+## Files
+- `kalkulator_uop.html` — the entire app (single file, no build step, opens in browser)
+- `verify_math.py` — math verifier, run before any tax formula change
+- `.cursor/rules/` — these agent rules
+
+## Tech stack
+Single HTML file. Vanilla JS. No framework. No server. No npm. CSS inline.
+To syntax-check JS: extract `<script>` block → `node --check /tmp/check.js`
+
+## Key constants (do not change without tax-expert approval)
+- ZUS cap 2026: 282 600 PLN | 2025: 260 190 | 2024: 234 720
+- ZUS rates (employee): em 9.76%, re 1.5%, ch 2.45%, health 9%
+- ZUS rates (B2B full): em 19.52%, re 8%, wyp 1.67%, FP 2.45%, ch 2.45% optional
+- KUP annual limit: 120 000 PLN | flat fallback: 250 PLN/month
+- Tax brackets: 12% up to 120 000 PLN cumulative income, 32% above
+- Kwota wolna: 300 PLN/month tax reduction
+
+## Calibration baseline (2025, 27 000 PLN brutto)
+Jan/Feb exact match: 19 867,99 PLN. Annual error target: <1.5%.
+Run `python3 verify_math.py` to validate. PASS = all modellable months within ±150 PLN.
+
+## Languages
+All UI text is bilingual EN/PL. Translation object `T` in JS. Always add both languages.

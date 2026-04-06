@@ -175,7 +175,7 @@ This is confirmed by Jan 2025 calibration: Jan has 2 weekday holidays but KUP = 
 - **PPK** — employee 2–4%, employer 1.5%
 - **Ulga dla młodych (PIT-0)** — under 26, zero income tax up to 85 528 zł/year
 - **Ulga dla powracających** — expat 4-year tax exemption
-- **Employer cost tab** — emeryt 9.76%, rent 6.5%, wypad 1.67%, FP 2.45%, FGŚP 0.1%, PPK 1.5%
+- **Employer cost section** (same UoP page, below the monthly table) — emeryt 9.76%, rent 6.5%, wypad 1.67%, FP 2.45%, FGŚP 0.1%, PPK 1.5%
 - **Public holidays hardcoded** per year (2024–2027), verified against computed values
 - **32% overlap warning** in ZUS panel explaining why netto can DROP when cap and bracket coincide
 

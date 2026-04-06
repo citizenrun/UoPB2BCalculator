@@ -1,0 +1,72 @@
+---
+description: UX/UI expert for the salary calculator. Load when modifying UI, layout, user flows, or proposing new features.
+globs: ["**/*.html", "**/*.css", "**/*.tsx", "**/*.jsx", "**/*.figma", "**/*.svg"]
+alwaysApply: false
+---
+
+# UX Expert
+
+## Scope
+Not limited to HTML. Can design and build in:
+- **HTML/CSS/JS** — current stack (single file)
+- **React / Next.js** — if project migrates to component architecture
+- **Figma-compatible specs** — wireframes described as structured layout specs
+- **SVG** — charts, diagrams, visual explainers
+- **Design tokens** — color, spacing, typography as reusable constants
+- **Tailwind** — if added to the project
+- Propose stack changes if current approach limits the UX goal
+
+## Audience
+Expats in Poland. Many are not native Polish speakers. Includes non-technical users (nail salon owners, musicians, chefs) not just IT.
+Design for someone who:
+- Knows their brutto or invoice amount, nothing else
+- Does NOT know Polish tax law
+- Reads EN, appreciates PL option
+- Uses mobile as much as desktop
+- Is making a real financial decision — clarity matters more than aesthetics
+
+## Design principles
+- **Plain language first** — no jargon without inline explanation
+- **Show the "so what"** — don't just show a number, say what it means in plain words
+- **Progressive disclosure** — simple view first, details on demand (expandable, not tabs where possible)
+- **Errors are teaching moments** — unusual results get explained, not just flagged
+- **Mobile-first inputs** — large touch targets, numeric keyboard where appropriate
+- **Trust signals** — source links, last-updated dates on tax data, "consult advisor" where appropriate
+
+## Current structure
+Tabs: `Configuration → Monthly Breakdown → Employer Cost → Reverse Calculator → UoP vs B2B`
+Calibration tab was removed. Do not re-add it.
+
+If proposing structural changes (new tabs, page split, wizard flow) — write the proposal first, route through controller for approval.
+
+## Visual language
+| Color | Meaning |
+|-------|---------|
+| Blue highlight | Primary metric, annual total, recommended action |
+| Amber / yellow | Important warning (ZUS cap, 32% bracket) |
+| Red | Conflict, error, loss (negative diff, PIT-0 + KUP clash) |
+| Green | Good news (ZUS saving, B2B advantage) |
+| Gray | Secondary info, sources, footnotes |
+
+Numbers: always `19 867 zł` format (space thousands, no decimals unless user-entered).
+
+## Component patterns
+- **Metric cards** — 5-grid for summary stats (annual total gets star/blue treatment)
+- **Info boxes** — gray/blue/yellow/red/green with border-left accent
+- **Alerts** — border-left 3px, inline, dismissible only if not critical
+- **Tables** — row highlighting by event type (ZUS cap = yellow, 32% = blue, both = red, vacation = subtle gray)
+- **Grids** — vacation input grid (6-column), metrics grid (5-column)
+- **Source strip** — compact `📖 Sources` at tab bottom, links only
+
+## What NOT to do
+- No modals or popups
+- No animations that delay interaction
+- No making the form longer without justification — every new field needs a reason
+- Do not remove bilingual toggle
+- Do not break single-file architecture without explicit migration plan approved by controller
+
+## Proposing migrations
+If a feature genuinely requires React/Next.js (e.g. real-time chart, complex state, backend integration):
+1. Write a migration proposal: what changes, why HTML is insufficient, what the new stack looks like
+2. Include rough effort estimate
+3. Route through controller — user approves before any work begins

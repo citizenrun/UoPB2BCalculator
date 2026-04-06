@@ -1,0 +1,76 @@
+---
+description: Polish tax expert and calculator validator. Load when modifying tax formulas, rates, or running verification.
+globs: ["**/*.html", "**/*.py"]
+alwaysApply: false
+---
+
+# Polish Tax Expert
+
+## Authority
+All tax rates and formulas must be grounded in:
+- **Ustawa o PIT** (Dz.U. 1991 nr 80 poz. 350) — ZUS, KUP, brackets
+- **Ustawa o zryczałtowanym podatku dochodowym** (Dz.U. 1998 nr 44 poz. 176) — ryczałt rates
+- **KIS interpretations** — for borderline PKWiU classifications
+- **ZUS.pl official tables** — for contribution amounts by year
+- **Monitor Polski** — for annual ZUS cap announcements
+
+## UoP formula (verified correct against 2025 mBank data)
+```
+ZUS_social  = brutto × (9.76% em + 1.5% re + 2.45% ch)   [em+re capped at 30× limit]
+ZUS_health  = (brutto − ZUS_social) × 9%
+KUP         = 50% × honorarium_fraction × (brutto − ZUS_social) × (creative_days / total_Mon-Fri)
+              max 120 000 PLN/year; after: 250 PLN/month flat
+taxbase     = max(0, brutto − ZUS_social − KUP)
+tax         = max(0, taxbase × 12% − 300)   [cumulative taxbase ≤ 120 000 PLN]
+              taxbase × 32%                  [above threshold, split precisely at crossing month]
+netto       = brutto − ZUS_social − ZUS_health − tax − PPK − fixed_deductions
+```
+
+## Known anomalies — do NOT model
+| Month | Cause | Action |
+|-------|-------|--------|
+| June | Employer used full remaining annual KUP in one payment | Show * note |
+| Aug–Oct | ZUS cap + 32% bracket overlap + KUP exhaustion | Show * note |
+| December | Roczne rozliczenie (art. 37 PIT) adds ~3 000–4 500 PLN | Show * note |
+
+## B2B ZUS 2026 (verified)
+- Duży ZUS base: 5 652 PLN (60% × 9 420 prognozowane avg wage)
+- Total with chorobowe: 1 926,77 PLN/month
+- Total without: 1 788,30 PLN/month
+- Pref ZUS base: 1 441,80 PLN (30% × 4 806 min wage)
+
+## Ryczałt rates — full table (art. 12 ustawy o zryczałtowanym podatku)
+| Rate | Who |
+|------|-----|
+| 17% | Wolne zawody: lekarze, dentyści, weterynarze, pielęgniarki, fizjoterapeuci, psycholodzy, tłumacze, adwokaci, notariusze, radcowie prawni, biegli rewidenci, księgowi, doradcy podatkowi, agenci ubezp., maklerzy, nauczyciele (korepetycje) — **only when working personally without employees doing the core work** |
+| 15% | Usługi kulturalne PKWiU dz.90, doradztwo zarządzania PKWiU 70.22.20, pośrednictwo sprzedaży hurtowej 46.1 |
+| 14% | Usługi w zakresie opieki zdrowotnej (non-wolny zawód), usługi architektoniczne, projektowanie specjalistyczne PKWiU 74.1 |
+| 12% | Usługi związane z oprogramowaniem PKWiU 62.01.1, doradztwo IT PKWiU 62.02, zarządzanie siecią 62.03.1 |
+| 10% | Usługi pośrednictwa w obrocie nieruchomościami |
+| 8.5% | Działalność usługowa ogólna (catchall), usługi gastronomiczne (bez alkoholu > 1.5%), fryzjerstwo, kosmetyka, fotografia, transport, sprzątanie, ogrodnictwo, marketing, biblioteki/kultura |
+| 5.5% | Działalność wytwórcza (producing new goods incl. own music works), roboty budowlane |
+| 3% | Działalność usługowa w zakresie handlu (retail/wholesale), gastronomia (food sales) |
+| 2% | Sprzedaż własnych produktów rolnych |
+
+## Music rates — nuanced
+- **Composer/producer selling own works** → 5.5% (działalność wytwórcza, PKWiU 59.20.x)
+- **Licensing music** → 8.5% (PKWiU 59.20.4, usługi licencyjne)
+- **Performing live** → 15% (PKWiU 90.01.10, usługi artystów wykonawców)
+- **Composing for others (transferring copyright)** → 15% (PKWiU 90.03.11)
+- This explains effective rates near 6% — mix of 5.5% production + small amount of other
+
+## Validation procedure
+Before approving any tax formula change:
+1. Identify which legal article covers it
+2. Run `python3 verify_math.py` — must PASS
+3. Check Jan/Feb 2025 still exact (0 PLN diff) — these are the baseline months
+4. Annual error must stay < 1.5%
+
+## Public holidays 2024–2027 (weekday occurrences per month — verified)
+```
+2024: [1,0,0,1,3,0,0,1,0,0,2,2]  sum=10
+2025: [2,0,0,1,1,1,0,1,0,0,1,2]  sum=9
+2026: [2,0,0,1,1,1,0,0,0,0,1,1]  sum=7
+2027: [2,0,1,0,2,0,0,0,0,0,2,0]  sum=7
+```
+Holidays do NOT reduce KUP — confirmed by Jan 2025 calibration (full KUP despite 2 weekday holidays).

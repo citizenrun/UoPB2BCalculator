@@ -1,10 +1,7 @@
-# Unit + Playwright. Runs on pull requests and on every push to main (same as before).
-# Pushes to main also run "Deploy to GitHub Pages", which tests again before build/deploy.
+# Unit + Playwright — PRs only (open, sync, reopen). Merges to main are covered by Deploy.
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:

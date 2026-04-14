@@ -19,7 +19,93 @@ h1{font-size:18px;font-weight:700;margin-bottom:.2rem}
 .lang-toggle button.on{background:#1a1a1a;color:#fff}
 
 /* Layout */
-h2{font-size:11px;font-weight:700;margin-bottom:.75rem;color:#444;text-transform:uppercase;letter-spacing:.05em}
+h2{font-size:12px;font-weight:700;margin-bottom:.75rem;color:#444;text-transform:uppercase;letter-spacing:.05em}
+/* Card-like blocks inside tabs (Configuration, Reverse, B2B, results) */
+.form-section{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 2px rgba(15,23,42,.06)}
+.form-section h2{font-size:17px;font-weight:800;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid #e8ecf1;color:#0f172a;text-transform:none;letter-spacing:-.02em;line-height:1.28}
+.form-section--salary{border-left:4px solid #2563eb}
+.form-section--kup{border-left:4px solid #7c3aed}
+.form-section--reliefs{border-left:4px solid #d97706}
+.form-section--family{border-left:4px solid #db2777;background:#fafafa}
+.form-section--deduct{border-left:4px solid #64748b}
+.form-section--job{border-left:4px solid #0d9488}
+.form-section--calendar{border-left:4px solid #0284c7}
+.form-section--income{border-left:4px solid #0ea5e9}
+.form-section--results{border-left:4px solid #1d4ed8}
+.form-section--emp-main{border-left:4px solid #16a34a;background:linear-gradient(180deg,#f0fdf4 0%,#fff 40%)}
+.form-section--actions{border-left:4px solid #1a1a1a;background:linear-gradient(180deg,#fafafa 0%,#fff 55%)}
+.form-section--b2b-intro{border-left:4px solid #64748b;padding:16px 18px}
+.form-section--sources{margin-bottom:0;padding:14px 16px;background:#f8fafc;border-color:#e5e7eb;box-shadow:none;font-size:10px;color:#6b7280;line-height:1.8}
+.form-section .sep{display:none}
+.form-section-subtitle{font-size:16px;font-weight:800;margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid #e8ecf1;color:#0f172a;letter-spacing:-.02em;line-height:1.28}
+.form-section--calendar h3{font-size:15px;font-weight:800;margin:18px 0 6px;color:#374151;border:none;padding:0;line-height:1.3}
+/* Content inside sections: field groups, hints, dense grids */
+.form-section .g3,.form-section .g2{gap:14px 18px}
+.form-section .g3:not(:last-of-type),.form-section .g2:not(:last-of-type){margin-bottom:14px}
+.form-section .g3:last-of-type,.form-section .g2:last-of-type{margin-bottom:0}
+.form-section .g3 + .g3,.form-section .g2 + .g2{margin-top:2px;padding-top:16px;border-top:1px dashed #e2e8f0}
+.form-section .g3 > div,.form-section .g2 > div{background:#f8fafc;border:1px solid #e8ecf1;border-radius:10px;padding:12px 14px 14px;min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.form-section label{color:#334155;font-weight:600}
+.form-section .g3 > div > .hint,.form-section .g2 > div > .hint,.form-section > p.hint{padding-left:11px;margin-left:2px;border-left:3px solid #cbd5e1;color:#64748b;line-height:1.55;max-width:none}
+.form-section .g3 > div > label + input,.form-section .g3 > div > label + select,.form-section .g2 > div > label + input,.form-section .g2 > div > label + select{margin-top:8px}
+/* Same box model for all numeric fields; hide spinners so WebKit doesn’t shrink the control vs neighbours */
+.form-section input[type=number]{
+  -moz-appearance:textfield;
+  appearance:textfield;
+  min-height:40px;
+  height:40px;
+  padding:0 11px;
+  line-height:1.2;
+  box-sizing:border-box;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+}
+.form-section input[type=number]::-webkit-outer-spin-button,
+.form-section input[type=number]::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  appearance:none;
+  margin:0;
+}
+.form-section select{
+  min-height:40px;
+  height:40px;
+  padding:0 11px;
+  line-height:1.2;
+  box-sizing:border-box;
+  border-color:#cbd5e1;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+}
+.form-section > .ibox{margin-top:12px}
+.form-section > h2 + .ibox,.form-section > h2 + .g3,.form-section > .form-section-subtitle + .g3{margin-top:4px}
+.form-section .ibox{margin-left:0;margin-right:0}
+.form-section > label:has(input[type=checkbox]){display:flex;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:10px;padding:12px 14px;margin-top:10px;max-width:52rem;gap:10px;align-items:flex-start}
+.form-section .g3 > div label:has(input[type=checkbox]),.form-section .g2 > div label:has(input[type=checkbox]){background:transparent;border:none;padding:0;margin-top:0;max-width:none}
+.form-section .ibox label:has(input[type=checkbox]){background:transparent;border:none;padding:0;margin-top:0}
+.form-section--actions .btn{margin-top:0}
+.form-section--actions #al-cfg{margin-top:14px!important}
+.form-section--results .leg{background:#f8fafc;border:1px solid #e8ecf1;border-radius:10px;padding:12px 14px 14px;margin-bottom:1rem;gap:10px 14px}
+.form-section--b2b-intro .ibox{margin:0}
+.form-section--b2b-intro .ibox + .ibox{margin-top:12px}
+@media(max-width:760px){
+  .form-section .g3,.form-section .g2{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .form-section .g5{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:960px){
+  .form-section--calendar .vg{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:560px){
+  .form-section--calendar .vg{grid-template-columns:repeat(2,1fr)}
+}
+.form-section--calendar .vg-month{background:#fff;border:1px solid #e8ecf1;border-radius:8px;padding:8px 8px 10px;min-height:100%}
+.form-section--calendar .vg-cell{min-width:0}
+.form-section--calendar .vg-month input[type=number],.form-section--calendar .vg input[type=number]{min-height:36px;height:36px;padding:0 6px;text-align:center;font-weight:600}
+.form-section .section-lede{font-size:12px;color:#64748b;line-height:1.55;margin:0 0 16px;max-width:48rem}
+.form-section--results h2.uop-results-h{font-size:19px;font-weight:800;margin:0 0 .65rem;color:#0f172a;letter-spacing:-.02em;line-height:1.22;scroll-margin-top:88px;border-bottom:1px solid #e2e8f0;padding-bottom:10px}
+.form-section--emp-main h2.emp-section-title{font-size:13px;font-weight:800;margin:0 0 .4rem;color:#14532d;text-transform:uppercase;letter-spacing:.06em;scroll-margin-top:12px;border:none;padding:0;line-height:1.3}
 .sep{border:none;border-top:1px solid #eee;margin:1.25rem 0}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
@@ -33,6 +119,8 @@ input[type=number],select{width:100%;padding:7px 9px;font-size:13px;border:1px s
 input:focus,select:focus{outline:2px solid #2563eb;border-color:#2563eb}
 .hint{font-size:11px;color:#888;margin-top:4px;line-height:1.5}
 .hint strong{color:#555}
+.form-section .hint a{color:#2563eb;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.form-section .hint a:hover{color:#1d4ed8}
 
 /* Info boxes */
 .ibox{border-radius:8px;padding:11px 14px;margin:8px 0;font-size:12px;line-height:1.75;border:1px solid}
@@ -78,12 +166,38 @@ html{scroll-behavior:smooth}
 .uop-jump{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:11px;font-weight:600;margin:0 0 4px}
 .uop-jump a{color:#1d4ed8;text-decoration:none;border-bottom:1px solid #93c5fd}
 .uop-jump a:hover{color:#1e3a8a;border-bottom-color:#1e3a8a}
+.io-fill-legend{font-size:11px;color:#64748b;margin:10px 0 0;max-width:52rem;line-height:1.5;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px}
+.form-section .g3 > div.io-has-value,.form-section .g2 > div.io-has-value{outline:3px solid #1d4ed8;outline-offset:0;border-radius:10px;background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 50%,#f8fafc 100%);box-shadow:0 0 0 1px rgba(29,78,216,.2),0 4px 16px rgba(37,99,235,.14)}
+.form-section--family > label.io-has-value{outline:3px solid #1d4ed8;outline-offset:2px;border-radius:10px;background:rgba(239,246,255,.65);box-shadow:0 2px 12px rgba(37,99,235,.12)}
+#cap-wrap.io-has-value,#kup-full-wrap.io-has-value{outline:3px solid #1d4ed8;outline-offset:0;border-radius:10px;background:linear-gradient(135deg,#dbeafe 0%,#f8fafc 100%);box-shadow:0 0 0 1px rgba(29,78,216,.18),0 3px 14px rgba(37,99,235,.12)}
+.form-section--job .field-block.io-has-value{outline:3px solid #1d4ed8;outline-offset:2px;border-radius:10px;background:linear-gradient(135deg,#dbeafe 0%,#f8fafc 100%);box-shadow:0 2px 14px rgba(37,99,235,.12)}
+/* Per-cell fill highlight inside vacation / bonus grids (not whole calendar section) */
+.form-section--calendar .vg-cell.io-has-value{outline:3px solid #1d4ed8;outline-offset:0;border-radius:8px;background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 55%,#f8fafc 100%);box-shadow:0 0 0 1px rgba(29,78,216,.2),0 2px 12px rgba(37,99,235,.12)}
+/* Phase 1: sticky salary context (inputs only; UoP tab) */
+.sticky-io-bar{display:none;position:sticky;top:0;z-index:30;margin:0 0 12px;padding:10px 14px;background:linear-gradient(180deg,#fff 0%,#f1f5f9 100%);border:1px solid #e2e8f0;border-radius:10px;box-shadow:0 6px 18px rgba(15,23,42,.1)}
+.sticky-io-bar.is-visible{display:block}
+.sticky-io-inner{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 20px}
+.sticky-io-field{display:flex;flex-direction:column;gap:4px;min-width:min(100%,168px);flex:1 1 150px}
+.sticky-io-field label{font-size:11px;font-weight:600;color:#334155}
+.sticky-io-field input[type=number],.sticky-io-field select{width:100%;min-height:40px;padding:8px 10px;font-size:14px;font-weight:600;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#0f172a}
+.sticky-io-field input:focus,.sticky-io-field select:focus{outline:2px solid #2563eb;border-color:#2563eb}
+.sticky-io-results{margin-top:10px;padding-top:10px;border-top:1px dashed #cbd5e1}
+.sticky-io-res-head{font-size:11px;font-weight:700;line-height:1.35;margin-bottom:8px;color:#64748b}
+.sticky-io-results--fresh .sticky-io-res-head{color:#166534}
+.sticky-io-results--stale .sticky-io-res-head{color:#92400e}
+.sticky-io-results--idle .sticky-io-res-head,.sticky-io-results--cleared .sticky-io-res-head{color:#64748b}
+.sticky-io-res-grid{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:flex-start}
+.sticky-io-res-grid > div{display:flex;flex-direction:column;gap:3px;min-width:min(100%,140px)}
+.sticky-io-res-lbl{font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.04em}
+.sticky-io-res-val{font-size:16px;font-weight:800;color:#1d4ed8;letter-spacing:-.02em}
+.sticky-io-results--fresh .sticky-io-res-val{color:#1d4ed8}
+.sticky-io-results--stale .sticky-io-res-val{color:#64748b;opacity:.62}
+.sticky-io-results--idle .sticky-io-res-val,.sticky-io-results--cleared .sticky-io-res-val{color:#94a3b8;font-weight:700;font-size:15px}
 .uop-stack{display:block}
 .uop-section{padding-top:1.15rem;margin-top:1.15rem;border-top:1px solid #e8e8e0}
 .uop-stack > .uop-section:first-child{padding-top:0;margin-top:0;border-top:none}
-.uop-results-h{font-size:15px;font-weight:800;margin:0 0 .65rem;color:#0f172a;letter-spacing:-.02em;line-height:1.25;scroll-margin-top:12px;border-bottom:1px solid #e2e8f0;padding-bottom:10px}
+.uop-results-h{font-size:15px;font-weight:800;margin:0 0 .65rem;color:#0f172a;letter-spacing:-.02em;line-height:1.25;scroll-margin-top:88px;border-bottom:1px solid #e2e8f0;padding-bottom:10px}
 .emp-section-title{font-size:11px;font-weight:700;margin:0 0 .35rem;color:#14532d;text-transform:uppercase;letter-spacing:.05em;scroll-margin-top:12px}
-.emp-table-heading{font-size:13px;font-weight:800;margin:16px 0 10px;color:#14532d;letter-spacing:-.015em;line-height:1.3;border-bottom:1px solid #bbf7d0;padding-bottom:8px}
 .emp-bar-wrap{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#e5e7eb;margin-top:4px}
 .emp-bar{height:100%;min-width:2px}
 .emp-bar-g{background:#3b82f6}
@@ -111,6 +225,10 @@ html{scroll-behavior:smooth}
 
 /* Button */
 .btn{padding:10px 24px;font-size:14px;font-weight:700;border:none;border-radius:7px;background:#1a1a1a;color:#fff;cursor:pointer;margin-top:.5rem}
+.tab-back-top{margin:1.25rem 0 0;padding-top:1rem;border-top:1px solid #e8e8e0;display:flex;justify-content:center}
+.btn-back-top{padding:8px 18px;font-size:12px;font-weight:700;border:1px solid #cbd5e1;border-radius:8px;background:#f8fafc;color:#334155;cursor:pointer;font-family:inherit}
+.btn-back-top:hover{background:#e2e8f0;border-color:#94a3b8;color:#1e293b}
+.btn-back-top:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px}
 .btn:hover{background:#333}
 
 /* B2B job title autocomplete */
@@ -120,12 +238,40 @@ html{scroll-behavior:smooth}
 .role-suggest li:last-child{border-bottom:none}
 .role-suggest li:hover,.role-suggest li.on{background:#eff6ff}
 
-/* Table */
-.tw{overflow-x:auto;margin-bottom:.75rem}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{text-align:right;font-size:10px;font-weight:700;color:#555;padding:5px 7px;border-bottom:2px solid #e5e7eb;white-space:nowrap;background:#f9fafb;text-transform:uppercase}
+/* Table — wide month grid: let table grow to content width; .tw scrolls horizontally */
+.tw{width:100%;max-width:100%;min-width:0;overflow-x:auto;overflow-y:auto;margin-bottom:.75rem;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.tw table{width:max-content;min-width:100%;border-collapse:collapse;font-size:12px;table-layout:auto}
+/* UoP month-by-month (#t-det): full card width, no horizontal scroll — fixed layout + wrap */
+.tw--det{overflow-x:visible;overflow-y:visible}
+.tw--det table#t-det{width:100%;max-width:100%;min-width:0;table-layout:fixed;font-size:11px;line-height:1.35}
+.tw--det table#t-det th,.tw--det table#t-det td{padding:5px 4px;white-space:normal;overflow-wrap:break-word;word-break:break-word;vertical-align:top;-webkit-hyphens:auto;hyphens:auto}
+.tw--det table#t-det th{font-size:8.5px;letter-spacing:.04em;line-height:1.2;font-weight:800;text-transform:uppercase}
+.tw--det table#t-det td{text-align:right}
+.tw--det table#t-det td:first-child,.tw--det table#t-det th:first-child{text-align:left}
+.tw--det table#t-det td:first-child{-webkit-hyphens:auto;hyphens:auto}
+.tw--det table#t-det th:last-child,.tw--det table#t-det td:last-child{padding-right:4px}
+.tw--det table#t-det td:nth-child(n+3){font-variant-numeric:tabular-nums;-webkit-hyphens:manual;hyphens:manual}
+.tw--det table#t-det td:nth-child(2){font-variant-numeric:tabular-nums;-webkit-hyphens:manual;hyphens:manual}
+@media(max-width:520px){
+  .tw--det table#t-det{font-size:10px}
+  .tw--det table#t-det th{font-size:7.5px;padding:4px 3px}
+  .tw--det table#t-det td{padding:4px 3px}
+}
+/* B2B month table (#b2b-table): sticky month + netto; wrap invoice column (bonus tags) */
+.tw--b2b table#b2b-table th:first-child,.tw--b2b table#b2b-table th:last-child{position:sticky;z-index:2;background:#f9fafb;box-shadow:0 0 0 1px #e5e7eb}
+.tw--b2b table#b2b-table th:first-child{left:0;box-shadow:4px 0 10px -6px rgba(15,23,42,.2)}
+.tw--b2b table#b2b-table th:last-child{right:0;box-shadow:-4px 0 10px -6px rgba(15,23,42,.2)}
+.tw--b2b table#b2b-table td:first-child,.tw--b2b table#b2b-table td:last-child{position:sticky;z-index:1;vertical-align:top}
+.tw--b2b table#b2b-table td:first-child{left:0;box-shadow:4px 0 10px -6px rgba(15,23,42,.15)}
+.tw--b2b table#b2b-table td:last-child{right:0;box-shadow:-4px 0 10px -6px rgba(15,23,42,.15)}
+.tw--b2b table#b2b-table tbody tr:not(.tot):not(.r-vac) td:first-child,.tw--b2b table#b2b-table tbody tr:not(.tot):not(.r-vac) td:last-child{background:#fff}
+.tw--b2b table#b2b-table tr.r-vac td:first-child,.tw--b2b table#b2b-table tr.r-vac td:last-child{background:#fafaf8}
+.tw--b2b table#b2b-table tr.tot td:first-child,.tw--b2b table#b2b-table tr.tot td:last-child{background:#f5f5f0}
+.tw--b2b table#b2b-table th:nth-child(6),.tw--b2b table#b2b-table td:nth-child(6){white-space:normal;max-width:min(20rem,38vw);word-break:break-word}
+th{text-align:right;font-size:10px;font-weight:700;color:#555;padding:5px 8px;border-bottom:2px solid #e5e7eb;white-space:nowrap;background:#f9fafb;text-transform:uppercase}
 th:first-child{text-align:left}
-td{text-align:right;padding:5px 7px;border-bottom:1px solid #f0f0ec;white-space:nowrap;color:#1a1a1a}
+th:last-child,td:last-child{padding-right:12px}
+td{text-align:right;padding:5px 8px;border-bottom:1px solid #f0f0ec;white-space:nowrap;color:#1a1a1a;vertical-align:top}
 td:first-child{text-align:left;color:#555}
 td.n{font-weight:700}
 tr.r-both td{background:#fef2f2}
@@ -170,19 +316,42 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 /* Employer section */
 .emp-box{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:12px 14px;margin-top:1rem}
 .emp-box h3{font-size:12px;font-weight:700;margin-bottom:.5rem;color:#14532d}
+
+/* Header tools + B2B field blocks (match form-section inputs) */
+.hdr-tools{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
+.btn-clear-danger{padding:8px 16px;font-size:12px;font-weight:800;border:2px solid #991b1b;border-radius:8px;background:linear-gradient(180deg,#ef4444 0%,#dc2626 55%,#b91c1c 100%);color:#fff;cursor:pointer;font-family:inherit;letter-spacing:.02em;box-shadow:0 2px 10px rgba(220,38,38,.4),inset 0 1px 0 rgba(255,255,255,.2)}
+.btn-clear-danger:hover{background:linear-gradient(180deg,#f87171 0%,#ef4444 100%);border-color:#7f1d1d;box-shadow:0 3px 14px rgba(220,38,38,.5)}
+.btn-clear-danger:focus-visible{outline:3px solid #fca5a5;outline-offset:2px}
+.calc-hint{font-size:12px;margin-top:12px;padding:11px 14px;border-radius:10px;line-height:1.55;max-width:48rem}
+.calc-hint.stale{background:#fffbeb;border:1px solid #fcd34d;color:#92400e}
+.calc-hint.fresh{background:#f0fdf4;border:1px solid #86efac;color:#166534}
+.calc-hint.cleared{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.btn-needs-action{animation:calcPulse 1.35s ease-in-out infinite;box-shadow:0 0 0 2px #fff,0 0 0 4px rgba(234,179,8,.5)!important}
+@keyframes calcPulse{50%{box-shadow:0 0 0 2px #fff,0 0 0 9px rgba(234,179,8,.22)!important}}
+.results-outdated{opacity:.55;transition:opacity .2s ease}
+.field-block{background:#f8fafc;border:1px solid #e8ecf1;border-radius:10px;padding:12px 14px 14px;min-width:0}
+.form-section--job > .field-block{margin-bottom:14px}
+.field-block-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin:12px 0 8px}
+.field-block-row .block-label{margin-bottom:4px}
+.form-section input[type=text]{width:100%;min-height:40px;padding:8px 11px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;background:#fff;color:#1a1a1a;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.form-section input[type=text]:focus{outline:2px solid #2563eb;border-color:#2563eb}
+.form-section--calendar .field-block-row select{max-width:260px;min-height:40px}
 </style>
 </head>
 <body>
-<div class="page"><div class="card">
+<div class="page" id="page-top"><div class="card">
 
 <div class="hdr">
   <div>
     <h1 id="t-title">UoP Salary Calculator / Kalkulator Wynagrodzeń</h1>
     <p class="sub" id="t-sub">Polish employment contract (umowa o pracę) · Month-by-month net pay</p>
   </div>
-  <div class="lang-toggle">
-    <button class="on" onclick="setLang('en')">EN</button>
-    <button onclick="setLang('pl')">PL</button>
+  <div class="hdr-tools">
+    <button type="button" class="btn-clear-danger" id="btn-clear-all" onclick="clearAllInputs()">Clear all inputs</button>
+    <div class="lang-toggle">
+      <button class="on" onclick="setLang('en')">EN</button>
+      <button onclick="setLang('pl')">PL</button>
+    </div>
   </div>
 </div>
 
@@ -198,6 +367,38 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     <a href="#h-uop-det" id="uop-jump-det">Net pay by month</a>
     <a href="#emp-h2" id="uop-jump-emp">Employer cost</a>
   </nav>
+  <p class="io-fill-legend" id="io-fill-legend" hidden></p>
+</div>
+
+<div id="sticky-io-bar" class="sticky-io-bar is-visible" role="region" aria-label="Quick edit: gross salary and tax year">
+  <div class="sticky-io-inner">
+    <div class="sticky-io-field">
+      <label for="sticky-brutto" id="sticky-l-brutto">Gross salary (PLN/month)</label>
+      <input type="number" id="sticky-brutto" value="0" min="0" step="100" inputmode="decimal" oninput="onStickyBruttoInput();">
+    </div>
+    <div class="sticky-io-field">
+      <label for="sticky-rok" id="sticky-l-rok">Tax year</label>
+      <select id="sticky-rok" onchange="onStickyRokChange();">
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="2026" selected>2026</option>
+        <option value="2027">2027 (enter cap manually)</option>
+      </select>
+    </div>
+  </div>
+  <div id="sticky-io-results" class="sticky-io-results sticky-io-results--idle" aria-live="polite">
+    <div class="sticky-io-res-head" id="sticky-io-stat"></div>
+    <div class="sticky-io-res-grid">
+      <div>
+        <span class="sticky-io-res-lbl" id="sticky-io-lbl-ann"></span>
+        <span class="sticky-io-res-val" id="sticky-io-ann-val">—</span>
+      </div>
+      <div>
+        <span class="sticky-io-res-lbl" id="sticky-io-lbl-typ"></span>
+        <span class="sticky-io-res-val" id="sticky-io-typ-val">—</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="uop-stack">
@@ -205,11 +406,12 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 <!-- ═══════════════════════════════════════════════════════ CONFIG -->
 <div id="p-cfg" class="uop-section">
 
+  <div class="form-section form-section--salary">
   <h2 id="h-salary">Salary &amp; Year</h2>
   <div class="g3">
     <div>
       <label id="l-brutto">Gross salary (PLN/month)</label>
-      <input type="number" id="brutto" value="27000" min="1000" step="100" oninput="liveKup()">
+      <input type="number" id="brutto" value="0" min="0" step="100" oninput="liveKup();touchUopInputs();syncStickySalaryToBar();">
     </div>
     <div>
       <label id="l-rok">Tax year</label>
@@ -222,7 +424,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
     <div id="cap-wrap" style="display:none">
       <label id="l-cap">ZUS 30× annual cap (PLN)</label>
-      <input type="number" id="cap-custom" value="300000" min="100000" step="1000">
+      <input type="number" id="cap-custom" value="0" min="0" step="1000">
       <p class="hint" id="h-cap">Announced each December in Monitor Polski. Formula: 30 × avg. monthly wage.<br><strong>2024:</strong> 234 720 · <strong>2025:</strong> 260 190 · <strong>2026:</strong> 282 600</p>
     </div>
   </div>
@@ -230,11 +432,11 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   <div class="g3" style="margin-top:12px">
     <div>
       <label id="l-br-add">Monthly add-on (PLN/month)</label>
-      <input type="number" id="br-add" value="0" min="0" step="50" oninput="liveKup()">
+      <input type="number" id="br-add" value="0" min="0" step="50" oninput="liveKup();touchUopInputs();">
     </div>
     <div style="grid-column:1/-1">
       <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;margin-top:2px;max-width:52rem">
-        <input type="checkbox" id="br-add-exempt" onchange="liveKup()" style="margin-top:3px;flex-shrink:0;width:16px;height:16px">
+        <input type="checkbox" id="br-add-exempt" onchange="liveKup();touchUopInputs();" style="margin-top:3px;flex-shrink:0;width:16px;height:16px">
         <span id="l-br-add-exempt"></span>
       </label>
       <p class="hint" id="h-br-add" style="margin:8px 0 0 28px;max-width:52rem"></p>
@@ -243,8 +445,9 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 
   <!-- ZUS info panel -->
   <div class="ibox ibox-yellow" id="zus-panel"><!-- filled by JS --></div>
+  </div>
 
-  <hr class="sep">
+  <div class="form-section form-section--kup">
   <h2 id="h-kup-sec">Author's Cost Deduction (KUP / Koszty Autorskie)</h2>
 
   <div class="ibox ibox-gray" id="kup-explainer">
@@ -255,29 +458,29 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     <div>
       <label id="l-kup-type">Do you have koszty autorskie?</label>
       <select id="kup-type" onchange="onKupType()">
+        <option value="none" id="ko-none" selected>No / I don't know</option>
         <option value="auto" id="ko-auto">Yes — estimate automatically</option>
         <option value="manual" id="ko-manual">Yes — enter from my payslip</option>
-        <option value="none" id="ko-none">No / I don't know</option>
       </select>
     </div>
 
     <div id="kup-pct-wrap">
       <label id="l-kup-pct">% of time spent on creative work</label>
       <select id="kup-pct" onchange="liveKup()">
-        <option value="87.5">87.5% — 7h creative / 8h day</option>
-        <option value="80" selected>80% — stated in contract</option>
+        <option value="87.5" selected>87.5% — 7h creative / 8h day</option>
+        <option value="80">80% — stated in contract</option>
         <option value="75">75%</option>
         <option value="50">50%</option>
         <option value="100">100% — entire salary</option>
         <option value="0" id="ko-custom">Custom…</option>
       </select>
-      <input type="number" id="kup-pct-c" placeholder="e.g. 70" min="1" max="100" step="0.5" style="display:none;margin-top:6px" oninput="liveKup()">
+      <input type="number" id="kup-pct-c" placeholder="e.g. 70" min="1" max="100" step="0.5" style="display:none;margin-top:6px" oninput="liveKup();touchUopInputs();">
       <p class="hint" id="h-kup-pct">Check your contract for <strong>"honorarium autorskie"</strong> or <strong>"prawa autorskie"</strong> with a percentage. Or divide your creative hours by total hours (e.g. 7÷8 = 87.5%). Your employer's HR team tracks this.</p>
     </div>
 
     <div id="kup-manual-wrap" style="display:none">
       <label id="l-kup-pln">KUP amount from payslip (PLN/month)</label>
-      <input type="number" id="kup-manual" value="11215.88" min="0" step="0.01" oninput="liveKup()">
+      <input type="number" id="kup-manual" value="0" min="0" step="0.01" oninput="liveKup();touchUopInputs();">
       <p class="hint" id="h-kup-pln">Find the line <strong>"koszty uzyskania przychodu"</strong> on your monthly payslip (pasek płac). Enter the value for a full month without vacation.</p>
     </div>
   </div>
@@ -285,7 +488,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 
   <div class="ibox ibox-gray" id="kup-full-wrap" style="margin-top:10px">
     <label style="display:flex;gap:11px;align-items:flex-start;cursor:pointer">
-      <input type="checkbox" id="kup-full-month" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" onchange="liveKup(); calc();">
+      <input type="checkbox" id="kup-full-month" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" onchange="liveKup();touchUopInputs();">
       <span><strong id="kup-full-lbl"></strong><br><span id="kup-full-hint" class="hint" style="margin-top:4px;display:inline-block"></span></span>
     </label>
   </div>
@@ -294,10 +497,10 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   <div class="ibox ibox-gray" id="kup-none-box" style="display:none">
     <strong id="kn-t1">Standard deduction (250 PLN/month):</strong> <span id="kn-t2">Every UoP employee gets a flat 250 PLN/month cost deduction by default. This gives minimal tax benefit. If you think your employer may apply koszty autorskie but you're unsure, ask HR — it's worth checking because the tax saving can be substantial (often 300–600 PLN/month more netto).</span>
   </div>
-
-  <hr class="sep">
+  </div>
 
   <!-- Tax reliefs -->
+  <div class="form-section form-section--reliefs">
   <h2 id="h-reliefs">Tax Reliefs &amp; Options</h2>
   <div class="g3">
     <div>
@@ -310,7 +513,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
     <div>
       <label id="l-ppk">PPK (Employee Pension Plan)</label>
-      <select id="ppk">
+      <select id="ppk" onchange="touchUopInputs();">
         <option value="0" selected id="ppk-no">No / Opted out</option>
         <option value="2">2% (default)</option>
         <option value="3">3%</option>
@@ -330,21 +533,63 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   <div class="ibox ibox-red" id="pit0-kup-warn" style="display:none">
     ⚠ <strong id="pw-t">PIT-0 and koszty autorskie cannot be combined.</strong> <span id="pw-b">When PIT-0 applies, the 50% KUP is not applied to employment income. The calculator will use PIT-0 and ignore KUP for affected months.</span>
   </div>
-
-  <hr class="sep">
-  <h2 id="h-deduct">Fixed Monthly Deductions (from net)</h2>
-  <div class="g3">
-    <div><label id="l-med">Medicover / Luxmed / other insurance (PLN/month)</label><input type="number" id="med" value="15.75" min="0" step="0.01"></div>
-    <div><label>Multisport (PLN/month)</label><input type="number" id="msp" value="167.82" min="0" step="0.01"></div>
-    <div><label id="l-other">Other deductions (PLN/month)</label><input type="number" id="oth" value="0" min="0" step="0.01"></div>
   </div>
 
-  <hr class="sep">
+  <div class="form-section form-section--family" id="family-tax-wrap">
+    <h3 class="form-section-subtitle" id="h-family-sec">Family &amp; scale PIT</h3>
+    <div class="g3">
+      <div>
+        <label id="l-family-mode">Preferential scale filing</label>
+        <select id="family-mode" onchange="onFamilyModeChange()">
+          <option value="none" id="fam-none" selected>None (individual)</option>
+          <option value="joint" id="fam-joint">Joint with spouse</option>
+          <option value="single" id="fam-single">Single parent + child</option>
+        </select>
+        <p class="hint" id="h-family-mode"></p>
+      </div>
+      <div id="spouse-tb-wrap" style="display:none">
+        <label id="l-spouse-tb">Spouse other annual taxable income (PLN)</label>
+        <input type="number" id="spouse-tb-annual" value="0" min="0" step="100" oninput="touchUopInputs();">
+        <p class="hint" id="h-spouse-tb"></p>
+      </div>
+      <div>
+        <label id="l-children">Children (credits / 4+ relief)</label>
+        <select id="children-count" onchange="onChildrenChange()">
+          <option value="0" selected>0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        <p class="hint" id="h-children"></p>
+      </div>
+    </div>
+    <label style="display:flex;gap:10px;align-items:flex-start;margin-top:10px;cursor:pointer;max-width:52rem">
+      <input type="checkbox" id="family4-pit0" style="margin-top:3px;flex-shrink:0;width:16px;height:16px" onchange="onFamily4Change()">
+      <span><strong id="l-family4">PIT-0 for families with 4+ children</strong><br><span id="h-family4" class="hint" style="margin-top:4px;display:inline-block"></span></span>
+    </label>
+    <p id="family-pit-sources" class="hint" style="margin-top:12px;font-size:11px;line-height:1.55;max-width:52rem;border-top:1px solid #e5e5e0;padding-top:10px"></p>
+  </div>
+
+  <div class="form-section form-section--deduct">
+  <h2 id="h-deduct">Fixed Monthly Deductions (from net)</h2>
+  <div class="g3">
+    <div><label id="l-med">Medicover / Luxmed / other insurance (PLN/month)</label><input type="number" id="med" value="0" min="0" step="0.01" oninput="touchUopInputs();"></div>
+    <div><label>Multisport (PLN/month)</label><input type="number" id="msp" value="0" min="0" step="0.01" oninput="touchUopInputs();"></div>
+    <div><label id="l-other">Other deductions (PLN/month)</label><input type="number" id="oth" value="0" min="0" step="0.01" oninput="touchUopInputs();"></div>
+  </div>
+  </div>
+
+  <div class="form-section form-section--job">
   <h2 id="h-jobtitle">Job Title KUP Eligibility Check</h2>
   <div class="g2">
     <div>
       <label id="l-jobtitle">Your job title / role</label>
-      <select id="jobtitle" onchange="checkJobTitle()">
+      <select id="jobtitle" onchange="touchUopInputs();">
         <option value="">— Select your role —</option>
         <optgroup label="Software Development">
           <option value="dev_fe">Frontend Developer</option>
@@ -392,23 +637,28 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
     <div id="jobtitle-result" style="display:none"></div>
   </div>
+  </div>
 
-  <hr class="sep">
+  <div class="form-section form-section--calendar">
   <h2 id="h-vac"></h2>
   <p class="hint" style="margin-bottom:10px" id="h-vac2"></p>
   <p class="hint" style="margin-bottom:10px;font-size:10px;color:#94a3b8" id="h-vac3"></p>
   <div class="vg" id="vac-grid"><!-- filled by JS --></div>
 
-  <h3 style="font-size:12px;font-weight:800;margin:18px 0 6px;color:#374151" id="h-bonus"></h3>
+  <h3 id="h-bonus"></h3>
   <p class="hint" style="margin-bottom:10px;max-width:52rem;line-height:1.55" id="h-bonus2"></p>
   <p class="hint" style="margin-bottom:6px;max-width:52rem;font-size:11px" id="h-bonus-once"></p>
   <div class="vg" id="bonus-once-grid"><!-- filled by JS --></div>
+  </div>
 
-  <button class="btn" onclick="calc()" id="btn-calc">Calculate</button>
+  <div class="form-section form-section--actions">
+  <button type="button" class="btn" onclick="calc()" id="btn-calc">Calculate</button>
+  <div id="uop-calc-hint" class="calc-hint stale" aria-live="polite"></div>
   <div id="al-cfg" style="margin-top:1rem"></div>
   <div id="metrics-cfg" class="g5" style="display:none;margin-top:1rem"></div>
+  </div>
 
-<div id="src-cfg" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
+<div id="src-cfg" class="form-section form-section--sources">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
   <span class="src-en" style="display:none"><a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">ZUS contribution rates</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">KUP — art. 22 ust. 9 pkt 3 PIT</a> · <a href="https://monitorpolski.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">ZUS 30× cap — Monitor Polski</a> · <a href="https://sip.mf.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">KIS interpretation Jan 2025 (KUP contract requirement)</a></span>
   <span class="src-pl" style="display:none"><a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Składki ZUS — stawki oficjalne</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">KUP — art. 22 ust. 9 pkt 3 ustawy PIT</a> · <a href="https://monitorpolski.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">Limit 30-krotności — Monitor Polski</a> · <a href="https://sip.mf.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">Interpretacja KIS sty 2025 (KUP w umowie)</a></span>
@@ -417,6 +667,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 
 <!-- ═══════════════════════════════════════════════════════ MONTHLY -->
 <div id="p-det" class="uop-section">
+  <div class="form-section form-section--results">
   <h2 class="uop-results-h" id="h-uop-det">Your net pay — full month-by-month breakdown</h2>
   <div id="al-det"></div>
   <div class="leg">
@@ -426,10 +677,11 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     <div class="li"><div class="ls" style="background:#bbf7d0"></div><span id="leg-kup">Annual KUP limit used up</span></div>
     <div class="li" style="flex-basis:100%;margin-top:6px;padding-top:6px;border-top:1px dashed #e5e7eb"><span id="leg-ph" style="font-size:11px;color:#64748b;line-height:1.45"></span></div>
   </div>
-  <div class="tw"><table id="t-det"></table></div>
+  <div class="tw tw--det"><table id="t-det"></table></div>
   <div class="note" id="note-det"></div>
+  </div>
 
-<div id="src-det" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
+<div id="src-det" class="form-section form-section--sources">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
   <span class="src-en" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Tax brackets — art. 27 ustawy PIT</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Roczne rozliczenie — art. 37 ustawy PIT</a> · <a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">ZUS contribution rates (official)</a></span>
   <span class="src-pl" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Progi podatkowe — art. 27 ustawy PIT</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Roczne rozliczenie — art. 37 ustawy PIT</a> · <a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Składki ZUS — stawki oficjalne</a></span>
@@ -438,37 +690,41 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 
 <!-- ═══════════════════════════════════════════════════════ EMPLOYER -->
 <div id="p-emp" class="uop-section">
+  <div class="form-section form-section--emp-main">
   <div id="al-emp"></div>
   <h2 class="emp-section-title" id="emp-h2"></h2>
   <p class="hint" style="margin-bottom:12px;max-width:48rem" id="emp-desc"></p>
   <div id="emp-hero" class="g3" style="margin-bottom:12px"></div>
   <div id="emp-visual" style="margin-bottom:14px"></div>
-  <h3 class="emp-table-heading" id="emp-table-lede"></h3>
-  <div class="tw"><table id="t-emp"></table></div>
   <div class="note" id="note-emp"></div>
+  </div>
 
-<div id="src-emp" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
+<div id="src-emp" class="form-section form-section--sources">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
   <span class="src-en" style="display:none"><a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Employer ZUS contributions — ZUS.pl</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20041991001" target="_blank" style="color:#2563eb;text-decoration:none">Fundusz Pracy — art. 104 ustawy o promocji zatrudnienia</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20061210837" target="_blank" style="color:#2563eb;text-decoration:none">FGŚP — ustawa o ochronie roszczeń pracowniczych</a></span>
   <span class="src-pl" style="display:none"><a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Składki pracodawcy — ZUS.pl</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20041991001" target="_blank" style="color:#2563eb;text-decoration:none">Fundusz Pracy — art. 104 ustawy o promocji zatrudnienia</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20061210837" target="_blank" style="color:#2563eb;text-decoration:none">FGŚP — ustawa o ochronie roszczeń pracowniczych</a></span>
+</div>
+<div class="tab-back-top">
+  <button type="button" class="btn-back-top" id="btn-top-uop" onclick="scrollPageTop()">Back to top</button>
 </div>
 </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ REVERSE CALCULATOR -->
 <div id="p-rev" class="panel">
+  <div class="form-section form-section--salary">
   <h2 id="rev-h">Reverse Calculator — Find Required Gross from Desired Net</h2>
-  <p style="font-size:12px;color:#666;margin-bottom:1rem" id="rev-desc">Enter the net (take-home) amount you want each month. The calculator finds the gross salary that produces it, using your current configuration (KUP, PPK, deductions, tax reliefs).</p>
+  <p class="section-lede" id="rev-desc">Enter the net (take-home) amount you want each month. The calculator finds the gross salary that produces it, using your current configuration (KUP, PPK, deductions, tax reliefs).</p>
   <div class="g3">
     <div>
       <label id="rev-l-netto">Desired net pay (PLN/month)</label>
-      <input type="number" id="rev-netto" value="15000" min="1000" step="100">
+      <input type="number" id="rev-netto" value="0" min="0" step="100">
       <p class="hint" id="rev-h-netto">This is the amount you want to see in your bank account each month, after all deductions.</p>
     </div>
     <div>
       <label id="rev-l-month">Calculate for month</label>
       <select id="rev-month">
-        <option value="0">January</option><option value="1">February</option>
+        <option value="0" selected>January</option><option value="1">February</option>
         <option value="2">March</option><option value="3">April</option>
         <option value="4">May</option><option value="5">June</option>
         <option value="6">July</option><option value="7">August</option>
@@ -483,33 +739,39 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   </div>
   <div id="rev-result" style="margin-top:1rem"></div>
   <div class="al al-gray" style="margin-top:1rem;font-size:11px" id="rev-note"></div>
+  </div>
 
-<div id="src-rev" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
+<div id="src-rev" class="form-section form-section--sources">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
   <span class="src-en" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Polish payroll formulas — same sources as Configuration tab</a></span>
   <span class="src-pl" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" style="color:#2563eb;text-decoration:none">Formuły płacowe — te same źródła co zakładka Konfiguracja</a></span>
+</div>
+<div class="tab-back-top">
+  <button type="button" class="btn-back-top" id="btn-top-rev" onclick="scrollPageTop()">Back to top</button>
 </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ B2B CALCULATOR -->
 <div id="p-b2b" class="panel">
 
-  <div class="ibox ibox-gray" style="margin-bottom:1.25rem">
+  <div class="form-section form-section--b2b-intro">
+  <div class="ibox ibox-gray" style="margin-bottom:1rem">
     <strong id="b2b-e1">What is B2B in Poland?</strong>
     <span id="b2b-e2"> You run a <strong>JDG</strong> (Jednoosobowa Działalność Gospodarcza): you invoice clients, register revenue, and pay <strong>ZUS</strong> and income tax yourself. Unbilled working days lower what you earn; optional <strong>chorobowe</strong> gives access to ZUS sickness benefits after the waiting period. This tab models <strong>B2B</strong> take-home under ryczałt or tax on profit — use the other tabs for employment (<strong>UoP</strong>).</span>
   </div>
 
-  <div class="ibox ibox-yellow" style="margin-bottom:1.25rem" id="b2b-trust-box">
+  <div class="ibox ibox-yellow" style="margin-bottom:0" id="b2b-trust-box">
     <strong id="b2b-warn-title"></strong>
     <div id="b2b-warn-body" style="margin-top:6px;font-size:12px;line-height:1.65"></div>
   </div>
+  </div>
 
+  <div class="form-section form-section--job">
   <h2 id="b2b-h-job">Job Title &amp; Tax Form</h2>
-  <div style="margin-bottom:12px">
+  <div class="field-block">
     <label id="b2b-l-role">Your job title / position</label>
     <div class="role-wrap">
     <input type="text" id="b2b-role-input" placeholder="e.g. QA Automation Engineer, Scrum Master, UX Designer…" autocomplete="off"
-      style="width:100%;padding:7px 9px;font-size:13px;border:1px solid #ddd;border-radius:6px"
       oninput="onB2bRoleInput()" onkeydown="onB2bRoleKeydown(event)" onfocus="onB2bRoleFocus()" onblur="onB2bRoleBlur()">
     <ul id="b2b-role-suggest" class="role-suggest" style="display:none" role="listbox" aria-label="Job roles"></ul>
     </div>
@@ -523,7 +785,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
         <option value="ryczalt_17">Ryczałt 17% — wolny zawód (lekarz, prawnik, tłumacz…)</option>
         <option value="ryczalt_15">Ryczałt 15% — kultura, doradztwo zarządzania, PM</option>
         <option value="ryczalt_14">Ryczałt 14% — UX/UI, design, ochrona zdrowia</option>
-        <option value="ryczalt_12">Ryczałt 12% — software, IT</option>
+        <option value="ryczalt_12" selected>Ryczałt 12% — software, IT</option>
         <option value="ryczalt_10">Ryczałt 10% — nieruchomości</option>
         <option value="ryczalt_85">Ryczałt 8.5% — usługi ogólne, beauty, marketing</option>
         <option value="ryczalt_55">Ryczałt 5.5% — budownictwo, wytwórczość, muzyka</option>
@@ -535,7 +797,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
     <div>
       <label id="b2b-l-zus">ZUS type</label>
-      <select id="b2b-zus" onchange="calcB2B()">
+      <select id="b2b-zus" onchange="touchB2bInputs();">
         <option value="full">Full ZUS — established business</option>
         <option value="pref">Preferential — first 24 months</option>
         <option value="start">Ulga na start — first 6 months (health only)</option>
@@ -544,32 +806,33 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
     <div>
       <label id="b2b-l-chorob">Voluntary sick insurance (chorobowe)</label>
-      <select id="b2b-chorob" onchange="calcB2B()">
-        <option value="1" selected>Yes — pay chorobowe</option>
-        <option value="0">No — skip it</option>
+      <select id="b2b-chorob" onchange="touchB2bInputs();">
+        <option value="1">Yes — pay chorobowe</option>
+        <option value="0" selected>No — skip it</option>
       </select>
       <p class="hint" id="b2b-h-chorob"></p>
     </div>
   </div>
   <div class="ibox ibox-gray" id="b2b-chorob-panel" style="margin-top:10px"></div>
+  </div>
 
-  <hr class="sep">
+  <div class="form-section form-section--income">
   <h2 id="b2b-h-income">Income &amp; Costs</h2>
   <div class="g3">
     <div>
       <label id="b2b-l-inv">Monthly invoice (PLN excl. VAT)</label>
-      <input type="number" id="b2b-inv" value="33000" min="1000" step="500" oninput="calcB2B()">
+      <input type="number" id="b2b-inv" value="0" min="0" step="500" oninput="touchB2bInputs();">
       <p class="hint" id="b2b-h-inv">What you charge your client per month, before VAT. This is your gross revenue. Typical fair equivalent of your UoP brutto: <strong id="b2b-emp-hint">—</strong></p>
       <p class="hint" id="b2b-h-vat" style="margin-top:8px;max-width:52rem;line-height:1.55"></p>
     </div>
     <div>
       <label id="b2b-l-costs">Monthly business costs (PLN)</label>
-      <input type="number" id="b2b-costs" value="400" min="0" step="100" oninput="calcB2B()">
+      <input type="number" id="b2b-costs" value="0" min="0" step="100" oninput="touchB2bInputs();">
       <p class="hint" id="b2b-h-costs">Accountant (~200–400), software licences, equipment, phone/internet. Only reduces tax on Linear/Scale — ignored on Ryczałt (which taxes revenue, not profit).</p>
     </div>
     <div>
       <label id="b2b-l-rok">Tax year</label>
-      <select id="b2b-rok" onchange="buildB2BVacGrid();calcB2B()">
+      <select id="b2b-rok" onchange="buildB2BVacGrid();touchB2bInputs();">
         <option value="2024">2024</option>
         <option value="2025">2025</option>
         <option value="2026" selected>2026</option>
@@ -577,13 +840,14 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
       <p class="hint" id="b2b-h-rok2">ZUS base and health brackets update each year.</p>
     </div>
   </div>
+  </div>
 
-  <hr class="sep">
+  <div class="form-section form-section--calendar">
   <h2 id="b2b-h-bill">Public holidays &amp; invoicing</h2>
   <div class="g3" style="margin-bottom:1rem">
     <div style="grid-column:1/-1">
       <label id="b2b-l-bill">How should your monthly invoice follow working days?</label>
-      <select id="b2b-bill" onchange="buildB2BVacGrid();calcB2B()">
+      <select id="b2b-bill" onchange="buildB2BVacGrid();touchB2bInputs();">
         <option value="minus_ph" id="b2b-bill-mp">Fewer billable days when the month has weekday public holidays (typical day-rate model)</option>
         <option value="weekdays" id="b2b-bill-wd">All Mon–Fri count as billable (retainer / contract says holidays are paid like work days)</option>
         <option value="fixed" id="b2b-bill-fx">Fixed monthly invoice (ignore the day-off grid for revenue)</option>
@@ -591,9 +855,11 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
       <p class="hint" id="b2b-h-bill-note"></p>
     </div>
   </div>
-  <div style="margin:10px 0 6px;display:flex;flex-wrap:wrap;align-items:center;gap:8px">
-    <label id="b2b-l-example-month" for="b2b-example-month" style="font-size:11px;color:#555;font-weight:600"></label>
-    <select id="b2b-example-month" style="max-width:220px" onchange="renderB2BBillExample()"></select>
+  <div class="field-block field-block-row">
+    <div>
+      <label id="b2b-l-example-month" class="block-label" for="b2b-example-month"></label>
+      <select id="b2b-example-month" onchange="renderB2BBillExample()"></select>
+    </div>
   </div>
   <div class="ibox ibox-blue" id="b2b-bill-example" style="margin-top:4px;display:none"></div>
   <details class="b2b-details" id="b2b-bill-compare">
@@ -604,20 +870,27 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   <p class="hint" style="margin-bottom:10px" id="b2b-h-time2">Enter non-billed Mon–Fri days (vacation, unpaid leave) unless you chose fixed monthly invoice above. Day-rate months: invoice is scaled by billed days ÷ available days for that mode.</p>
   <div class="vg" id="b2b-vac-grid"><!-- filled by JS --></div>
 
-  <h3 style="font-size:12px;font-weight:800;margin:18px 0 6px;color:#374151" id="b2b-h-bonus"></h3>
+  <h3 id="b2b-h-bonus"></h3>
   <p class="hint" style="margin-bottom:10px;max-width:52rem;line-height:1.55" id="b2b-h-bonus2"></p>
   <div class="vg" id="b2b-bonus-grid"><!-- filled by JS --></div>
+  </div>
 
-  <button class="btn" onclick="calcB2B()" id="b2b-btn">Calculate</button>
+  <div class="form-section form-section--actions">
+  <button type="button" class="btn" onclick="calcB2B()" id="b2b-btn">Calculate</button>
+  <div id="b2b-calc-hint" class="calc-hint stale" aria-live="polite"></div>
   <div id="b2b-alerts" style="margin-top:1rem"></div>
   <div id="b2b-metrics" class="g5" style="display:none;margin-top:1rem"></div>
-  <div class="tw" style="margin-top:1rem;display:none" id="b2b-table-wrap"><table id="b2b-table"></table></div>
+  <div class="tw tw--b2b" style="margin-top:1rem;display:none" id="b2b-table-wrap"><table id="b2b-table"></table></div>
   <div class="note" id="b2b-note" style="margin-top:.75rem;display:none"></div>
+  </div>
 
-<div id="src-b2b" style="margin-top:1.25rem;padding:9px 13px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:7px;font-size:10px;color:#6b7280;line-height:1.8">
+<div id="src-b2b" class="form-section form-section--sources">
   <strong style="color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;font-size:9px">📖 Sources</strong><br>
   <span class="src-en" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19980440176" target="_blank" style="color:#2563eb;text-decoration:none">Ryczałt rates — ustawa o zryczałtowanym podatku dochodowym</a> · <a href="https://www.podatki.gov.pl/ryczalt-od-przychodow-ewidencjonowanych/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 62.01.1 (software) → 12%</a> · <a href="https://sip.mf.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 62.02.30.0 (QA manual/BA) → 8.5% — KIS Apr 2025</a> · <a href="https://www.podatki.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 74.1 (UX/UI) → 14%</a> · <a href="https://www.podatki.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 70.22.20.0 (PM/SM) → 15%</a> · <a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">ZUS B2B contributions 2026 — ZUS.pl</a> · <a href="https://www.zus.pl/en/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Health insurance (składka zdrowotna) 2026 — ZUS.pl</a> · <a href="https://www.zus.pl/en/pracujacy/system-ubezpieczen-spolecznych-w-polsce/dobrowolne-ubezpieczenia-spoleczne/dobrowolne-ubezpieczenie-chorobowe" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none">Voluntary sickness insurance — ZUS</a></span>
   <span class="src-pl" style="display:none"><a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19980440176" target="_blank" style="color:#2563eb;text-decoration:none">Stawki ryczałtu — ustawa o zryczałtowanym podatku dochodowym</a> · <a href="https://www.podatki.gov.pl/ryczalt-od-przychodow-ewidencjonowanych/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 62.01.1 (oprogramowanie) → 12%</a> · <a href="https://sip.mf.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 62.02.30.0 (tester manualny/BA) → 8,5% — KIS kwi 2025</a> · <a href="https://www.podatki.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 74.1 (UX/UI) → 14%</a> · <a href="https://www.podatki.gov.pl/" target="_blank" style="color:#2563eb;text-decoration:none">PKWiU 70.22.20.0 (PM/SM) → 15%</a> · <a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Składki ZUS przedsiębiorcy 2026 — ZUS.pl</a> · <a href="https://www.zus.pl/baza-wiedzy/skladki-wskazniki-odsetki/skladki/wysokosc-skladek-na-ubezpieczenia-spoleczne" target="_blank" style="color:#2563eb;text-decoration:none">Składka zdrowotna 2026 — ZUS.pl</a> · <a href="https://www.zus.pl/swiadczenia/zasilki/zasilek-macierzynski/postepowanie-w-sprawie-zasilkow/osoby-podlegajace-dobrowolnemu-ubezpieczeniu-chorobowemu" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:none">Dobrowolne ubezpieczenie chorobowe — ZUS</a></span>
+</div>
+<div class="tab-back-top">
+  <button type="button" class="btn-back-top" id="btn-top-b2b" onclick="scrollPageTop()">Back to top</button>
 </div>
 </div>
 
@@ -646,6 +919,22 @@ const T = {
     'footer-changelog-md': 'Full changelog (Markdown)',
     'footer-release-note': 'The patch number in <strong>package.json</strong> is bumped on each successful GitHub Pages deploy; new bullets use the <strong>first line</strong> of that deploy’s commit message. Edit <strong>CHANGELOG.md</strong> in the repo for clearer notes.',
     'tab-uop': 'Employment (UoP)', 'tab-rev': 'Reverse calculator', 'tab-b2b': 'B2B',
+    'btn-clear-all': 'Clear all inputs',
+    'btn-back-top': 'Back to top',
+    'sticky-io-aria': 'Sticky bar: gross, tax year, and last UoP result snapshot (annual net, typical month).',
+    'sticky-res-idle': 'No payroll run yet — numbers appear after Calculate.',
+    'sticky-res-cleared': 'Results cleared — tap Calculate for new figures.',
+    'sticky-res-stale': 'Last run shown below — inputs changed; tap Calculate to refresh.',
+    'sticky-res-fresh': 'Last run matches your inputs.',
+    'io-fill-legend': 'Blue highlight: each outlined control differs from the default / empty baseline (vacation days, L4, bonuses, and each B2B day-off / extra-revenue cell). Use this to see what is still “on”.',
+    'uop-hint-idle': 'Click <strong>Calculate</strong> to run the payroll model. Until then, the summary, month-by-month table, and employer cards are empty or outdated.',
+    'uop-hint-stale': 'You changed inputs after the last run. Click <strong>Calculate</strong> again — the numbers below are faded because they no longer match the form.',
+    'uop-hint-fresh': 'These results match your current inputs (last run from <strong>Calculate</strong>).',
+    'uop-hint-cleared': '<strong>Clear all inputs</strong> reset the form. Click <strong>Calculate</strong> when you want a new payroll result.',
+    'b2b-hint-idle': 'Click <strong>Calculate</strong> to build B2B estimates. Tables and metrics stay hidden until you run it.',
+    'b2b-hint-stale': 'Inputs changed since the last B2B run. Click <strong>Calculate</strong> — the section below is faded until you refresh it.',
+    'b2b-hint-fresh': 'B2B results match your current inputs (last run from <strong>Calculate</strong>).',
+    'b2b-hint-cleared': '<strong>Clear all inputs</strong> reset B2B fields and cleared the last B2B output. Click <strong>Calculate</strong> for new numbers.',
     'tab-cfg': 'Inputs', 'tab-det': 'Net pay by month', 'tab-emp': 'Employer cost',
     'h-uop-det': 'Your net pay — full month-by-month breakdown',
     'uop-jump-det': 'Net pay by month',
@@ -696,7 +985,22 @@ const T = {
     'h-ppk': "Auto-enrolled unless you opt out. Deducted from net pay. Employer also contributes 1.5% (goes to your pension fund, not deducted from you).",
     'l-powrot': 'Ulga na powrót (expat return relief)',
     'pr-no': 'No', 'pr-yes': 'Yes — 4-year exemption',
-    'h-powrot': 'If you recently moved to Poland for work (or returned after 3+ years abroad), you may qualify for zero income tax on the first 85 528 PLN/year for 4 consecutive years. Consult a tax advisor.',
+    'h-powrot': 'Applies only if you <strong>moved tax residence to Poland after 31 Dec 2021</strong> and meet all PIT-law conditions. Quick check: <strong>(1)</strong> non-EU citizens can qualify only via statutory paths (e.g. listed-country residence history / Karta Polaka), <strong>(2)</strong> EU/EEA/CH citizens can qualify without Polish citizenship, <strong>(3)</strong> Polish citizens or Karta Polaka holders can qualify. In every case, other conditions still apply (3-year non-residence in Poland, documents, no prior use). Benefit: up to <strong>85 528 zł/year</strong> tax-exempt for <strong>4 years</strong> (qualifying income).<br><span style="display:block;margin-top:8px"><strong>Official sources:</strong> <a href="https://podatki.gov.pl/ulgi-i-odliczenia/ulga-na-powrot-pit/" target="_blank" rel="noopener noreferrer">podatki.gov.pl — Ulga na powrót</a> · <a href="https://powroty.gov.pl/web/powroty/-/pit-zero-dla-powracajacych" target="_blank" rel="noopener noreferrer">powroty.gov.pl — rules</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener noreferrer">PIT Act (art. 21 ust. 1 pkt 152, ust. 43)</a></span>',
+    'h-family-sec': 'Family & scale PIT',
+    'l-family-mode': 'Preferential scale filing',
+    'h-family-mode': '<strong>Joint with spouse</strong> or <strong>single parent</strong>: annual-style tax = <strong>2 ×</strong> scale on <strong>half</strong> of cumulative <em>taxable</em> income (after KUP), 12% / 32% with threshold <strong>120 000 PLN</strong> and <strong>3 600 PLN</strong> reduction on the first-bracket slice (see sources below). Often delays 32%. Net here assumes you file that way; use <a href="https://www.podatki.gov.pl/pit/formularze-pit/pit-2/" target="_blank" rel="noopener">PIT-2</a> so payroll advances can follow. <strong>Not</strong> combined with PIT-0 young / return / 4+ below. Reads: <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">joint filing</a> · <a href="https://www.podatki.gov.pl/poradniki-i-informatory/osoba-samotnie-wychowujaca-dziecko/" target="_blank" rel="noopener">single parent</a>.',
+    'l-spouse-tb': 'Spouse other annual taxable income (PLN)',
+    'h-spouse-tb': 'Spouse’s own income taxed on the <strong>scale</strong> (other employment, etc.), annual taxable total — added to yours for joint math. Split <strong>/12</strong> in the model. <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">podatki.gov.pl — spouses</a>',
+    'l-children': 'Children (credits / 4+ relief)',
+    'h-children': '<strong>Child relief</strong> (ulga prorodzinna): PLN/year off tax — tiers and <strong>1-child income limits</strong> per <a href="https://www.gov.pl/web/gov/skorzystaj-z-ulgi-podatkowej-na-dziecko" target="_blank" rel="noopener">Gov.pl</a> (here: 56k / 112k on <em>taxable</em> totals; 2+ children uncapped in this model). Spread <strong>/12</strong> monthly (approximation).',
+    'l-family4': 'PIT-0 for families with 4+ children',
+    'h-family4': 'Zero PIT on employment up to <strong>85 528 PLN</strong> (shared cap with young/return). Conditions: <a href="https://www.podatki.gov.pl/media/10570/2025_pit-0_ulga_dla_rodzin_4-_v1.pdf" target="_blank" rel="noopener">MF guide PIT-0 for 4+ families (PDF)</a>. Uncheck PIT-0 young / return when using this.',
+    'family-pit-sources': '<strong>Sources &amp; math check</strong> — <strong>Scale / joint formula:</strong> matches the usual published pattern for wspólne rozliczenie (sum taxable → half → tax per scale → ×2); bracket 120 000 PLN, 12% / 32%; <strong>3 600 PLN</strong> annual reduction on the first-bracket portion of each half (equivalent to full kwota zmniejszająca in typical examples). <strong>Payroll months</strong> use 300 PLN/mc advances elsewhere in this app; this block models <em>annual</em> preference, so month-to-month net can differ from your pasek until year-end. <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener">Ustawa o PIT (ISAP)</a> · <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">Wspólne rozliczenie — podatki.gov.pl</a> · <a href="https://www.podatki.gov.pl/poradniki-i-informatory/osoba-samotnie-wychowujaca-dziecko/" target="_blank" rel="noopener">Samotny rodzic — podatki.gov.pl</a> · <a href="https://www.gov.pl/web/gov/skorzystaj-z-ulgi-podatkowej-na-dziecko" target="_blank" rel="noopener">Ulga na dziecko — Gov.pl</a> · <a href="https://www.podatki.gov.pl/pit/formularze-pit/pit-2/" target="_blank" rel="noopener">PIT-2</a> · <a href="https://www.podatki.gov.pl/media/10570/2025_pit-0_ulga_dla_rodzin_4-_v1.pdf" target="_blank" rel="noopener">PIT-0 rodziny 4+ (PDF)</a>',
+    'fam-none': 'None (individual)', 'fam-joint': 'Joint with spouse', 'fam-single': 'Single parent + child',
+    'alert_joint': 'Joint scale filing active (half-income ×2 tax).',
+    'alert_singlep': 'Single-parent scale filing active (half-income ×2 tax).',
+    'alert_child_off': 'Child relief not applied: income above the limit for one child (or zero children).',
+    'alert_family4': 'PIT-0 (4+ children) active — same 85 528 PLN/year employment slice as young/return relief.',
     'pw-t': 'PIT-0 and koszty autorskie cannot be combined.',
     'pw-b': 'When PIT-0 applies, the 50% KUP deduction is not used. The calculator applies PIT-0 and ignores KUP for affected months.',
     'h-deduct': 'Fixed Monthly Deductions (from net)',
@@ -763,8 +1067,8 @@ const T = {
     'leg-ph': '<strong>V</strong> = vacation days · <strong>L</strong> = L4 sick days you entered · <strong>PH</strong> = weekday <em>public holidays</em> in that month (not your vacation — shown for info; paid days, do not reduce KUP in this model).',
     'emp-h2': 'What the company pays (besides your gross)',
     'emp-desc': 'Your payslip shows gross and your deductions. Here you see the employer’s share: ZUS paid for you, accident insurance, Labour Fund, FGŚP, and employer PPK. Together with gross, that is the real monthly cost of your role.',
-    'note-det': 'KUP (art. 22§9(3) PIT): 50% × honorarium × (gross − social ZUS), proportional to working days unless you enable full-month KUP. <strong>Auto / manual autorskie KUP</strong> uses only the <strong>regular gross slice</strong> once variable bonuses are present (bonuses still fully in ZUS and PIT). L4: ~80% factor on regular pay; bonuses add on top. Annual KUP cap 120 000 PLN; then 250 PLN/month (flat cost not scaled for bonuses). ZUS cap — Monitor Polski. <strong>32%</strong> uses <strong>cumulative</strong> tax base (sum of monthly <em>taxable after KUP</em> columns); a large bonus in one month pushes the running total so <strong>later months</strong> can sit entirely or partly in 32% — same for PIT-0 / powrót cumulative income. * Nov/Dec approximate — no employer year-end reconciliation.',
-    'note-emp': 'Employer contributions are NOT deducted from your salary — they are extra cost on top of your gross. Wypadkowe rate varies by industry (default 1.67%). FP and FGŚP apply when gross ≥ minimum wage. The <strong>Total</strong> column in the table is gross + all employer-side items (full loaded cost per month).',
+    'note-det': 'KUP (art. 22§9(3) PIT): 50% × honorarium × (gross − social ZUS), proportional to working days unless you enable full-month KUP. <strong>Auto / manual autorskie KUP</strong> uses only the <strong>regular gross slice</strong> once variable bonuses are present (bonuses still fully in ZUS and PIT). L4: ~80% factor on regular pay; bonuses add on top. Annual KUP cap 120 000 PLN; then 250 PLN/month (flat cost not scaled for bonuses). ZUS cap — Monitor Polski. <strong>32%</strong> uses <strong>cumulative</strong> tax base (sum of monthly <em>taxable after KUP</em> columns); a large bonus in one month pushes the running total so <strong>later months</strong> can sit entirely or partly in 32% — same for PIT-0 / powrót cumulative income. <strong>Assumption:</strong> monthly advance tax includes the standard <strong>300 PLN</strong> reduction (PIT-2-like) even in full-32% months; verify with payroll setup. * Nov/Dec approximate — no employer year-end reconciliation.',
+    'note-emp': 'Employer contributions are NOT deducted from your salary — they are extra cost on top of your gross. Wypadkowe rate varies by industry (default 1.67%). FP and FGŚP apply when gross ≥ minimum wage. The summary cards above show annual gross, employer-side extras, and total loaded cost.',
     'emp_ml_gross_ann': 'Your gross (year)',
     'emp_ms_salary': 'sum of monthly gross',
     'emp_ml_extra_ann': 'Employer on top (year)',
@@ -772,10 +1076,9 @@ const T = {
     'emp_ml_loaded_ann': 'Total company cost (year)',
     'emp_ms_loaded': 'gross + employer extras — full payroll load',
     'emp_bar_legend': 'Blue = gross paid to you · Green = employer contributions (same scale, full year)',
-    'emp-table-lede': 'Employer contributions table — pension, disability & accident ZUS, Labour Fund, FGŚP, employer PPK',
     'rev-note': 'Uses the same KUP, PPK, deductions and tax reliefs as <strong>Employment (UoP) → Inputs</strong>. Adjust them there first, then run the reverse calculation here. If you use <strong>Monthly add-on</strong>, enter total take-home in the box below; the solver finds <strong>contract gross</strong> first (add-on fields stay as you set them). <strong>Monthly bonus grid</strong> values are applied in the year-to-date loop (cumulative tax &amp; ZUS cap) while searching.',
     ml_annual: 'ANNUAL NET TOTAL ★', ml_typical: 'TYPICAL MONTH', ml_min: 'LOWEST MONTH', ml_max: 'HIGHEST MONTH', ml_vac: 'VACATION COST',
-    th_month: 'Month', th_zus: 'ZUS Social', th_zdrow: 'Health ZUS', th_kup: 'KUP', th_taxbase: 'Tax Base', th_rate: 'Rate', th_tax: 'Tax', th_deduct: 'Deductions', th_vac: 'Vac / L4', th_br_eff: 'Gross (eff.)', th_netto: 'Net',
+    th_month: 'Month', th_zus: 'ZUS soc.', th_zdrow: 'Health', th_kup: 'KUP', th_taxbase: 'Tax base', th_rate: 'Rate', th_tax: 'Tax', th_deduct: 'Deduct.', th_vac: 'Vac/L4', th_br_eff: 'Gross eff.', th_netto: 'Net',
     th_cem: 'Emeryt.(E)', th_cre: 'Rentow.(E)', th_cwyp: 'Wypad.(E)', th_cfp: 'FP', th_cfgsp: 'FGŚP', th_cppk: 'PPK(E)', th_total: 'Total Cost',
     th_model: 'Model', th_real: 'Real (mBank)', th_diff: 'Diff', th_events: 'Events',
     row_total: 'Annual total',
@@ -798,6 +1101,22 @@ const T = {
     'footer-changelog-md': 'Pełny changelog (Markdown)',
     'footer-release-note': '<strong>package.json</strong> — numer patch rośnie przy każdym udanym wdrożeniu na GitHub Pages; nowy wpis bierze <strong>pierwszą linię</strong> komunikatu tego commita. Dokładniejsze opisy dopisz w <strong>CHANGELOG.md</strong> w repozytorium.',
     'tab-uop': 'Umowa o pracę (UoP)', 'tab-rev': 'Kalkulator odwrotny', 'tab-b2b': 'B2B',
+    'btn-clear-all': 'Wyczyść wszystkie pola',
+    'btn-back-top': 'Wróć na górę',
+    'sticky-io-aria': 'Pasek: brutto, rok i podgląd ostatniego wyniku UoP (suma netto, typowy miesiąc).',
+    'sticky-res-idle': 'Brak wyliczenia — liczby pojawią się po Oblicz.',
+    'sticky-res-cleared': 'Wyniki wyczyszczone — kliknij Oblicz, by policzyć od nowa.',
+    'sticky-res-stale': 'Poniżej ostatni wynik — zmieniono dane; kliknij Oblicz, by odświeżyć.',
+    'sticky-res-fresh': 'Wynik zgodny z aktualnymi polami.',
+    'io-fill-legend': 'Niebieskie podświetlenie: każda obwiedziona kontrolka różni się od domyślnej / pustej wartości (dni urlopu, L4, premie oraz pojedyncze pola B2B: dni wolne i dodatkowy przychód). Widać, co jest nadal „włączone”.',
+    'uop-hint-idle': 'Kliknij <strong>Oblicz</strong>, aby uruchomić model płac. Dopóty podsumowanie, tabela miesięcy i karty pracodawcy są puste lub nieaktualne.',
+    'uop-hint-stale': 'Zmieniłeś dane po ostatnim przeliczeniu. Kliknij ponownie <strong>Oblicz</strong> — liczby poniżej są przygaszone, bo nie odpowiadają już formularzowi.',
+    'uop-hint-fresh': 'Wyniki zgadzają się z aktualnymi polami (ostatnie uruchomienie: <strong>Oblicz</strong>).',
+    'uop-hint-cleared': '<strong>Wyczyść wszystkie pola</strong> zresetował formularz. Kliknij <strong>Oblicz</strong>, gdy chcesz nowy wynik płacowy.',
+    'b2b-hint-idle': 'Kliknij <strong>Oblicz</strong>, aby zbudować szacunki B2B. Tabele i metryki pojawią się po przeliczeniu.',
+    'b2b-hint-stale': 'Dane zmieniły się od ostatniego B2B. Kliknij <strong>Oblicz</strong> — sekcja poniżej jest przygaszona do czasu odświeżenia.',
+    'b2b-hint-fresh': 'Wyniki B2B zgadzają się z polami (ostatnie: <strong>Oblicz</strong>).',
+    'b2b-hint-cleared': '<strong>Wyczyść wszystkie pola</strong> wyczyścił B2B i ostatni wynik. Kliknij <strong>Oblicz</strong> po nowe liczby.',
     'tab-cfg': 'Dane i ustawienia', 'tab-det': 'Netto wg miesięcy', 'tab-emp': 'Koszt pracodawcy',
     'h-uop-det': 'Twoje netto — pełne rozliczenie miesiąc po miesiącu',
     'uop-jump-det': 'Netto wg miesięcy',
@@ -848,7 +1167,22 @@ const T = {
     'h-ppk': 'Automatyczna rejestracja, chyba że złożysz rezygnację. Potrącane z netto. Pracodawca dokłada dodatkowo 1,5% (trafia do Twojego funduszu emerytalnego).',
     'l-powrot': 'Ulga na powrót',
     'pr-no': 'Nie', 'pr-yes': 'Tak — ulga 4-letnia',
-    'h-powrot': 'Jeśli przeprowadziłeś się do Polski (lub wróciłeś po 3+ latach za granicą), możesz kwalifikować się do zerowego PIT na pierwsze 85 528 zł/rok przez 4 lata. Skonsultuj z doradcą podatkowym.',
+    'h-powrot': 'Działa tylko gdy <strong>przeniosłeś rezydencję podatkową do Polski po 31.12.2021</strong> i spełniasz wszystkie warunki ustawy PIT. Szybki skrót: <strong>(1)</strong> obywatel spoza UE może skorzystać tylko przez ścieżki ustawowe (np. historia zamieszkania w wskazanych krajach / Karta Polaka), <strong>(2)</strong> obywatel UE/EOG/CH może skorzystać bez polskiego obywatelstwa, <strong>(3)</strong> obywatel Polski lub posiadacz Karty Polaka może skorzystać. W każdym wariancie nadal obowiązują pozostałe warunki (3 lata bez rezydencji w PL, dokumenty, brak wcześniejszego wykorzystania). Efekt: do <strong>85 528 zł/rok</strong> przychodu bez PIT przez <strong>4 lata</strong> (dla kwalifikujących się źródeł).<br><span style="display:block;margin-top:8px"><strong>Źródła urzędowe:</strong> <a href="https://podatki.gov.pl/ulgi-i-odliczenia/ulga-na-powrot-pit/" target="_blank" rel="noopener noreferrer">podatki.gov.pl — Ulga na powrót</a> · <a href="https://powroty.gov.pl/web/powroty/-/pit-zero-dla-powracajacych" target="_blank" rel="noopener noreferrer">powroty.gov.pl — zasady</a> · <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener noreferrer">Ustawa PIT (art. 21 ust. 1 pkt 152, ust. 43)</a></span>',
+    'h-family-sec': 'Rodzina a skala PIT',
+    'l-family-mode': 'Preferencyjne rozliczenie wg skali',
+    'h-family-mode': '<strong>Wspólnie z małżonkiem</strong> lub <strong>samotny rodzic</strong>: podatek roczny w modelu <strong>2 ×</strong> skala od <strong>połowy</strong> skumulowanego <em>dochodu podatnego</em> (po KUP), próg <strong>120 000 zł</strong>, stawki 12% / 32%, <strong>3 600 zł</strong> zmniejszenia na części w pierwszym progu (patrz stopka źródeł). Często odkłada 32%. Netto zakłada takie rozliczenie; do zaliczek — <a href="https://www.podatki.gov.pl/pit/formularze-pit/pit-2/" target="_blank" rel="noopener">PIT-2</a>. <strong>Nie łączy się</strong> z PIT-0 młodzi / powrót / 4+ poniżej. Czytaj: <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">wspólne rozliczenie</a> · <a href="https://www.podatki.gov.pl/poradniki-i-informatory/osoba-samotnie-wychowujaca-dziecko/" target="_blank" rel="noopener">samotny rodzic</a>.',
+    'l-spouse-tb': 'Roczny dochód podatny małżonka poza Twoją pensją (zł)',
+    'h-spouse-tb': 'Inny dochód małżonka ze <strong>skali</strong> (inny etat itd.) — roczna suma dochodu podatnego; w modelu równo na 12 mies. <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">podatki.gov.pl — małżonkowie</a>',
+    'l-children': 'Dzieci (ulgi / próg 4+)',
+    'h-children': '<strong>Ulga prorodzinna</strong>: kwoty i limity przy 1 dziecku wg <a href="https://www.gov.pl/web/gov/skorzystaj-z-ulgi-podatkowej-na-dziecko" target="_blank" rel="noopener">Gov.pl</a> (tu: 56 tys. / 112 tys. na <em>dochodzie podatnym</em>; 2+ dzieci bez limitu w tym modelu). Rozłożone <strong>/12</strong> (uproszczenie).',
+    'l-family4': 'PIT-0 dla rodzin z 4+ dziećmi',
+    'h-family4': 'Brak PIT od wynagrodzenia do <strong>85 528 zł</strong> (wspólny limit z młodzi/powrót). Warunki: <a href="https://www.podatki.gov.pl/media/10570/2025_pit-0_ulga_dla_rodzin_4-_v1.pdf" target="_blank" rel="noopener">MF — przewodnik PIT-0 dla rodzin 4+ (PDF)</a>. Wyłącz PIT-0 młodzi / powrót przy tej opcji.',
+    'family-pit-sources': '<strong>Źródła i weryfikacja liczenia</strong> — <strong>Skala / wspólne rozliczenie:</strong> typowy schemat podatku przy rozliczeniu małżonków (suma dochodów podatnych → połowa → podatek wg skali → ×2); próg <strong>120 000 zł</strong>, 12% / 32%; <strong>3 600 zł</strong> zmniejszenia na części w pierwszym progu każdej połowy (jak w przykładach prasowych/MF). <strong>Zaliczki miesięczne</strong> w reszcie aplikacji: 300 zł/mc; ten blok modeluje <em>roczny</em> efekt preferencji — netto z paska może się różnić do rozliczenia końcowego. <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener">Ustawa o PIT (ISAP)</a> · <a href="https://www.podatki.gov.pl/twoj-e-pit/pytania-i-odpowiedzi/twoj-e-pit-wspolne-rozliczenie-malzonkow/" target="_blank" rel="noopener">Wspólne rozliczenie — podatki.gov.pl</a> · <a href="https://www.podatki.gov.pl/poradniki-i-informatory/osoba-samotnie-wychowujaca-dziecko/" target="_blank" rel="noopener">Samotny rodzic — podatki.gov.pl</a> · <a href="https://www.gov.pl/web/gov/skorzystaj-z-ulgi-podatkowej-na-dziecko" target="_blank" rel="noopener">Ulga na dziecko — Gov.pl</a> · <a href="https://www.podatki.gov.pl/pit/formularze-pit/pit-2/" target="_blank" rel="noopener">PIT-2</a> · <a href="https://www.podatki.gov.pl/media/10570/2025_pit-0_ulga_dla_rodzin_4-_v1.pdf" target="_blank" rel="noopener">PIT-0 rodziny 4+ (PDF)</a>',
+    'fam-none': 'Brak (indywidualnie)', 'fam-joint': 'Wspólnie z małżonkiem', 'fam-single': 'Samotny rodzic z dzieckiem',
+    'alert_joint': 'Aktywne wspólne opodatkowanie wg skali (podatek 2× od połowy dochodu).',
+    'alert_singlep': 'Aktywne preferencyjne rozliczenie samotnego rodzica (2× skala od połowy dochodu).',
+    'alert_child_off': 'Ulga na dziecko nie zastosowana: przekroczony limit przy jednym dziecku (albo 0 dzieci).',
+    'alert_family4': 'Aktywne PIT-0 dla rodzin 4+ — ten sam limit 85 528 zł/rok z pracy co młodzi/powrót.',
     'pw-t': 'PIT-0 i koszty autorskie nie mogą być stosowane jednocześnie.',
     'pw-b': 'Gdy PIT-0 obowiązuje, 50% KUP nie jest stosowane do przychodów ze stosunku pracy. Kalkulator stosuje PIT-0 i ignoruje KUP w tych miesiącach.',
     'h-deduct': 'Stałe potrącenia z netto',
@@ -915,8 +1249,8 @@ const T = {
     'leg-ph': '<strong>U</strong> = urlop · <strong>L</strong> = dni L4 z siatki · <strong>PH</strong> = święta państwowe wypadające w pn–pt w tym miesiącu (nie Twój urlop — tylko informacja; dni płatne, nie obniżają KUP w tym modelu).',
     'emp-h2': 'Co firma płaci oprócz Twojego brutto',
     'emp-desc': 'Na pasku widać brutto i Twoje potrącenia. Tu widać stronę pracodawcy: ZUS od niego, wypadkowe, FP, FGŚP i jego część PPK. Razem z brutto to rzeczywisty miesięczny koszt Twojego stanowiska.',
-    'note-det': 'KUP (art. 22 ust. 9 pkt 3 PIT): 50% × honorarium × (brutto − ZUS_społ), proporcjonalnie do dni (chyba że pełnomiesięczne KUP). <strong>Auto / ręczne autorskie KUP</strong>: tylko od <strong>stałej składowej brutto</strong> po pojawieniu się premii zmiennej (premie nadal w pełni w ZUS i PIT). L4: ~80% na stałej składowej; premie doliczane jak wpiszesz. Limit KUP 120 000 zł/rok; potem 250 zł/mc (koszt nie skaluje się z premią). Limit ZUS — Monitor Polski. <strong>32%</strong> od <strong>narastającej</strong> podstawy (suma miesięcznych wartości po KUP); duża premia w jednym miesiącu podnosi skumulowaną podstawę, więc <strong>kolejne miesiące</strong> mogą być w całości lub częściowo w 32% — tak samo skumulowany dochód przy PIT-0 / powrocie. * Lis/Gru przybliżone — bez rocznego rozliczenia u pracodawcy.',
-    'note-emp': 'Składki pracodawcy NIE są potrącane z pensji — to koszt ponad brutto. Stawka wypadkowa zależy od branży (domyślnie 1,67%). FP i FGŚP obowiązują przy brutto ≥ płacy minimalnej. Kolumna <strong>Koszt całk.</strong> w tabeli to brutto + wszystkie składki po stronie pracodawcy (pełny koszt miesiąca).',
+    'note-det': 'KUP (art. 22 ust. 9 pkt 3 PIT): 50% × honorarium × (brutto − ZUS_społ), proporcjonalnie do dni (chyba że pełnomiesięczne KUP). <strong>Auto / ręczne autorskie KUP</strong>: tylko od <strong>stałej składowej brutto</strong> po pojawieniu się premii zmiennej (premie nadal w pełni w ZUS i PIT). L4: ~80% na stałej składowej; premie doliczane jak wpiszesz. Limit KUP 120 000 zł/rok; potem 250 zł/mc (koszt nie skaluje się z premią). Limit ZUS — Monitor Polski. <strong>32%</strong> od <strong>narastającej</strong> podstawy (suma miesięcznych wartości po KUP); duża premia w jednym miesiącu podnosi skumulowaną podstawę, więc <strong>kolejne miesiące</strong> mogą być w całości lub częściowo w 32% — tak samo skumulowany dochód przy PIT-0 / powrocie. <strong>Założenie:</strong> zaliczka miesięczna zawiera standardowe <strong>300 zł</strong> zmniejszenia (jak przy PIT-2) także w miesiącach w całości na 32%; potwierdź to w kadrach/płacach. * Lis/Gru przybliżone — bez rocznego rozliczenia u pracodawcy.',
+    'note-emp': 'Składki pracodawcy NIE są potrącane z pensji — to koszt ponad brutto. Stawka wypadkowa zależy od branży (domyślnie 1,67%). FP i FGŚP obowiązują przy brutto ≥ płacy minimalnej. Karty powyżej pokazują roczne brutto, dodatkowe składki pracodawcy i pełny koszt obciążony.',
     'emp_ml_gross_ann': 'Twoje brutto (rok)',
     'emp_ms_salary': 'suma miesięcznych brutto',
     'emp_ml_extra_ann': 'Dopłata pracodawcy (rok)',
@@ -924,10 +1258,9 @@ const T = {
     'emp_ml_loaded_ann': 'Pełny koszt firmy (rok)',
     'emp_ms_loaded': 'brutto + składki pracodawcy',
     'emp_bar_legend': 'Niebieski = brutto dla Ciebie · Zielony = składki pracodawcy (cały rok, ta sama skala)',
-    'emp-table-lede': 'Tabela składek pracodawcy — ZUS (emerytalna, rentowa, wypadkowe), FP, FGŚP, PPK pracodawcy',
     'rev-note': 'Korzysta z tych samych ustawień KUP, PPK, potrąceń i ulg co <strong>UoP → Dane i ustawienia</strong>. Przy <strong>dodatku miesięcznym</strong> wpisz łączne netto — szukane jest <strong>brutto umowne</strong>. <strong>Siatka premii</strong> jest liczona w pętli narastającej (PIT, limit ZUS) przy szukaniu brutto.',
     ml_annual: 'SUMA NETTO ROCZNIE ★', ml_typical: 'TYPOWY MIESIĄC', ml_min: 'MIN NETTO', ml_max: 'MAX NETTO', ml_vac: 'KOSZT URLOPÓW',
-    th_month: 'Miesiąc', th_zus: 'ZUS społ.', th_zdrow: 'Zdrowotna', th_kup: 'KUP', th_taxbase: 'Podst. pod.', th_rate: 'Stawka', th_tax: 'Podatek', th_deduct: 'Potrąc.', th_vac: 'Urlop / L4', th_br_eff: 'Brutto (efektyw.)', th_netto: 'Netto',
+    th_month: 'Miesiąc', th_zus: 'ZUS', th_zdrow: 'Zdrow.', th_kup: 'KUP', th_taxbase: 'Podst.', th_rate: 'Stawka', th_tax: 'Podat.', th_deduct: 'Potr.', th_vac: 'Url./L4', th_br_eff: 'Brutto ef.', th_netto: 'Netto',
     th_cem: 'Emeryt.(P)', th_cre: 'Rentow.(P)', th_cwyp: 'Wypad.(P)', th_cfp: 'FP', th_cfgsp: 'FGŚP', th_cppk: 'PPK(P)', th_total: 'Koszt całk.',
     th_model: 'Model', th_real: 'Wyciąg (mBank)', th_diff: 'Różnica', th_events: 'Zdarzenia',
     row_total: 'Suma roczna',
@@ -952,6 +1285,8 @@ function setLang(l) {
   document.querySelectorAll('.lang-toggle button').forEach((b,i)=>b.classList.toggle('on',i===(l==='en'?0:1)));
   applyLang();
   if (RES.length) { renderAlerts(); renderDet(); renderEmp(); renderHeroResults(); }
+  updateUopCalcHint();
+  updateB2bCalcHint();
   applySources();
 }
 
@@ -997,11 +1332,25 @@ function applyLang() {
     'opt-2027','l-cap','l-brutto','l-br-add','l-br-add-exempt','h-br-add','h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
     'l-kup-pct','h-kup-pct','ko-custom','l-kup-pln','h-kup-pln','kn-t1','kn-t2',
     'h-reliefs','l-pit0','po-no','po-yes','h-pit0','l-ppk','ppk-no','h-ppk',
-    'l-powrot','pr-no','pr-yes','h-powrot','pw-t','pw-b','h-deduct','l-med','l-other',
+    'l-powrot','pr-no','pr-yes','h-powrot',
+    'h-family-sec','l-family-mode','h-family-mode','l-spouse-tb','h-spouse-tb','l-children','h-children','l-family4','h-family4','family-pit-sources',
+    'fam-none','fam-joint','fam-single',
+    'pw-t','pw-b','h-deduct','l-med','l-other',
     'h-vac','h-vac2','h-vac3','h-bonus','h-bonus2','h-bonus-once','kup-full-lbl','kup-full-hint','btn-calc','leg-both','leg-zus','leg-32','leg-kup','leg-ph',
-    'emp-h2','emp-desc','emp-table-lede','note-det','note-emp','rev-note',
+    'emp-h2','emp-desc','note-det','note-emp','rev-note',
     'b2b-h-bill','b2b-l-bill','b2b-h-bill-note','b2b-h-time','b2b-h-time2','b2b-h-bonus','b2b-h-bonus2','b2b-h-vat','b2b-h-chorob'];
   ids.forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=t(id); });
+  ['fam-none','fam-joint','fam-single'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=t(id); });
+  const btnClear = document.getElementById('btn-clear-all');
+  if (btnClear) btnClear.textContent = t('btn-clear-all');
+  ['btn-top-uop', 'btn-top-rev', 'btn-top-b2b'].forEach((id) => {
+    const b = document.getElementById(id);
+    if (b) {
+      const lbl = t('btn-back-top');
+      b.textContent = lbl;
+      b.setAttribute('aria-label', lbl);
+    }
+  });
   const cla = document.getElementById('footer-changelog-md');
   if (cla) {
     cla.textContent = t('footer-changelog-md');
@@ -1015,6 +1364,8 @@ function applyLang() {
   if (jdet) jdet.textContent = t('uop-jump-det');
   if (jemp) jemp.textContent = t('tab-emp');
   if (jhero) jhero.textContent = t('uop-jump-hero');
+  const ioFillLeg = document.getElementById('io-fill-legend');
+  if (ioFillLeg) ioFillLeg.textContent = t('io-fill-legend');
   const bill = document.getElementById('b2b-bill');
   if (bill && bill.options.length >= 3) {
     bill.options[0].text = t('b2b-bill-mp');
@@ -1033,6 +1384,18 @@ function applyLang() {
   renderB2BBillExample();
   refreshB2bRoleMessage();
   renderHeroResults();
+  updateUopCalcHint();
+  updateB2bCalcHint();
+  cloneRokOptionsToSticky();
+  syncStickySalaryToBar();
+  const sio = document.getElementById('sticky-io-bar');
+  if (sio) sio.setAttribute('aria-label', t('sticky-io-aria'));
+  const lbSticky = document.getElementById('l-brutto');
+  const slbSticky = document.getElementById('sticky-l-brutto');
+  const lrSticky = document.getElementById('l-rok');
+  const slrSticky = document.getElementById('sticky-l-rok');
+  if (lbSticky && slbSticky) slbSticky.textContent = lbSticky.textContent;
+  if (lrSticky && slrSticky) slrSticky.textContent = lrSticky.textContent;
   void loadReleaseMeta();
 }
 
@@ -1059,18 +1422,288 @@ const PIT0_LIMIT = 85528;
 const KUP_ANNUAL = 120000;
 const TAX_BRACKET = 120000;
 const MIN_WAGE_2025 = 4666, MIN_WAGE_2026 = 4666; // approximate
+const CHILD_LIMIT_SINGLE = 56000;
+const CHILD_LIMIT_MARRIED = 112000;
 
 let RES = [], EMP = [];
+/** UoP / B2B payroll tables update only when user clicks Calculate (not on every keystroke). */
+let uopCalcDirty = true;
+let uopJustCleared = false;
+let b2bCalcDirty = true;
+let b2bJustCleared = false;
+
+function touchUopInputs() {
+  uopJustCleared = false;
+  uopCalcDirty = true;
+  updateUopCalcHint();
+}
+function finalizeUopCalcHint() {
+  uopCalcDirty = false;
+  uopJustCleared = false;
+  updateUopCalcHint();
+}
+function updateUopCalcHint() {
+  const el = document.getElementById('uop-calc-hint');
+  const btn = document.getElementById('btn-calc');
+  if (el) {
+    if (uopJustCleared) {
+      el.className = 'calc-hint cleared';
+      el.innerHTML = t('uop-hint-cleared');
+    } else if (uopCalcDirty) {
+      el.className = 'calc-hint stale';
+      el.innerHTML = RES.length ? t('uop-hint-stale') : t('uop-hint-idle');
+    } else {
+      el.className = 'calc-hint fresh';
+      el.innerHTML = t('uop-hint-fresh');
+    }
+  }
+  if (btn) {
+    if (!uopCalcDirty) btn.classList.remove('btn-needs-action');
+    else btn.classList.add('btn-needs-action');
+  }
+  const dim = uopCalcDirty && RES.length > 0;
+  ['uop-hero-results', 'p-det', 'p-emp'].forEach((id) => {
+    const n = document.getElementById(id);
+    if (n) n.classList.toggle('results-outdated', dim);
+  });
+  updateStickyUopResults();
+  updateInputFillHighlights();
+}
+
+function touchB2bInputs() {
+  b2bJustCleared = false;
+  b2bCalcDirty = true;
+  updateB2bCalcHint();
+}
+function finalizeB2bCalcHint() {
+  b2bCalcDirty = false;
+  b2bJustCleared = false;
+  updateB2bCalcHint();
+}
+function hideB2bResults() {
+  const a = document.getElementById('b2b-alerts');
+  if (a) a.innerHTML = '';
+  const m = document.getElementById('b2b-metrics');
+  if (m) { m.style.display = 'none'; m.innerHTML = ''; }
+  const tw = document.getElementById('b2b-table-wrap');
+  if (tw) tw.style.display = 'none';
+  const tbel = document.getElementById('b2b-table');
+  if (tbel) tbel.innerHTML = '';
+  const n = document.getElementById('b2b-note');
+  if (n) { n.style.display = 'none'; n.textContent = ''; }
+  const h = document.getElementById('b2b-emp-hint');
+  if (h) h.textContent = '—';
+}
+function updateB2bCalcHint() {
+  const el = document.getElementById('b2b-calc-hint');
+  const btn = document.getElementById('b2b-btn');
+  const hadGrid = document.getElementById('b2b-metrics')?.style.display === 'grid';
+  if (el) {
+    if (b2bJustCleared) {
+      el.className = 'calc-hint cleared';
+      el.innerHTML = t('b2b-hint-cleared');
+    } else if (b2bCalcDirty) {
+      el.className = 'calc-hint stale';
+      el.innerHTML = hadGrid ? t('b2b-hint-stale') : t('b2b-hint-idle');
+    } else {
+      el.className = 'calc-hint fresh';
+      el.innerHTML = t('b2b-hint-fresh');
+    }
+  }
+  if (btn) {
+    if (!b2bCalcDirty) btn.classList.remove('btn-needs-action');
+    else btn.classList.add('btn-needs-action');
+  }
+  const sec = document.querySelector('#p-b2b .form-section--actions');
+  if (sec) sec.classList.toggle('results-outdated', !!(b2bCalcDirty && hadGrid));
+  updateInputFillHighlights();
+}
+
+/**
+ * Annual scale tax on one “slice” of taxable income z (dochód po KUP w tym kalkulatorze).
+ * Prog 120 000 zł, stawki 12% / 32%; kwota zmniejszająca jak w publikowanych przykładach rocznych:
+ * max(0, część w 12% × 12% − 3 600) + część w 32% × 32% (zgodne z typowymi wyliczeniami MF/serwisów dla połowy dochodu przy wspólnym rozliczeniu).
+ * Miesięczne zaliczki UoP u pracodawcy używają innej mechaniki (300 zł/mc) — tu modelujemy bilans roczny preferencji (łączy się z opisem w stopce źródeł).
+ */
+function taxScaleAnnual(z) {
+  z = Math.max(0, z);
+  const in12 = Math.min(z, TAX_BRACKET);
+  const in32 = Math.max(0, z - TAX_BRACKET);
+  return Math.max(0, in12 * 0.12 - 3600) + in32 * 0.32;
+}
+
+/** Wspólne rozliczenie / samotny rodzic: podatek = 2 × skala(½ skumulowanego dochodu podatnego pary). Miesięcznie: różnica narastająca YTD. */
+function jointTaxYTD(coupleTaxableCum) {
+  return 2 * taxScaleAnnual(coupleTaxableCum / 2);
+}
+
+/** Ulga prorodzinna — suma roczna wg wysokości z Gov.pl; dla 1 dziecka limity dochodu jak na gov.pl. */
+function childReliefAnnual(nChild, familyMode, empAnnualTB, spouseAnnualTB) {
+  if (!nChild || nChild < 1) return 0;
+  let add = 0;
+  for (let i = 1; i <= nChild; i++) {
+    if (i <= 2) add += 1112.04;
+    else if (i === 3) add += 2000.04;
+    else add += 2700;
+  }
+  if (nChild === 1) {
+    const combined = empAnnualTB + spouseAnnualTB;
+    if (familyMode === 'joint') {
+      if (combined > CHILD_LIMIT_MARRIED) return 0;
+    } else {
+      if (empAnnualTB > CHILD_LIMIT_SINGLE) return 0;
+    }
+  }
+  return add;
+}
+
+function syncFamilySpouseWrap() {
+  const v = document.getElementById('family-mode').value;
+  const w = document.getElementById('spouse-tb-wrap');
+  if (w) w.style.display = v === 'joint' ? '' : 'none';
+}
+function onFamilyModeChange() {
+  syncFamilySpouseWrap();
+  touchUopInputs();
+}
+function onChildrenChange() {
+  const n = parseInt(document.getElementById('children-count').value, 10) || 0;
+  if (n < 4) {
+    const f4 = document.getElementById('family4-pit0');
+    if (f4) f4.checked = false;
+  }
+  touchUopInputs();
+}
+function onFamily4Change() {
+  const f4 = document.getElementById('family4-pit0').checked;
+  if (f4) {
+    document.getElementById('pit0').value = '0';
+    document.getElementById('powrot').value = '0';
+  }
+  checkPit0Kup();
+  touchUopInputs();
+}
+
+/**
+ * One pass: ZUS, KUP, tax base per month. pitExempt = PIT-0 / powrót / 4+ (no 50% KUP).
+ * brGrossTax = monthly taxable gross (contract + taxed addon).
+ */
+function uopBuildYearSlices(brContract, brGrossTax, taxedAddon, exemptAddon, pitExempt, ppkPct, ben, rok, cap, kupType, kf, kupFullMonth, vac, l4a) {
+  const wd = getWD(rok), ph = getPH(rok);
+  const mid = [];
+  const empOut = [];
+  let cumBr = 0, cumKUP = 0, cumTB = 0;
+  for (let m = 0; m < 12; m++) {
+    const totalDays = wd[m];
+    const holidayDays = ph[m];
+    const maxAb = totalDays - holidayDays;
+    let vacDays = Math.min(Math.max(0, vac[m]), maxAb);
+    let l4Days = Math.min(Math.max(0, l4a[m]), maxAb - vacDays);
+    const sickPayFactor = l4Days > 0 ? (1 - 0.2 * l4Days / totalDays) : 1;
+    const brMbase = Math.round(brGrossTax * sickPayFactor * 100) / 100;
+    const bonusExtra = bonusForMonth(m);
+    const brM = brMbase + bonusExtra;
+    const creativeDays = kupFullMonth ? totalDays : Math.max(0, totalDays - vacDays - l4Days);
+    const nc = cumBr + brM;
+    let em = 0, re = 0, capH = false;
+    if (cumBr >= cap) { capH = true; }
+    else if (nc > cap) { const p = cap - cumBr; em = p * 0.0976; re = p * 0.015; capH = true; }
+    else { em = brM * 0.0976; re = brM * 0.015; }
+    const ch = brM * 0.0245;
+    const zusS = em + re + ch;
+    const zdBase = brM - zusS;
+    const zd = zdBase * 0.09;
+    const ppk = brM * (ppkPct / 100);
+    let kup_m = 250, kEx = false;
+    const useKUP = !pitExempt;
+    if (useKUP && cumKUP < KUP_ANNUAL) {
+      let raw;
+      const kupSliceShare = (bonusExtra > 0 && brM > 0) ? Math.min(1, brMbase / brM) : 1;
+      if (kupType === 'manual') {
+        raw = kupFullMonth ? kf : kf * (creativeDays / totalDays);
+        if (bonusExtra > 0) raw *= kupSliceShare;
+      } else if (kupType === 'auto') {
+        let pct = document.getElementById('kup-pct').value;
+        if (pct === '0') pct = parseFloat(document.getElementById('kup-pct-c').value) || 80;
+        else pct = parseFloat(pct);
+        const baseK = Math.max(0, brM - zusS) * kupSliceShare;
+        raw = baseK * (pct / 100) * 0.50;
+        if (!kupFullMonth) raw *= creativeDays / totalDays;
+      } else {
+        const flat = kupFull(brGrossTax);
+        raw = kupFullMonth ? flat : flat * (creativeDays / totalDays);
+      }
+      const rem = KUP_ANNUAL - cumKUP;
+      kup_m = Math.min(raw, rem);
+      if (kup_m < raw - 0.5) kEx = true;
+    } else if (!useKUP) {
+      kup_m = 0;
+    } else kEx = true;
+    cumKUP += kup_m;
+    const tb = Math.max(0, brM - zusS - kup_m);
+    cumTB += tb;
+    mid.push({
+      m, brContract, brGrossTax, brMbase, bonusExtra, brM, taxedAddon, exemptAddon,
+      em, re, ch, zusS, zd, kup_m, tb, ppk, capH, kEx,
+      vacDays, l4Days, creativeDays, totalDays, holidayDays
+    });
+    cumBr = nc;
+    const e_em = capH ? 0 : brM * 0.0976;
+    const e_re = capH ? 0 : brM * 0.065;
+    const e_wyp = brM * 0.0167;
+    const e_fp = brM * 0.0245;
+    const e_fg = brM * 0.001;
+    const e_ppk = brM * 0.015;
+    const e_tot = brM + e_em + e_re + e_wyp + e_fp + e_fg + e_ppk;
+    empOut.push({ m, br: brM, e_em, e_re, e_wyp, e_fp, e_fg, e_ppk, e_tot, capH });
+  }
+  return { mid, empOut, annualTB: cumTB };
+}
 
 function getYear() { return parseInt(document.getElementById('rok').value) || 2026; }
 function getCap() { const y=getYear(); return CAPS[y]||(parseFloat(document.getElementById('cap-custom').value)||282600); }
 function getWD(y) { return WD[y]||WD[2026]; }
 function getPH(y) { return PH[y]||PH[2026]; }
 
+function cloneRokOptionsToSticky() {
+  const rok = document.getElementById('rok');
+  const srok = document.getElementById('sticky-rok');
+  if (!rok || !srok) return;
+  const pick = rok.value;
+  srok.innerHTML = rok.innerHTML;
+  srok.value = pick;
+}
+
+function syncStickySalaryToBar() {
+  const b = document.getElementById('brutto');
+  const s = document.getElementById('sticky-brutto');
+  const r = document.getElementById('rok');
+  const sr = document.getElementById('sticky-rok');
+  if (b && s) s.value = b.value;
+  if (r && sr) sr.value = r.value;
+}
+
+function onStickyBruttoInput() {
+  const b = document.getElementById('brutto');
+  const s = document.getElementById('sticky-brutto');
+  if (b && s) b.value = s.value;
+  liveKup();
+  touchUopInputs();
+}
+
+function onStickyRokChange() {
+  const r = document.getElementById('rok');
+  const sr = document.getElementById('sticky-rok');
+  if (r && sr) r.value = sr.value;
+  onYearChange();
+}
+
 function onYearChange() {
   const y = getYear();
   document.getElementById('cap-wrap').style.display = (y>2026)?'block':'none';
   updateZusPanel(); liveKup(); buildVacGrid();
+  touchUopInputs();
+  syncStickySalaryToBar();
 }
 
 function onKupType() {
@@ -1083,13 +1716,23 @@ function onKupType() {
   if (kfw) kfw.style.display = v === 'none' ? 'none' : '';
   if (kf) { kf.disabled = v === 'none'; if (v === 'none') kf.checked = false; }
   liveKup();
+  touchUopInputs();
 }
 
 document.getElementById('kup-pct').addEventListener('change', function(){
   document.getElementById('kup-pct-c').style.display = this.value==='0' ? '' : 'none';
   liveKup();
+  touchUopInputs();
 });
-document.getElementById('pit0').addEventListener('change', checkPit0Kup);
+document.getElementById('pit0').addEventListener('change', function () {
+  checkPit0Kup();
+  if (this.value === '1') { const f4 = document.getElementById('family4-pit0'); if (f4) f4.checked = false; }
+  touchUopInputs();
+});
+document.getElementById('powrot').addEventListener('change', function () {
+  if (this.value === '1') { const f4 = document.getElementById('family4-pit0'); if (f4) f4.checked = false; }
+  touchUopInputs();
+});
 document.getElementById('kup-type').addEventListener('change', checkPit0Kup);
 
 function checkPit0Kup() {
@@ -1100,7 +1743,7 @@ function checkPit0Kup() {
 
 /** Contract base + optional add-on; exempt add-on is excluded from ZUS/PIT base in the model when checkbox set. */
 function readTaxableGrossParts() {
-  const brContract = parseFloat(document.getElementById('brutto').value) || 27000;
+  const brContract = parseFloat(document.getElementById('brutto').value) || 0;
   const brAdd = Math.max(0, parseFloat(document.getElementById('br-add').value) || 0);
   const exempt = !!document.getElementById('br-add-exempt')?.checked;
   const taxedAddon = exempt ? 0 : brAdd;
@@ -1127,7 +1770,7 @@ function kupFull(br) {
 }
 
 function liveKup() {
-  const br = readTaxableGrossParts().brGrossTax || 27000;
+  const br = readTaxableGrossParts().brGrossTax || 0;
   const v = document.getElementById('kup-type').value;
   const box = document.getElementById('kup-preview');
   if (v==='none') { box.style.display='none'; return; }
@@ -1151,7 +1794,7 @@ function liveKup() {
 }
 
 function updateZusPanel() {
-  const br = readTaxableGrossParts().brGrossTax || 27000;
+  const br = readTaxableGrossParts().brGrossTax || 0;
   const rok = getYear();
   const cap = getCap();
   // Find ZUS cap month
@@ -1272,8 +1915,8 @@ function buildVacGrid() {
     html += `<div class="vg-month">
       <label>${MNS[m]}<span class="vg-sub">(${maxAb})</span></label>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <div><span class="vg-sub">${lv}</span><input type="number" id="v${m}" value="${Math.min(pv,maxAb)}" min="0" max="${maxAb}" aria-label="${MNS[m]} vacation"></div>
-        <div><span class="vg-sub">${ll}</span><input type="number" id="l${m}" value="${Math.min(pl,maxAb)}" min="0" max="${maxAb}" aria-label="${MNS[m]} L4"></div>
+        <div class="vg-cell"><span class="vg-sub">${lv}</span><input type="number" id="v${m}" value="${pv}" min="0" max="${maxAb}" aria-label="${MNS[m]} vacation" oninput="touchUopInputs()"></div>
+        <div class="vg-cell"><span class="vg-sub">${ll}</span><input type="number" id="l${m}" value="${pl}" min="0" max="${maxAb}" aria-label="${MNS[m]} L4" oninput="touchUopInputs()"></div>
       </div>
     </div>`;
   }
@@ -1291,7 +1934,7 @@ function buildBonusGrid() {
     const v = prev[m] === '' ? '' : prev[m];
     html += `<div class="vg-month">
       <label>${MNS[m]}</label>
-      <input type="number" id="ob${m}" value="${v}" min="0" step="50" placeholder="0" oninput="calc()" aria-label="${MNS[m]} one-time bonus">
+      <div class="vg-cell"><input type="number" id="ob${m}" value="${v}" min="0" step="50" placeholder="0" oninput="touchUopInputs()" aria-label="${MNS[m]} one-time bonus"></div>
     </div>`;
   }
   grid.innerHTML = html;
@@ -1343,119 +1986,87 @@ function calc() {
   const ppkPct = parseFloat(document.getElementById('ppk').value)||0;
   const pit0   = document.getElementById('pit0').value==='1';
   const powrot = document.getElementById('powrot').value==='1';
-  const vac = Array.from({length:12},(_,i)=>parseInt(document.getElementById('v'+i)?.value)||0);
-  const l4a = Array.from({length:12},(_,i)=>parseInt(document.getElementById('l'+i)?.value)||0);
-  const wd  = getWD(rok);
-  const ph  = getPH(rok);
+  const nChild = parseInt(document.getElementById('children-count').value, 10) || 0;
+  const family4 = !!(document.getElementById('family4-pit0')?.checked) && nChild >= 4;
+  const pitExempt = pit0 || powrot || family4;
+  const familyMode = document.getElementById('family-mode').value;
+  const spouseAnnualTB = Math.max(0, parseFloat(document.getElementById('spouse-tb-annual').value) || 0);
+  const useJointSplit = (familyMode === 'joint' || familyMode === 'single') && !pitExempt;
+  const spM = spouseAnnualTB / 12;
+
+  const vac = Array.from({length:12}, (_, i) => parseInt(document.getElementById('v'+i)?.value) || 0);
+  const l4a = Array.from({length:12}, (_, i) => parseInt(document.getElementById('l'+i)?.value) || 0);
   const kupFullMonth = !!(document.getElementById('kup-full-month')?.checked)
     && document.getElementById('kup-type').value !== 'none';
 
-  const zeroTaxLimit = (pit0||powrot) ? PIT0_LIMIT : 0;
+  const zeroTaxLimit = pitExempt ? PIT0_LIMIT : 0;
 
-  RES=[]; EMP=[];
-  let cumBr=0, cumKUP=0, cumTB=0, cumIncome=0, cumZeroTax=0;
+  const { mid, empOut, annualTB } = uopBuildYearSlices(
+    brContract, br, taxedAddon, exemptAddon, pitExempt, ppkPct, ben, rok, cap, kupType, kf, kupFullMonth, vac, l4a
+  );
 
-  for (let m=0;m<12;m++) {
-    const totalDays = wd[m];
-    const holidayDays = ph[m];
-    const maxAb = totalDays - holidayDays;
-    let vacDays = Math.min(Math.max(0,vac[m]), maxAb);
-    let l4Days = Math.min(Math.max(0,l4a[m]), maxAb - vacDays);
-    const sickPayFactor = l4Days > 0 ? (1 - 0.2 * l4Days / totalDays) : 1;
-    const brMbase = Math.round(br * sickPayFactor * 100) / 100;
-    const bonusExtra = bonusForMonth(m);
-    const brM = brMbase + bonusExtra;
+  const spouseForChild = familyMode === 'joint' ? spouseAnnualTB : 0;
+  const childFull = childReliefAnnual(nChild, familyMode, annualTB, spouseForChild);
+  const childM = childFull / 12;
 
-    const creativeDays = kupFullMonth ? totalDays : Math.max(0, totalDays - vacDays - l4Days);
+  RES = [];
+  EMP = empOut;
+  let cumTB = 0, cumIncome = 0, empCumTB = 0;
 
-    const nc = cumBr + brM;
-    let em=0, re=0, capH=false;
-    if (cumBr>=cap) { capH=true; }
-    else if (nc>cap) { const p=cap-cumBr; em=p*0.0976; re=p*0.015; capH=true; }
-    else { em=brM*0.0976; re=brM*0.015; }
-    const ch = brM*0.0245;
-    const zusS = em+re+ch;
-    const zdBase = brM-zusS;
-    const zd = zdBase*0.09;
-    const ppk = brM*(ppkPct/100);
+  for (let m = 0; m < 12; m++) {
+    const r = mid[m];
+    const tb = r.tb;
+    let tax = 0, p32 = false;
 
-    let kup_m=250, kEx=false;
-    const useKUP = !pit0 && !powrot;
-    if (useKUP && cumKUP<KUP_ANNUAL) {
-      let raw;
-      // 50% autorskie KUP attaches to honorarium / regular creative pay — not typical variable bonuses (see UI sources). Approximate: only the brMbase share of (gross−ZUS) feeds the 50% base.
-      const kupSliceShare = (bonusExtra > 0 && brM > 0) ? Math.min(1, brMbase / brM) : 1;
-      if (kupType === 'manual') {
-        raw = kupFullMonth ? kf : kf * (creativeDays/totalDays);
-        if (bonusExtra > 0) raw *= kupSliceShare;
-      } else if (kupType === 'auto') {
-        let pct = document.getElementById('kup-pct').value;
-        if (pct==='0') pct = parseFloat(document.getElementById('kup-pct-c').value)||80;
-        else pct = parseFloat(pct);
-        const baseK = Math.max(0, brM - zusS) * kupSliceShare;
-        raw = baseK * (pct/100) * 0.50;
-        if (!kupFullMonth) raw *= creativeDays / totalDays;
-      } else {
-        const flat = kupFull(br);
-        raw = kupFullMonth ? flat : flat * (creativeDays/totalDays);
-      }
-      const rem = KUP_ANNUAL - cumKUP;
-      kup_m = Math.min(raw, rem);
-      if (kup_m < raw-0.5) kEx=true;
-    } else if (!useKUP) {
-      kup_m = 0;
-    } else kEx=true;
-    cumKUP += kup_m;
-
-    const tb = Math.max(0, brM-zusS-kup_m);
-
-    let tax=0, p32=false;
-    if (pit0||powrot) {
-      cumIncome += brM;
+    if (pitExempt) {
+      cumIncome += r.brM;
       if (cumIncome <= zeroTaxLimit) {
         tax = 0;
-      } else if (cumIncome-brM < zeroTaxLimit) {
+      } else if (cumIncome - r.brM < zeroTaxLimit) {
         const over = cumIncome - zeroTaxLimit;
-        const overTB = Math.max(0, over - kup_m);
+        const overTB = Math.max(0, over - r.kup_m);
         const prevC = cumTB;
-        if (prevC>=TAX_BRACKET) { tax=overTB*0.32; p32=true; }
-        else if (prevC+overTB>TAX_BRACKET) {
-          const i12=TAX_BRACKET-prevC, i32=overTB-i12, fr=overTB>0?i12/overTB:0;
-          tax=Math.max(0,i12*0.12-300*fr)+i32*0.32; p32=true;
-        } else tax=Math.max(0,overTB*0.12-300);
+        if (prevC >= TAX_BRACKET) { tax = Math.max(0, overTB * 0.32 - 300); p32 = true; }
+        else if (prevC + overTB > TAX_BRACKET) {
+          const i12 = TAX_BRACKET - prevC, i32 = overTB - i12, fr = overTB > 0 ? i12 / overTB : 0;
+          tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
+        } else tax = Math.max(0, overTB * 0.12 - 300);
       } else {
-        const prevC=cumTB;
-        if (prevC>=TAX_BRACKET) { tax=tb*0.32; p32=true; }
-        else if (prevC+tb>TAX_BRACKET) {
-          const i12=TAX_BRACKET-prevC, i32=tb-i12, fr=tb>0?i12/tb:0;
-          tax=Math.max(0,i12*0.12-300*fr)+i32*0.32; p32=true;
-        } else tax=Math.max(0,tb*0.12-300);
+        const prevC = cumTB;
+        if (prevC >= TAX_BRACKET) { tax = Math.max(0, tb * 0.32 - 300); p32 = true; }
+        else if (prevC + tb > TAX_BRACKET) {
+          const i12 = TAX_BRACKET - prevC, i32 = tb - i12, fr = tb > 0 ? i12 / tb : 0;
+          tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
+        } else tax = Math.max(0, tb * 0.12 - 300);
       }
+    } else if (useJointSplit) {
+      const coupleBefore = empCumTB + m * spM;
+      const coupleAfter = empCumTB + tb + (m + 1) * spM;
+      tax = jointTaxYTD(coupleAfter) - jointTaxYTD(coupleBefore);
+      p32 = (coupleAfter / 2) > TAX_BRACKET;
+      empCumTB += tb;
     } else {
-      const prevC=cumTB;
-      if (prevC>=TAX_BRACKET) { tax=tb*0.32; p32=true; }
-      else if (prevC+tb>TAX_BRACKET) {
-        const i12=TAX_BRACKET-prevC, i32=tb-i12, fr=tb>0?i12/tb:0;
-        tax=Math.max(0,i12*0.12-300*fr)+i32*0.32; p32=true;
-      } else tax=Math.max(0,tb*0.12-300);
+      const prevC = cumTB;
+      if (prevC >= TAX_BRACKET) { tax = Math.max(0, tb * 0.32 - 300); p32 = true; }
+      else if (prevC + tb > TAX_BRACKET) {
+        const i12 = TAX_BRACKET - prevC, i32 = tb - i12, fr = tb > 0 ? i12 / tb : 0;
+        tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
+      } else tax = Math.max(0, tb * 0.12 - 300);
+      empCumTB += tb;
     }
+
     cumTB += tb;
+    tax = Math.max(0, tax - childM);
 
-    const netto = brM-zusS-zd-tax-ppk-ben + exemptAddon;
-    const dim = m>=10 && (p32||kEx);
+    const netto = r.brM - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
+    const dim = m >= 10 && (p32 || r.kEx);
 
-    RES.push({m,br:brContract,brGrossTax:br,brMbase,bonusExtra,brM,taxedAddon,exemptAddon,em,re,ch,zusS,zd,kup:kup_m,tb,tax,ppk,ben,netto,capH,p32,kEx,dim,
-              vacDays,l4Days,creativeDays,totalDays,holidayDays});
-    cumBr=nc;
-
-    const e_em  = capH ? 0 : brM*0.0976;
-    const e_re  = capH ? 0 : brM*0.065;
-    const e_wyp = brM*0.0167;
-    const e_fp  = brM*0.0245;
-    const e_fg  = brM*0.001;
-    const e_ppk = brM*0.015;
-    const e_tot = brM+e_em+e_re+e_wyp+e_fp+e_fg+e_ppk;
-    EMP.push({m,br:brM,e_em,e_re,e_wyp,e_fp,e_fg,e_ppk,e_tot,capH});
+    RES.push({
+      m, br: r.brContract, brGrossTax: r.brGrossTax, brMbase: r.brMbase, bonusExtra: r.bonusExtra, brM: r.brM,
+      taxedAddon: r.taxedAddon, exemptAddon: r.exemptAddon, em: r.em, re: r.re, ch: r.ch, zusS: r.zusS, zd: r.zd,
+      kup: r.kup_m, tb, tax, ppk: r.ppk, ben, netto, capH: r.capH, p32, kEx: r.kEx, dim,
+      vacDays: r.vacDays, l4Days: r.l4Days, creativeDays: r.creativeDays, totalDays: r.totalDays, holidayDays: r.holidayDays
+    });
   }
 
   renderAlerts();
@@ -1464,14 +2075,32 @@ function calc() {
   renderDet();
   renderEmp();
   document.getElementById('metrics-cfg').style.display='grid';
+  finalizeUopCalcHint();
+  scrollToUopMonthlyBreakdown();
 }
 
 function renderAlerts() {
+  if (!RES.length) {
+    const idle = `<div class="al al-gray">${t('uop-hint-idle')}</div>`;
+    const ac = document.getElementById('al-cfg');
+    if (ac) ac.innerHTML = idle;
+    const ad = document.getElementById('al-det');
+    if (ad) ad.innerHTML = '';
+    const ae = document.getElementById('al-emp');
+    if (ae) ae.innerHTML = '';
+    return;
+  }
   const rok=getYear(), cap=getCap(), MN=t('months');
   const capM=RES.find(r=>r.capH), p32M=RES.find(r=>r.p32);
   const kupM=RES.find(r=>r.kEx), bothM=RES.find(r=>r.capH&&r.p32);
   const pit0=document.getElementById('pit0').value==='1';
   const powrot=document.getElementById('powrot').value==='1';
+  const nChild=parseInt(document.getElementById('children-count').value,10)||0;
+  const family4=!!(document.getElementById('family4-pit0')?.checked)&&nChild>=4;
+  const fm=document.getElementById('family-mode').value;
+  const spouseA=Math.max(0,parseFloat(document.getElementById('spouse-tb-annual').value)||0);
+  const annualTB=RES.reduce((s,r)=>s+r.tb,0);
+  const cr=childReliefAnnual(nChild,fm,annualTB,fm==='joint'?spouseA:0);
   let al='';
   if (bothM) al+=`<div class="al al-r">${t('both_warn')(MN[bothM.m])}</div>`;
   else {
@@ -1479,8 +2108,18 @@ function renderAlerts() {
     if(p32M) al+=`<div class="al al-b">${t('bracket32')(MN[p32M.m])}</div>`;
   }
   if(kupM) al+=`<div class="al al-g">${t('kup_hits')(MN[kupM.m])}</div>`;
-  if(pit0) al+=`<div class="al al-b">${t('pit0_active')(MN[Math.min(Math.floor(PIT0_LIMIT/(readTaxableGrossParts().brGrossTax||1)),11)])}</div>`;
-  if(powrot) al+=`<div class="al al-b">${t('powrot_active')}</div>`;
+  if (family4) al+=`<div class="al al-b">${t('alert_family4')}</div>`;
+  else {
+    if(pit0) al+=`<div class="al al-b">${t('pit0_active')(MN[Math.min(Math.floor(PIT0_LIMIT/(readTaxableGrossParts().brGrossTax||1)),11)])}</div>`;
+    if(powrot) al+=`<div class="al al-b">${t('powrot_active')}</div>`;
+  }
+  if (!family4 && !pit0 && !powrot) {
+    if (fm==='joint') al+=`<div class="al al-b">${t('alert_joint')}</div>`;
+    if (fm==='single') al+=`<div class="al al-b">${t('alert_singlep')}</div>`;
+  }
+  if (nChild===1 && cr===0 && (fm==='joint' ? annualTB+spouseA>CHILD_LIMIT_MARRIED : annualTB>CHILD_LIMIT_SINGLE)) {
+    al+=`<div class="al al-w">${t('alert_child_off')}</div>`;
+  }
   al+=`<div class="al al-gray" style="font-size:11px">${t('approx_note')}</div>`;
   document.getElementById('al-cfg').innerHTML=al;
   document.getElementById('al-det').innerHTML=al;
@@ -1488,6 +2127,11 @@ function renderAlerts() {
 }
 
 function renderMetrics() {
+  const box = document.getElementById('metrics-cfg');
+  if (!RES.length) {
+    if (box) { box.innerHTML = ''; box.style.display = 'none'; }
+    return;
+  }
   const tot=RES.reduce((s,r)=>s+r.netto,0);
   const normM=RES.filter(r=>!r.dim&&!r.capH&&!r.p32&&r.vacDays===0&&!r.l4Days&&!(r.bonusExtra>0));
   const avg=normM.length?normM.reduce((s,r)=>s+r.netto,0)/normM.length:tot/12;
@@ -1495,7 +2139,9 @@ function renderMetrics() {
   const maxR=RES.reduce((a,r)=>r.netto>a.netto?r:a,RES[0]);
   const vacCost=RES.filter(r=>r.vacDays>0).reduce((s,r)=>s+Math.max(0,avg-r.netto),0);
   const MN=t('months');
-  document.getElementById('metrics-cfg').innerHTML=`
+  if (!box) return;
+  box.style.display = 'grid';
+  box.innerHTML=`
     <div class="metric star"><div class="ml">${t('ml_annual')}</div><div class="mv">${fv(tot)}</div><div class="ms">${LANG==='en'?'most reliable figure':'najbardziej wiarygodna liczba'}</div></div>
     <div class="metric"><div class="ml">${t('ml_typical')}</div><div class="mv">${fv(avg)}</div><div class="ms">${LANG==='en'?'no vacation, no thresholds':'bez urlopów i progów'}</div></div>
     <div class="metric"><div class="ml">${t('ml_min')}</div><div class="mv">${fv(minR.netto)}</div><div class="ms">${MN[minR.m]}${minR.dim?' *':''}</div></div>
@@ -1505,9 +2151,17 @@ function renderMetrics() {
 }
 
 function renderDet() {
+  if (!RES.length) {
+    document.getElementById('t-det').innerHTML = `<tbody><tr><td colspan="11" style="text-align:left;padding:14px;color:#64748b;font-size:13px">${t('uop-hint-idle')}</td></tr></tbody>`;
+    document.getElementById('note-det').innerHTML = '';
+    return;
+  }
   const MN=t('months');
-  const th=`<thead><tr>
-    <th style="text-align:left">${t('th_month')}</th>
+  const th=`<colgroup>
+    <col style="width:9%"><col style="width:19%"><col style="width:8%"><col style="width:8%"><col style="width:7%">
+    <col style="width:9%"><col style="width:6%"><col style="width:9%"><col style="width:7%"><col style="width:8%"><col style="width:10%">
+  </colgroup><thead><tr>
+    <th>${t('th_month')}</th>
     <th>${t('th_br_eff')}</th>
     <th>${t('th_zus')}</th><th>${t('th_zdrow')}</th><th>${t('th_kup')}</th>
     <th>${t('th_taxbase')}</th><th>${t('th_rate')}</th><th>${t('th_tax')}</th>
@@ -1562,27 +2216,16 @@ function renderDet() {
 }
 
 function renderEmp() {
-  const MN=t('months');
-  const th=`<thead><tr>
-    <th style="text-align:left">${t('th_month')}</th>
-    <th>${t('th_cem')}</th><th>${t('th_cre')}</th><th>${t('th_cwyp')}</th>
-    <th>${t('th_cfp')}</th><th>${t('th_cfgsp')}</th><th>${t('th_cppk')}</th>
-    <th>${t('th_total')}</th>
-  </tr></thead>`;
-  let tb='<tbody>';
-  EMP.forEach(r=>{
-    const cls=r.capH?'r-zus':'';
-    tb+=`<tr class="${cls}">
-      <td>${MN[r.m]}</td>
-      <td>${fv(r.e_em)}</td><td>${fv(r.e_re)}</td><td>${fv(r.e_wyp)}</td>
-      <td>${fv(r.e_fp)}</td><td>${fv(r.e_fg)}</td><td>${fv(r.e_ppk)}</td>
-      <td class="n">${fv(r.e_tot)}</td>
-    </tr>`;
-  });
+  if (!RES.length) {
+    const hero = document.getElementById('emp-hero');
+    if (hero) hero.innerHTML = '';
+    const ev = document.getElementById('emp-visual');
+    if (ev) ev.innerHTML = '';
+    const ne = document.getElementById('note-emp');
+    if (ne) ne.innerHTML = '';
+    return;
+  }
   const TE=EMP.reduce((s,r)=>({e_em:s.e_em+r.e_em,e_re:s.e_re+r.e_re,e_wyp:s.e_wyp+r.e_wyp,e_fp:s.e_fp+r.e_fp,e_fg:s.e_fg+r.e_fg,e_ppk:s.e_ppk+r.e_ppk,e_tot:s.e_tot+r.e_tot}),{e_em:0,e_re:0,e_wyp:0,e_fp:0,e_fg:0,e_ppk:0,e_tot:0});
-  tb+=`<tr class="tot"><td>${t('row_total')}</td><td>${fv(TE.e_em)}</td><td>${fv(TE.e_re)}</td><td>${fv(TE.e_wyp)}</td><td>${fv(TE.e_fp)}</td><td>${fv(TE.e_fg)}</td><td>${fv(TE.e_ppk)}</td><td class="n">${fv(TE.e_tot)}</td></tr></tbody>`;
-  document.getElementById('t-emp').innerHTML=th+tb;
-
   const sumBr = EMP.reduce((s, r) => s + r.br, 0);
   const extraAnn = TE.e_tot - sumBr;
   const hero = document.getElementById('emp-hero');
@@ -1607,6 +2250,181 @@ const fv = n => Math.round(n).toLocaleString('pl-PL') + ' zł';
 const fd = n => parseFloat(n).toFixed(2).replace('.',',');
 const fds = n => parseFloat(n).toFixed(2).replace('.',',');
 
+function updateStickyUopResults() {
+  const wrap = document.getElementById('sticky-io-results');
+  const stat = document.getElementById('sticky-io-stat');
+  const ann = document.getElementById('sticky-io-ann-val');
+  const typ = document.getElementById('sticky-io-typ-val');
+  const la = document.getElementById('sticky-io-lbl-ann');
+  const lt = document.getElementById('sticky-io-lbl-typ');
+  if (!wrap || !stat || !ann || !typ) return;
+  if (la) la.textContent = t('ml_annual');
+  if (lt) lt.textContent = t('ml_typical');
+
+  const hasRes = RES.length > 0;
+  wrap.classList.remove('sticky-io-results--idle', 'sticky-io-results--cleared', 'sticky-io-results--stale', 'sticky-io-results--fresh');
+
+  if (!hasRes) {
+    if (uopJustCleared) {
+      wrap.classList.add('sticky-io-results--cleared');
+      stat.textContent = t('sticky-res-cleared');
+    } else {
+      wrap.classList.add('sticky-io-results--idle');
+      stat.textContent = t('sticky-res-idle');
+    }
+    ann.textContent = '—';
+    typ.textContent = '—';
+    return;
+  }
+
+  if (uopCalcDirty) {
+    wrap.classList.add('sticky-io-results--stale');
+    stat.textContent = t('sticky-res-stale');
+  } else {
+    wrap.classList.add('sticky-io-results--fresh');
+    stat.textContent = t('sticky-res-fresh');
+  }
+
+  const tot = RES.reduce((s, r) => s + r.netto, 0);
+  const normM = RES.filter(r => !r.dim && !r.capH && !r.p32 && !r.vacDays && !r.l4Days && !(r.bonusExtra > 0));
+  const avg = normM.length ? normM.reduce((s, r) => s + r.netto, 0) / normM.length : tot / 12;
+  ann.textContent = fv(tot);
+  typ.textContent = fv(avg);
+}
+
+function scrollToUopMonthlyBreakdown() {
+  const el = document.getElementById('h-uop-det');
+  if (!el) return;
+  const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    });
+  });
+}
+
+function updateInputFillHighlights() {
+  document.querySelectorAll('.io-has-value').forEach(function (n) { n.classList.remove('io-has-value'); });
+
+  function wrapFor(el) {
+    if (!el) return null;
+    return el.closest('.form-section .g3 > div')
+      || el.closest('.form-section .g2 > div');
+  }
+  function mark(el) {
+    const w = wrapFor(el);
+    if (w) w.classList.add('io-has-value');
+  }
+  function markVgCell(el) {
+    if (!el) return;
+    const c = el.closest('.vg-cell');
+    if (c) c.classList.add('io-has-value');
+  }
+
+  const n = function (id) { return parseFloat(document.getElementById(id)?.value) || 0; };
+  const s = function (id) { return document.getElementById(id)?.value; };
+
+  if (n('brutto') > 0) mark(document.getElementById('brutto'));
+  if (s('rok') !== '2026') mark(document.getElementById('rok'));
+  if (n('cap-custom') > 0) {
+    const cw = document.getElementById('cap-wrap');
+    if (cw) cw.classList.add('io-has-value');
+  }
+  if (n('br-add') > 0) mark(document.getElementById('br-add'));
+  if (document.getElementById('br-add-exempt')?.checked) {
+    const ex = document.getElementById('br-add-exempt');
+    const w = ex?.closest('.form-section .g3 > div');
+    if (w) w.classList.add('io-has-value');
+  }
+
+  const kupT = s('kup-type');
+  if (kupT && kupT !== 'none') {
+    mark(document.getElementById('kup-type'));
+    if (kupT === 'auto') {
+      const kp = s('kup-pct');
+      if (kp && kp !== '87.5') mark(document.getElementById('kup-pct'));
+      if (kp === '0' && n('kup-pct-c') > 0) mark(document.getElementById('kup-pct-c'));
+    }
+    if (kupT === 'manual' && n('kup-manual') > 0) mark(document.getElementById('kup-manual'));
+  }
+  if (document.getElementById('kup-full-month')?.checked && kupT && kupT !== 'none') {
+    const kfw = document.getElementById('kup-full-wrap');
+    if (kfw) kfw.classList.add('io-has-value');
+  }
+
+  if (s('pit0') === '1') mark(document.getElementById('pit0'));
+  if (s('ppk') && s('ppk') !== '0') mark(document.getElementById('ppk'));
+  if (s('powrot') === '1') mark(document.getElementById('powrot'));
+
+  if (s('family-mode') && s('family-mode') !== 'none') mark(document.getElementById('family-mode'));
+  if (n('spouse-tb-annual') > 0) mark(document.getElementById('spouse-tb-annual'));
+  if ((parseInt(s('children-count'), 10) || 0) > 0) mark(document.getElementById('children-count'));
+  if (document.getElementById('family4-pit0')?.checked) {
+    const lab = document.getElementById('family4-pit0')?.closest('.form-section--family > label');
+    if (lab) lab.classList.add('io-has-value');
+  }
+
+  if (n('med') > 0) mark(document.getElementById('med'));
+  if (n('msp') > 0) mark(document.getElementById('msp'));
+  if (n('oth') > 0) mark(document.getElementById('oth'));
+
+  if (s('jobtitle')) mark(document.getElementById('jobtitle'));
+
+  if (n('rev-netto') > 0) mark(document.getElementById('rev-netto'));
+  if (s('rev-month') !== '0' && s('rev-month') !== undefined) mark(document.getElementById('rev-month'));
+
+  for (let i = 0; i < 12; i++) {
+    const vel = document.getElementById('v' + i);
+    if (vel && (parseInt(vel.value, 10) || 0) > 0) markVgCell(vel);
+    const lel = document.getElementById('l' + i);
+    if (lel && (parseInt(lel.value, 10) || 0) > 0) markVgCell(lel);
+    const obel = document.getElementById('ob' + i);
+    if (obel) {
+      const obv = obel.value;
+      if (obv !== '' && obv != null && (parseFloat(obv) || 0) > 0) markVgCell(obel);
+    }
+  }
+
+  if (n('b2b-inv') > 0) mark(document.getElementById('b2b-inv'));
+  if (n('b2b-costs') > 0) mark(document.getElementById('b2b-costs'));
+  if (s('b2b-rok') && s('b2b-rok') !== '2026') mark(document.getElementById('b2b-rok'));
+  if (s('b2b-tax') && s('b2b-tax') !== 'ryczalt_12') mark(document.getElementById('b2b-tax'));
+  if (s('b2b-zus') && s('b2b-zus') !== 'full') mark(document.getElementById('b2b-zus'));
+  if (s('b2b-chorob') === '1') mark(document.getElementById('b2b-chorob'));
+  if (s('b2b-bill') && s('b2b-bill') !== 'minus_ph') {
+    const bel = document.getElementById('b2b-bill');
+    const w = bel?.closest('.form-section .g3 > div');
+    if (w) w.classList.add('io-has-value');
+  }
+
+  const role = (document.getElementById('b2b-role-input')?.value || '').trim();
+  if (role.length) {
+    const fb = document.getElementById('b2b-role-input')?.closest('#p-b2b .field-block');
+    if (fb) fb.classList.add('io-has-value');
+  }
+
+  for (let j = 0; j < 12; j++) {
+    const bvel = document.getElementById('bv' + j);
+    if (bvel && (parseInt(bvel.value, 10) || 0) > 0) markVgCell(bvel);
+    const bbel = document.getElementById('bb' + j);
+    if (bbel) {
+      const bbv = bbel.value;
+      if (bbv !== '' && bbv != null && (parseFloat(bbv) || 0) > 0) markVgCell(bbel);
+    }
+  }
+
+  const leg = document.getElementById('io-fill-legend');
+  if (leg) {
+    leg.hidden = !document.querySelector('.io-has-value');
+  }
+}
+
+function scrollPageTop() {
+  const top = document.getElementById('page-top');
+  if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  else window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function goMain(name) {
   const uopOn = name === 'uop';
   document.querySelectorAll('.tabs-main .tab-main').forEach((el) => {
@@ -1623,22 +2441,25 @@ function goMain(name) {
   const uopStack = document.getElementById('uop-stack');
   if (uopStack) uopStack.style.display = uopOn ? '' : 'none';
 
+  const stickyIo = document.getElementById('sticky-io-bar');
+  if (stickyIo) stickyIo.classList.toggle('is-visible', uopOn);
+
   ['p-rev', 'p-b2b'].forEach((id) => {
     document.getElementById(id).classList.remove('on');
   });
 
   if (name === 'rev') {
     document.getElementById('p-rev').classList.add('on');
-    if (!RES.length) calc();
+    updateUopCalcHint();
   } else if (name === 'b2b') {
     document.getElementById('p-b2b').classList.add('on');
-    calcB2B();
+    updateB2bCalcHint();
   }
 }
 
 // ─── REVERSE CALCULATOR ────────────────────────────────────────────────────────
 function calcReverse() {
-  const targetNetto = parseFloat(document.getElementById('rev-netto').value)||15000;
+  const targetNetto = parseFloat(document.getElementById('rev-netto').value)||0;
   const targetMonth = parseInt(document.getElementById('rev-month').value)||0;
   const { taxedAddon, exemptAddon } = readTaxableGrossParts();
   const payrollTarget = Math.max(0, targetNetto - exemptAddon);
@@ -1649,9 +2470,14 @@ function calcReverse() {
   const ppkPct = parseFloat(document.getElementById('ppk').value)||0;
   const pit0   = document.getElementById('pit0').value==='1';
   const powrot = document.getElementById('powrot').value==='1';
+  const nChildRv = parseInt(document.getElementById('children-count').value, 10) || 0;
+  const family4Rv = !!(document.getElementById('family4-pit0')?.checked) && nChildRv >= 4;
+  const pitExemptRv = pit0 || powrot || family4Rv;
+  const familyModeRv = document.getElementById('family-mode').value;
+  const spouseAnnualRv = Math.max(0, parseFloat(document.getElementById('spouse-tb-annual').value) || 0);
+  const useJointSplitRv = (familyModeRv === 'joint' || familyModeRv === 'single') && !pitExemptRv;
+  const spMRv = spouseAnnualRv / 12;
   const cap = getCap();
-  const wd = getWD(rok);
-  const ph = getPH(rok);
 
   function kupFullForBrutto(br) {
     const v = document.getElementById('kup-type').value;
@@ -1666,90 +2492,63 @@ function calcReverse() {
   }
 
   function nettoForBrutto(brContract) {
-    const kf = kupFullForBrutto(brContract + taxedAddon);
+    const brG = brContract + taxedAddon;
+    const kf = kupFullForBrutto(brG);
     const kupFullMonth = !!(document.getElementById('kup-full-month')?.checked)
       && document.getElementById('kup-type').value !== 'none';
-    const zeroTaxLimit = (pit0||powrot) ? PIT0_LIMIT : 0;
     const kupTypeRv = document.getElementById('kup-type').value;
-    let cumBr=0, cumKUP=0, cumTB=0, cumInc=0;
-    for (let m=0; m<=targetMonth; m++) {
-      const totalDays=wd[m], holidayDays=ph[m];
-      const maxAb=totalDays-holidayDays;
-      let vacDays=Math.min(Math.max(0,parseInt(document.getElementById('v'+m)?.value)||0), maxAb);
-      let l4Days=Math.min(Math.max(0,parseInt(document.getElementById('l'+m)?.value)||0), maxAb-vacDays);
-      const sickPayFactor = l4Days > 0 ? (1 - 0.2 * l4Days / totalDays) : 1;
-      const brGrossTaxNom = brContract + taxedAddon;
-      const brMbase = Math.round(brGrossTaxNom * sickPayFactor * 100) / 100;
-      const bonusExtraM = bonusForMonth(m);
-      const brM = brMbase + bonusExtraM;
-      const creativeDays = kupFullMonth ? totalDays : Math.max(0, totalDays - vacDays - l4Days);
-      const nc=cumBr+brM;
-      let em=0, re=0;
-      if(cumBr>=cap) { }
-      else if(nc>cap) { const p=cap-cumBr; em=p*0.0976; re=p*0.015; }
-      else { em=brM*0.0976; re=brM*0.015; }
-      const ch=brM*0.0245, zusS=em+re+ch, zd=(brM-zusS)*0.09;
-      const ppk=brM*(ppkPct/100);
-      const useKUP=!pit0&&!powrot;
-      let kup_m=250;
-      if(useKUP && cumKUP<120000) {
-        let raw;
-        const kupSliceShareRv = (bonusExtraM > 0 && brM > 0) ? Math.min(1, brMbase / brM) : 1;
-        if (kupTypeRv === 'manual') {
-          raw = kupFullMonth ? kf : kf * (creativeDays/totalDays);
-          if (bonusExtraM > 0) raw *= kupSliceShareRv;
-        } else if (kupTypeRv === 'auto') {
-          let pct = document.getElementById('kup-pct').value;
-          if (pct==='0') pct = parseFloat(document.getElementById('kup-pct-c').value)||80;
-          else pct = parseFloat(pct);
-          const baseK = Math.max(0, brM - zusS) * kupSliceShareRv;
-          raw = baseK * (pct/100) * 0.50;
-          if (!kupFullMonth) raw *= creativeDays / totalDays;
-        } else {
-          const flat = kupFullForBrutto(brContract + taxedAddon);
-          raw = kupFullMonth ? flat : flat * (creativeDays/totalDays);
-        }
-        kup_m=Math.min(raw, 120000-cumKUP);
-      } else if(!useKUP) {
-        kup_m=0;
-      }
-      cumKUP+=kup_m;
-      const tb=Math.max(0, brM-zusS-kup_m);
-      let tax=0;
-      if(pit0||powrot) {
-        cumInc+=brM;
-        if(cumInc <= zeroTaxLimit) {
+    const vac = Array.from({ length: 12 }, (_, i) => parseInt(document.getElementById('v'+i)?.value) || 0);
+    const l4a = Array.from({ length: 12 }, (_, i) => parseInt(document.getElementById('l'+i)?.value) || 0);
+    const { mid, annualTB } = uopBuildYearSlices(
+      brContract, brG, taxedAddon, exemptAddon, pitExemptRv, ppkPct, ben, rok, cap, kupTypeRv, kf, kupFullMonth, vac, l4a
+    );
+    const spouseForChildRv = familyModeRv === 'joint' ? spouseAnnualRv : 0;
+    const childFullRv = childReliefAnnual(nChildRv, familyModeRv, annualTB, spouseForChildRv);
+    const childMRv = childFullRv / 12;
+    const zeroTaxLimit = pitExemptRv ? PIT0_LIMIT : 0;
+    let cumTB = 0, cumIncome = 0, empCumTB = 0;
+    for (let m = 0; m <= targetMonth; m++) {
+      const r = mid[m];
+      const tb = r.tb;
+      let tax = 0;
+      if (pitExemptRv) {
+        cumIncome += r.brM;
+        if (cumIncome <= zeroTaxLimit) {
           tax = 0;
-        } else if(cumInc-brM < zeroTaxLimit) {
-          const over = cumInc - zeroTaxLimit;
-          const overTB = Math.max(0, over - kup_m);
-          const pv=cumTB;
-          if(pv>=TAX_BRACKET) tax=overTB*0.32;
-          else if(pv+overTB>TAX_BRACKET) {
-            const i1=TAX_BRACKET-pv, i3=overTB-i1, fr=overTB>0?i1/overTB:0;
-            tax=Math.max(0,i1*0.12-300*fr)+i3*0.32;
-          } else tax=Math.max(0,overTB*0.12-300);
+        } else if (cumIncome - r.brM < zeroTaxLimit) {
+          const over = cumIncome - zeroTaxLimit;
+          const overTB = Math.max(0, over - r.kup_m);
+          const pv = cumTB;
+          if (pv >= TAX_BRACKET) tax = Math.max(0, overTB * 0.32 - 300);
+          else if (pv + overTB > TAX_BRACKET) {
+            const i1 = TAX_BRACKET - pv, i3 = overTB - i1, fr = overTB > 0 ? i1 / overTB : 0;
+            tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
+          } else tax = Math.max(0, overTB * 0.12 - 300);
         } else {
-          const pv=cumTB;
-          if(pv>=TAX_BRACKET) tax=tb*0.32;
-          else if(pv+tb>TAX_BRACKET) {
-            const i1=TAX_BRACKET-pv, i3=tb-i1, fr=tb>0?i1/tb:0;
-            tax=Math.max(0,i1*0.12-300*fr)+i3*0.32;
-          } else tax=Math.max(0,tb*0.12-300);
+          const pv = cumTB;
+          if (pv >= TAX_BRACKET) tax = Math.max(0, tb * 0.32 - 300);
+          else if (pv + tb > TAX_BRACKET) {
+            const i1 = TAX_BRACKET - pv, i3 = tb - i1, fr = tb > 0 ? i1 / tb : 0;
+            tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
+          } else tax = Math.max(0, tb * 0.12 - 300);
         }
+      } else if (useJointSplitRv) {
+        const coupleBefore = empCumTB + m * spMRv;
+        const coupleAfter = empCumTB + tb + (m + 1) * spMRv;
+        tax = jointTaxYTD(coupleAfter) - jointTaxYTD(coupleBefore);
+        empCumTB += tb;
       } else {
-        const pv=cumTB, nw=pv+tb;
-        if(pv>=TAX_BRACKET) tax=tb*0.32;
-        else if(nw>TAX_BRACKET) {
-          const i1=TAX_BRACKET-pv, i3=tb-i1, fr=tb>0?i1/tb:0;
-          tax=Math.max(0,i1*0.12-300*fr)+i3*0.32;
-        } else {
-          tax=Math.max(0,tb*0.12-300);
-        }
+        const pv = cumTB;
+        if (pv >= TAX_BRACKET) tax = Math.max(0, tb * 0.32 - 300);
+        else if (pv + tb > TAX_BRACKET) {
+          const i1 = TAX_BRACKET - pv, i3 = tb - i1, fr = tb > 0 ? i1 / tb : 0;
+          tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
+        } else tax = Math.max(0, tb * 0.12 - 300);
+        empCumTB += tb;
       }
       cumTB += tb;
-      if(m===targetMonth) return brM-zusS-zd-tax-ppk-ben + exemptAddon;
-      cumBr=nc;
+      tax = Math.max(0, tax - childMRv);
+      if (m === targetMonth) return r.brM - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
     }
     return 0;
   }
@@ -1991,6 +2790,7 @@ function b2bSuggestPick(ev, idx) {
 
 function onB2bRoleInput() {
   if (b2bBlurTimer) { clearTimeout(b2bBlurTimer); b2bBlurTimer = null; }
+  touchB2bInputs();
   b2bSelectedRule = null;
   b2bSuggestIndex = 0;
   const input = document.getElementById('b2b-role-input');
@@ -2054,7 +2854,7 @@ function selectB2bJobRule(rule) {
   if (ul) ul.style.display = 'none';
   b2bSelectedRule = rule;
   applyB2bRoleMessage(rule);
-  calcB2B();
+  touchB2bInputs();
 }
 
 function refreshB2bRoleMessage() {
@@ -2069,7 +2869,7 @@ function onB2bTaxManualChange() {
     const en = LANG === 'en';
     box.innerHTML = '<span style="color:#64748b;font-size:11px">' + (en ? 'Tax form set manually — it may no longer match the job title above.' : 'Forma ustawiona ręcznie — może nie odpowiadać stanowisku powyżej.') + '</span>';
   }
-  calcB2B();
+  touchB2bInputs();
 }
 
 function onB2bRoleKeydown(ev) {
@@ -2105,8 +2905,10 @@ function buildB2BVacGrid() {
   for (let m = 0; m < 12; m++) {
     const avail = billMode === 'minus_ph' ? wd[m] - ph[m] : wd[m];
     const prev  = parseInt(document.getElementById('bv'+m)?.value) || 0;
-    html += `<div><label>${MNS[m]}<span style="font-size:9px;color:#aaa;margin-left:3px">(${avail}d)</span></label>
-    <input type="number" id="bv${m}" value="${Math.min(prev, avail)}" min="0" max="${avail}"></div>`;
+    html += `<div class="vg-month">
+      <label>${MNS[m]}<span class="vg-sub">(${avail}d)</span></label>
+      <div class="vg-cell"><input type="number" id="bv${m}" value="${prev}" min="0" max="${avail}" aria-label="${MNS[m]} days off" class="b2b-vac-input" oninput="touchB2bInputs()"></div>
+    </div>`;
   }
   document.getElementById('b2b-vac-grid').innerHTML = html;
 }
@@ -2122,7 +2924,7 @@ function buildB2BBonusGrid() {
     const v = prev[m] === '' ? '' : prev[m];
     html += `<div class="vg-month">
       <label>${MNS[m]}</label>
-      <input type="number" id="bb${m}" value="${v}" min="0" step="100" placeholder="0" oninput="calcB2B()" aria-label="${MNS[m]} B2B extra revenue">
+      <div class="vg-cell"><input type="number" id="bb${m}" value="${v}" min="0" step="100" placeholder="0" oninput="touchB2bInputs()" aria-label="${MNS[m]} B2B extra revenue"></div>
     </div>`;
   }
   grid.innerHTML = html;
@@ -2183,7 +2985,7 @@ function renderB2BBillExample() {
   const rok = parseInt(document.getElementById('b2b-rok')?.value) || 2026;
   const sel = document.getElementById('b2b-example-month');
   const mi = Math.min(11, Math.max(0, parseInt(sel?.value, 10) || 0));
-  const inv = parseFloat(document.getElementById('b2b-inv')?.value) || 33000;
+  const inv = parseFloat(document.getElementById('b2b-inv')?.value) || 0;
   const billMode = document.getElementById('b2b-bill')?.value || 'minus_ph';
   const wdArr = WD[rok] || WD[2026];
   const phArr = PH[rok] || PH[2026];
@@ -2239,7 +3041,7 @@ function renderB2BBillExample() {
 }
 
 function calcB2B() {
-  const inv     = parseFloat(document.getElementById('b2b-inv').value) || 33000;
+  const inv     = parseFloat(document.getElementById('b2b-inv').value) || 0;
   const taxForm = document.getElementById('b2b-tax').value;
   const zusType = document.getElementById('b2b-zus').value;
   const chorob  = document.getElementById('b2b-chorob').value === '1';
@@ -2348,10 +3150,14 @@ function calcB2B() {
   const typicalNet = normMonths.length ? normMonths.reduce((s,r)=>s+r.netto,0)/normMonths.length : annualNet/12;
 
   // ── UoP hint
-  const br = readTaxableGrossParts().brGrossTax || 27000;
-  const empCost = Math.round(br * 1.2259);
+  const br = readTaxableGrossParts().brGrossTax || 0;
+  const empCost = br > 0 ? Math.round(br * 1.2259) : 0;
   const hint = document.getElementById('b2b-emp-hint');
-  if (hint) hint.textContent = fv(empCost) + (en ? ' (employer total UoP cost)' : ' (calkowity koszt UoP dla pracodawcy)');
+  if (hint) {
+    hint.textContent = br > 0
+      ? fv(empCost) + (en ? ' (employer total UoP cost)' : ' (calkowity koszt UoP dla pracodawcy)')
+      : '—';
+  }
 
   // ── Alerts
   const als = [];
@@ -2472,6 +3278,88 @@ function calcB2B() {
     : 'Święta na B2B nie są automatycznie „niewystawialne” — dobór trybu wg umowy. 50% KUP nie dotyczy B2B (art. 22 ust. 12 PIT).');
 
   renderB2BBillExample();
+  finalizeB2bCalcHint();
+}
+
+function clearAllInputs() {
+  const $ = (id) => document.getElementById(id);
+  $('brutto').value = '0';
+  $('br-add').value = '0';
+  $('cap-custom').value = '0';
+  $('rok').value = '2026';
+  $('b2b-rok').value = '2026';
+  $('med').value = '0';
+  $('msp').value = '0';
+  $('oth').value = '0';
+  $('kup-manual').value = '0';
+  $('rev-netto').value = '0';
+  $('rev-month').value = '0';
+  $('b2b-inv').value = '0';
+  $('b2b-costs').value = '0';
+  $('spouse-tb-annual').value = '0';
+
+  $('br-add-exempt').checked = false;
+  $('kup-full-month').checked = false;
+  const f4 = $('family4-pit0');
+  if (f4) f4.checked = false;
+
+  $('kup-type').value = 'none';
+  $('kup-pct').value = '87.5';
+  $('pit0').value = '0';
+  $('ppk').value = '0';
+  $('powrot').value = '0';
+  $('family-mode').value = 'none';
+  $('children-count').value = '0';
+  $('jobtitle').value = '';
+
+  $('b2b-role-input').value = '';
+  b2bSelectedRule = null;
+  const brBox = $('b2b-role-result');
+  if (brBox) brBox.innerHTML = '';
+
+  b2bTaxProgrammatic = true;
+  $('b2b-tax').value = 'ryczalt_12';
+  queueMicrotask(function () { b2bTaxProgrammatic = false; });
+
+  $('b2b-zus').value = 'full';
+  $('b2b-chorob').value = '0';
+  $('b2b-bill').value = 'minus_ph';
+
+  const kpc = $('kup-pct-c');
+  if (kpc) { kpc.value = ''; kpc.style.display = 'none'; }
+
+  onYearChange();
+  onKupType();
+  checkPit0Kup();
+  syncFamilySpouseWrap();
+
+  buildVacGrid();
+  buildBonusGrid();
+  buildB2BVacGrid();
+  buildB2BBonusGrid();
+  fillB2bExampleMonthSelect();
+
+  const rr = $('rev-result');
+  if (rr) rr.innerHTML = '';
+
+  liveKup();
+  updateZusPanel();
+
+  RES = [];
+  EMP = [];
+  renderHeroResults();
+  renderAlerts();
+  renderMetrics();
+  renderDet();
+  renderEmp();
+  hideB2bResults();
+
+  uopJustCleared = true;
+  b2bJustCleared = true;
+  uopCalcDirty = true;
+  b2bCalcDirty = true;
+  updateUopCalcHint();
+  updateB2bCalcHint();
 }
 
 
@@ -2480,7 +3368,13 @@ onKupType();
 checkPit0Kup();
 onYearChange();
 applyLang();
-calc();
+renderAlerts();
+renderMetrics();
+renderDet();
+renderEmp();
+hideB2bResults();
+updateUopCalcHint();
+updateB2bCalcHint();
 applySources();
 </script>
 </body>

@@ -1,6 +1,13 @@
 {
-  "version": "0.1.4",
+  "version": "0.1.5",
   "history": [
+    {
+      "version": "0.1.5",
+      "date": "2026-04-15",
+      "changes": [
+        "chore: update workspace rules and bump release to v0.1.4"
+      ]
+    },
     {
       "version": "0.1.4",
       "date": "2026-04-06",
@@ -38,5 +45,5 @@
       ]
     }
   ],
-  "generated": "2026-04-13"
+  "generated": "2026-04-15"
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.5] - 2026-04-15
+- chore: update workspace rules and bump release to v0.1.4
+
+
 ## [0.1.4] - 2026-04-06
 - docs(readme): version badge from live release.json (matches site footer)
 

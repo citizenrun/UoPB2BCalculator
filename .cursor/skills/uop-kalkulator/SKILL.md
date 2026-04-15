@@ -261,6 +261,46 @@ Correct method: B2B invoice = UoP employer total cost (what employer pays in tot
 
 ---
 
+## Deployment — Current State
+
+**Stack:** Vanilla JS, single `index.html` + `public/job-rules.json`. No framework, no server.
+**Host:** GitHub Pages (static). URL: `https://citizenrun.github.io/UoPB2BCalculator/`
+**CI/CD:**
+- PRs → `.github/workflows/ci.yml` runs `npm test` (unit + build + Playwright)
+- Push to `main` → `.github/workflows/deploy-pages.yml`: tests → patch-bump `package.json` → append `CHANGELOG.md` → refresh `public/release.json` → Vite build → publish Pages → push `[skip ci]` commit
+- Vite `base` = `/UoPB2BCalculator/` in CI; `'./'` locally. **Never change `base` without aligning deploy workflow and Pages URL.**
+
+**Hard constraints (GitHub Pages = public static):**
+- No server-side code (no Node, Python, PHP running on server)
+- No backend API (no database, no sessions, no server secrets)
+- No API keys in source — HTML/JS is fully public
+- Single-file architecture must be preserved unless migration is approved
+
+---
+
+## Deployment — Future Migration Options
+
+If a feature genuinely requires a backend or richer stack, propose one of these. **Do not prototype. Write proposal → user approves → then work starts.**
+
+| Option | Best for | Free tier | Notes |
+|--------|----------|-----------|-------|
+| **Cloudflare Workers** | API key proxying, edge functions | Yes | Secrets stored server-side; minimal latency; no cold start |
+| **Vercel** | Full Next.js migration, serverless functions | Yes | Good if migrating to React/component architecture |
+| **Supabase** | Persistent user data, saved profiles, auth | Yes | Postgres + auth; only if users need accounts |
+| **GitHub Actions** | Scheduled data updates (e.g. annual ZUS cap auto-update) | Yes | Commits updated JSON back to repo; no user-facing backend needed |
+
+**When to propose migration:**
+- Real-time chart or complex reactive state → consider React/Next.js via Vercel
+- API key needed (e.g. exchange rates, MF tax data fetch) → Cloudflare Workers proxy
+- User wants to save/share their salary config → Supabase auth + storage
+- Annual ZUS cap needs auto-update without manual edit → GitHub Actions cron
+
+**UI migration path (if approved):**
+Current single-file → React + Tailwind + Vite (already uses Vite, low migration cost).
+Propose as separate branch. Keep GitHub Pages deploy working on `main` until migration is stable.
+
+---
+
 ## Working Protocol
 
 ALWAYS follow this order — no exceptions:
@@ -277,8 +317,13 @@ Reply as caveman. Short. Direct. No filler. No "Great question!", no "Certainly!
 Bad: "That's a great point! I'll now proceed to implement the changes you requested by first examining..."
 Good: "Found bug. Plan: fix line 847. Go?"
 
-## Verifier Scripts (on-demand)
+## Verification (on-demand)
 
-If `scripts/verify_math.py` exists in this repo, run: `python3 scripts/verify_math.py` before large calculation changes.
-For extracted JS, use `node --check <file.js>` or the project linter. Sanity check build: `npm run build`.
-Run when the user asks for verification before delivering calculator changes.
+```bash
+npm run test:unit    # Vitest — job-rules contract + math validation
+npm test             # unit + build + Playwright smoke (full suite)
+node --check /tmp/check.js  # syntax-check extracted JS
+npm run build        # sanity-check build before delivering changes
+```
+
+Run `npm run test:unit` before delivering any calculator change that touches tax formulas or job-rules.

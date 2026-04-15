@@ -8,75 +8,42 @@ alwaysApply: true
 
 ## Prime directive
 **Never write or modify code without explicit user approval of a plan.**
-No exceptions. Not even "obvious" fixes.
 
-## Workflow — always follow this order
-1. **Read** `project.mdc` and relevant agent rules first
-2. **Diagnose** the request — what needs to change and why
-3. **Write a plan** — bullet list: what changes, which file, what risk
-4. **Wait** for user to say "go" or modify the plan
-5. **Implement** — then run syntax check and verifiers
-6. **Report** what was done and what to test
+## Workflow
+1. **Diagnose** — what needs to change and why
+2. **Plan** — bullet list: what changes, which file, what risk
+3. **Wait** for user to say "go"
+4. **Implement** — then run `npm run test:unit` and syntax-check JS
+5. **Report** what was done
 
 ## Reply style
-Short. Direct. No filler. Like a senior engineer, not an assistant.
+Short. Direct. No filler.
 Bad: "Great question! I'll now proceed to carefully implement..."
 Good: "Bug in line 847. Plan: fix the ternary. Go?"
 
-## File protection rules
-- **Never delete** `kalkulator_uop.html`, `verify_math.py`, any `.cursor/rules/*.mdc`
-- Before any large replacement: confirm the target block was found (print char count)
-- After any change: run syntax check. Do not deliver broken files.
-- Track what was changed in each session — mention it in the plan
+## File protection
+- **Never delete** `index.html`, `public/job-rules.json`, any `.cursor/rules/*.mdc`
+- Before any large replacement: confirm the target block was found (print line/char count)
+- After any change: `node --check` on extracted JS. Do not deliver broken files.
 
 ## Coordination
 - UI changes → consult `ux-expert.mdc` principles first
-- Tax formula / rate changes → consult `tax-expert.mdc` first, run verifier after
+- Tax formula / rate changes → consult `tax-expert.mdc` first, run `npm run test:unit` after
 - Both → consult both before writing plan
 
 ## Pre-delivery checklist
-Before presenting any changed file, verify:
 - [ ] `node --check` passes on extracted JS
 - [ ] `RYCZALT_RATES` defined before `calcB2B()`
 - [ ] No duplicate function definitions
-- [ ] Both EN and PL translations updated
-- [ ] `verify_math.py` passes (if tax formula touched)
+- [ ] Both EN and PL translations updated (`T.en` / `T.pl`, `applyLang`)
+- [ ] `npm run test:unit` passes (if tax formula or job-rules touched)
 
-## Common failure patterns to watch
-- RYCZALT_RATES / RATE_LABELS dropped during large block replacements → always re-check
+## Common failure patterns
+- `RYCZALT_RATES` / `RATE_LABELS` dropped during large block replacements → always re-check after
 - Apostrophes in single-quoted JS strings → use double quotes or escape
-- Duplicate `calcReverse` / `calcB2B` functions from failed partial replacements
+- Duplicate `calcReverse` / `calcB2B` from failed partial replacements
 - `go()` tab list not including all panels after adding new tabs
 
-## Deployment
-
-**Current hosting: GitHub Pages (static)**
-URL served from `main` branch. Any push to main auto-deploys.
-
-### Constraints
-- No server-side code — no Node.js, Python, PHP running on server
-- No backend API — no database, no sessions, no server secrets
-- No API keys in source code — GitHub Pages is public; any key in HTML/JS is exposed
-- Single HTML file architecture must be preserved unless migration is approved
-
-### What is allowed
-- Pure client-side HTML/CSS/JS
-- External CDN libraries (loaded via `<script src="https://cdn...">`)
-- Static assets committed to repo
-- Client-side fetch to **public** APIs that require no auth key
-
-### If a feature needs a backend
-Flag it immediately. Do not prototype it. Propose one of:
-- **Cloudflare Workers** — free tier, edge functions, secrets stored server-side (good for API key proxying)
-- **Vercel** — free tier, serverless functions, env vars (good if migrating to Next.js)
-- **Supabase** — free tier, Postgres + auth (good if persistent user data needed)
-- **GitHub Actions** — for scheduled data updates committed back to repo (e.g. annual ZUS cap update)
-
-Present options with trade-offs. User decides. No work starts until approved.
-
-### Deploy checklist before pushing
-- [ ] `node --check` passes on JS
-- [ ] `verify_math.py` passes (if tax logic changed)
-- [ ] No API keys or secrets in any file
-- [ ] Single HTML file still self-contained (no broken relative imports)
-- [ ] Tested in browser by opening file locally (no server needed)
+## Deployment constraint
+Static site on GitHub Pages. No server-side code, no API keys in source.
+Change `vite.config.js` base only in sync with deploy workflow and Pages URL.

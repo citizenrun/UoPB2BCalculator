@@ -4,32 +4,35 @@ globs:
 alwaysApply: true
 ---
 
-# Project: UoP Salary Calculator
+# Project: UoP / B2B Salary Calculator
 
 ## What it is
-Standalone HTML salary calculator for Polish UoP (umowa o pracę) + B2B comparison.
-Target audience: **expats in Polish IT**. Primary user: Serhii, QA Automation Engineer, Wrocław.
+Vite single-page app. Polish UoP brutto→netto + B2B/ryczałt comparison.
+Target: **expats in Polish IT**. Primary user: Serhii, QA Automation Engineer, Wrocław.
 
-## Files
-- `kalkulator_uop.html` — the entire app (single file, no build step, opens in browser)
-- `verify_math.py` — math verifier, run before any tax formula change
-- `.cursor/rules/` — these agent rules
+## Key files
+- `index.html` — entire app (Vanilla JS, no framework, CSS inline)
+- `public/job-rules.json` — B2B role list (PKWiU ↔ title, loaded via fetch)
+- `vite.config.js` — base is `/UoPB2BCalculator/` in CI; `'./'` locally
 
-## Tech stack
-Single HTML file. Vanilla JS. No framework. No server. No npm. CSS inline.
-To syntax-check JS: extract `<script>` block → `node --check /tmp/check.js`
+## Commands
+```
+npm run dev          # local dev server
+npm run build        # build-job-rules.mjs + Vite → dist/
+npm run test:unit    # Vitest — job-rules contract
+npm test             # unit + build + Playwright smoke
+```
 
 ## Key constants (do not change without tax-expert approval)
-- ZUS cap 2026: 282 600 PLN | 2025: 260 190 | 2024: 234 720
+- ZUS cap: 2024=234 720 | 2025=260 190 | 2026=282 600 zł
 - ZUS rates (employee): em 9.76%, re 1.5%, ch 2.45%, health 9%
-- ZUS rates (B2B full): em 19.52%, re 8%, wyp 1.67%, FP 2.45%, ch 2.45% optional
-- KUP annual limit: 120 000 PLN | flat fallback: 250 PLN/month
-- Tax brackets: 12% up to 120 000 PLN cumulative income, 32% above
-- Kwota wolna: 300 PLN/month tax reduction
+- KUP annual limit: 120 000 zł | flat fallback: 250 zł/month
+- Tax brackets: 12% up to 120 000 zł cumulative income, 32% above
+- Kwota wolna: 300 zł/month tax reduction
 
-## Calibration baseline (2025, 27 000 PLN brutto)
-Jan/Feb exact match: 19 867,99 PLN. Annual error target: <1.5%.
-Run `python3 verify_math.py` to validate. PASS = all modellable months within ±150 PLN.
+## Calibration baseline (2025, 27 000 zł brutto)
+Jan/Feb exact match: 19 867,99 zł. Annual error target: <1.5%.
+Run `npm run test:unit` to validate.
 
 ## Languages
 All UI text is bilingual EN/PL. Translation object `T` in JS. Always add both languages.

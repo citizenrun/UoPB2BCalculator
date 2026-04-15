@@ -70,3 +70,5 @@ If a feature genuinely requires React/Next.js (e.g. real-time chart, complex sta
 1. Write a migration proposal: what changes, why HTML is insufficient, what the new stack looks like
 2. Include rough effort estimate
 3. Route through controller — user approves before any work begins
+
+For hosting/backend options (Cloudflare Workers, Vercel, Supabase, GitHub Actions) — see **`Deployment — Future Migration Options`** section in `.cursor/skills/uop-kalkulator/SKILL.md`. Always read that section before proposing any feature that requires a backend or stack change. Current host is GitHub Pages (static only — no server-side code, no API keys in source).

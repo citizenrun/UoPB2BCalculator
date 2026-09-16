@@ -1,6 +1,13 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.7",
   "history": [
+    {
+      "version": "0.1.7",
+      "date": "2026-09-16",
+      "changes": [
+        "Correct copyright name in LICENSE file"
+      ]
+    },
     {
       "version": "0.1.6",
       "date": "2026-09-16",

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.7] - 2026-09-16
+- Correct copyright name in LICENSE file
+
+
 ## [0.1.6] - 2026-09-16
 - chore: ignore PDFs so payslips cannot be published by accident
 

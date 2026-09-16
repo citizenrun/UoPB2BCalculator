@@ -434,12 +434,37 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
       <label id="l-br-add">Monthly add-on (PLN/month)</label>
       <input type="number" id="br-add" value="0" min="0" step="50" oninput="liveKup();touchUopInputs();">
     </div>
+    <div>
+      <label id="l-br-noncash">Employer-paid taxable benefits (PLN/month)</label>
+      <input type="number" id="br-noncash" value="0" min="0" step="5" oninput="liveKup();touchUopInputs();">
+      <p class="hint" id="h-br-noncash"></p>
+    </div>
     <div style="grid-column:1/-1">
       <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;margin-top:2px;max-width:52rem">
         <input type="checkbox" id="br-add-exempt" onchange="liveKup();touchUopInputs();" style="margin-top:3px;flex-shrink:0;width:16px;height:16px">
         <span id="l-br-add-exempt"></span>
       </label>
       <p class="hint" id="h-br-add" style="margin:8px 0 0 28px;max-width:52rem"></p>
+    </div>
+  </div>
+
+  <div class="g3" style="margin-top:12px">
+    <div style="grid-column:1/-1">
+      <label id="l-ytd"></label>
+      <p class="hint" id="h-ytd" style="margin:6px 0 10px"></p>
+    </div>
+    <div>
+      <label id="l-wyp"></label>
+      <input type="number" id="wyp-rate" value="1.67" min="0" max="10" step="0.01" oninput="touchUopInputs();">
+      <p class="hint" id="h-wyp"></p>
+    </div>
+    <div>
+      <label id="l-ytd-er"></label>
+      <input type="number" id="ytd-er-base" value="0" min="0" step="0.01" oninput="touchUopInputs();">
+    </div>
+    <div>
+      <label id="l-ytd-tb"></label>
+      <input type="number" id="ytd-tax-base" value="0" min="0" step="0.01" oninput="touchUopInputs();">
     </div>
   </div>
 
@@ -485,6 +510,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
     </div>
   </div>
   <div class="ibox ibox-blue" id="kup-preview" style="display:none"><!-- filled by JS --></div>
+  <div class="ibox ibox-blue" id="kup-budget" style="display:none"><!-- filled by JS --></div>
 
   <div class="ibox ibox-gray" id="kup-full-wrap" style="margin-top:10px">
     <label style="display:flex;gap:11px;align-items:flex-start;cursor:pointer">
@@ -649,6 +675,39 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
   <p class="hint" style="margin-bottom:10px;max-width:52rem;line-height:1.55" id="h-bonus2"></p>
   <p class="hint" style="margin-bottom:6px;max-width:52rem;font-size:11px" id="h-bonus-once"></p>
   <div class="vg" id="bonus-once-grid"><!-- filled by JS --></div>
+  </div>
+
+  <div class="form-section form-section--kup">
+  <h2 id="h-recon"></h2>
+  <p class="hint" style="margin-bottom:12px;max-width:52rem" id="h-recon2"></p>
+  <div class="g3">
+    <div>
+      <label id="l-rc-gross"></label>
+      <input type="number" id="rc-gross" value="0" min="0" step="0.01" oninput="renderRecon()">
+    </div>
+    <div>
+      <label id="l-rc-noncash"></label>
+      <input type="number" id="rc-noncash" value="0" min="0" step="0.01" oninput="renderRecon()">
+    </div>
+    <div>
+      <label id="l-rc-kup"></label>
+      <input type="number" id="rc-kup" value="0" min="0" step="0.01" oninput="renderRecon()">
+    </div>
+    <div>
+      <label id="l-rc-cumtb"></label>
+      <input type="number" id="rc-cumtb" value="0" min="0" step="0.01" oninput="renderRecon()">
+    </div>
+    <div>
+      <label id="l-rc-netaddon"></label>
+      <input type="number" id="rc-netaddon" value="0" step="0.01" oninput="renderRecon()">
+    </div>
+    <div>
+      <label id="l-rc-netto"></label>
+      <input type="number" id="rc-netto" value="0" min="0" step="0.01" oninput="renderRecon()">
+    </div>
+  </div>
+  <div class="ibox ibox-blue" id="recon-out" style="display:none;margin-top:12px"></div>
+  <button type="button" class="btn" style="margin-top:12px" id="btn-recon-apply" onclick="applyReconToInputs()"></button>
   </div>
 
   <div class="form-section form-section--actions">
@@ -908,6 +967,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 
 </div></div>
 
+<script src="payroll.js"></script>
 <script>
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
@@ -957,6 +1017,7 @@ const T = {
     'l-br-add-exempt': 'Add-on is <strong>not</strong> in my payroll gross for PIT &amp; ZUS (payroll applies a statutory exemption — confirm with HR).',
     'h-br-add': 'Most fixed monthly cash on top of the contractual rate is still <strong>taxable salary</strong>. Polish PIT uses a <strong>closed list</strong> of exemptions (<a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener">PIT Act</a> art.&nbsp;21) — e.g. certain documented reimbursements / remote-work cost rules, not a generic “compensation” label. <strong>Default:</strong> add-on is taxed with salary. <strong>If checked:</strong> we add the amount to <strong>take-home only</strong> (no employee ZUS/PIT on that slice in this model) — use only when payroll actually books it that way.',
     'lbl_taxed_addon': 'with gross', 'lbl_exempt_addon': 'not in gross', 'lbl_bonus_extra': 'bonus',
+    'lbl_noncash_addon': 'taxed, not paid out',
     'h-bonus': 'Variable bonuses (by month)',
     'h-bonus2': 'Enter any <strong>extra taxable gross</strong> in the month it is paid (project bonus, year-end payout in December, etc.). It is included in <strong>ZUS</strong>, <strong>health</strong> and <strong>PIT</strong> that month. <strong>Cumulative tax:</strong> it raises your running annual tax base — the table uses the same progression as salaries without bonuses: once cumulative taxable income crosses <strong>120 000 PLN</strong>, later months use the <strong>32%</strong> rate on the excess; PIT-0 / ulga na powrót income limits use the same year-to-date logic. <strong>ZUS 30× cap</strong> also advances on cumulative gross. <strong>50% autorskie KUP</strong> here applies only to the <strong>regular pay slice</strong>, not the variable bonus lump — see: <a href="https://www.portalkadrowy.pl/aktualnosci/nsa-do-premii-mozna-stosowac-50-koszty-16394.html" target="_blank" rel="noopener">Portal Kadrowy (NSA / premia)</a>, <a href="https://www.portalkadrowy.pl/aktualnosci/premii-za-wykorzystanie-pracowniczego-utworu-nie-obejmuja-autorskie-koszty-14639.html" target="_blank" rel="noopener">Portal Kadrowy</a>. If payroll applies full KUP to a special payment, use <strong>manual KUP from payslip</strong>.',
     'h-bonus-once': '<strong>Gross bonus for that month only</strong> (0 elsewhere). Year-end? Put the amount in <em>December</em> (or whatever month payroll pays it).',
@@ -1008,9 +1069,47 @@ const T = {
     'l-other': 'Other deductions (PLN/month)',
     'h-vac': 'Vacation, L4 sick leave &amp; absence',
     'h-vac2': 'Vacation and employer-paid sick days (L4) reduce KUP in the <strong>proportional</strong> mode (unless you enable full-month KUP above). L4 also lowers that month’s gross using a <strong>simplified 80%</strong> pay factor for those days (full sick-pay rules vary). Public holidays stay at full pay and do not reduce KUP.',
-    'h-vac3': 'Grid: <strong>V</strong> = vacation days, <strong>L</strong> = L4 days (Mon–Fri only). Per month, V + L cannot exceed Mon–Fri days minus public holidays.',
+    'h-vac3': 'Grid: <strong>V</strong> = vacation days, <strong>L</strong> = L4 days, <strong>NC</strong> = working days you did <em>not</em> report as creative work. The number in brackets is that month’s statutory working time; <strong>+PH</strong> marks weekday public holidays, which are paid and already excluded.',
     'vg-l-v': 'V',
     'vg-l-l': 'L4',
+    'vg-l-c': 'NC',
+    'vg-ph-tip': 'Weekday public holidays — paid, already outside the working time',
+    'l-br-noncash': 'Employer-paid taxable benefits (PLN/month)',
+    'h-br-noncash': 'Payslip lines like <strong>“ER Medicover”</strong> or <strong>“ER Multisport”</strong>. The employer pays them, but they are added to your ZUS and tax base — so they raise your deductions without ever reaching your account. Enter the total of the <em>ER</em> lines.',
+    'l-ytd': 'Year-to-date opening balances (optional)',
+    'h-ytd': 'Copy these from the <strong>“Narastająco w roku”</strong> box on a payslip if some of this tax year was already paid before the first month modelled below — for example when your employer pays a month in arrears. They move the ZUS cap and the 32% bracket to the right month. Leave at 0 for a clean full year.',
+    'l-ytd-er': 'Cumulative ZUS pension/disability base (PLN)',
+    'l-ytd-tb': 'Cumulative taxable base (PLN)',
+    'l-wyp': 'Employer accident insurance — wypadkowe (%)',
+    'h-wyp': 'Varies by industry (PKD) and headcount, so there is no safe default — it only affects the <strong>employer cost</strong> figures, never your net. Office and IT employers are commonly at <strong>0,67%</strong>; 1,67% is the high end. Read it off a payslip: <strong>“Płatnik / Wypadkowe” ÷ gross</strong>.',
+    'kb-title': 'Your annual KUP budget — how many days off are free',
+    'kb-intro': 'Twelve full months of KUP would be <strong>{kup}</strong>, which is <strong>{over}</strong> over the 120 000 PLN annual limit. That excess is a buffer: a day with no KUP does not destroy the deduction, it pushes it into a later month that was going to be capped anyway. The month dips, a later month rises, the year is unchanged.',
+    'kb-under': 'Twelve full months of KUP come to {kup}, below the 120 000 PLN annual limit. Every day off therefore costs you deduction you will not get back — there is no buffer to absorb it.',
+    'kb-buffer': 'Free days in the year',
+    'kb-used': 'Days entered (V + L4 + NC)',
+    'kb-left': 'Still free',
+    'kb-days': 'days',
+    'kb-ok': 'You have about <strong>{n} more days</strong> before days off start costing you real money.',
+    'kb-gone': '<strong>The buffer is spent.</strong> Every further day off or unreported creative day now costs you the amount shown below for that month.',
+    'kb-cost': 'Net cost of one extra day off, by month',
+    'kb-note': 'Red months are taxed at 32%, so a day there costs nearly three times a day in a 12% month. Vacation is still paid — what you lose is the tax benefit on that day’s KUP, not the day’s salary.',
+    'h-recon': 'Check the model against a real payslip',
+    'h-recon2': 'Type six numbers off one payslip (<em>kwitek wypłaty</em>) and the calculator rebuilds that month from scratch. If every line matches, your settings describe your real payroll. The back-solved creative-work share is usually the number people get wrong — it is decided by payroll, not by the dropdown above.',
+    'l-rc-gross': 'Taxable gross — “Podstawa” of Emerytalne (PLN)',
+    'l-rc-noncash': 'Of which employer-paid benefits (ER lines, PLN)',
+    'l-rc-kup': '“Koszty” from the payslip (PLN)',
+    'l-rc-cumtb': 'Cumulative taxable base BEFORE this month (PLN)',
+    'l-rc-netaddon': 'Non-taxable net items, signed (PLN)',
+    'l-rc-netto': '“Netto do wypłaty” (PLN)',
+    'btn-recon-apply': 'Use these numbers in the calculator',
+    'rc-line': 'Line', 'rc-model': 'Model', 'rc-slip': 'Payslip', 'rc-diff': 'Diff',
+    'rc-social': 'ZUS social', 'rc-health': 'Health', 'rc-tb': 'Taxable base',
+    'rc-tax': 'Tax advance', 'rc-net': 'Net paid',
+    'rc-ok': 'Matches your payslip to the grosz.',
+    'rc-off': 'Does not match yet — check the gross and the cumulative base you entered.',
+    'rc-share': 'Back-solved creative-work share',
+    'rc-share-note': 'KUP ÷ (50% × (gross − social ZUS)). Set “% of time spent on creative work” to this, or switch KUP to “enter from my payslip”.',
+    'rc-need': 'Enter the taxable gross and the net paid to compare.',
     'b2b-h-bill': 'Public holidays &amp; invoicing',
     'b2b-l-bill': 'How should your monthly invoice follow working days?',
     'b2b-h-bill-note': 'There is no single legal rule: on B2B, public holidays are not automatic paid leave like on some UoP setups. Many contracts use a fixed monthly fee; others bill only “working days”. Choose what matches your client agreement.',
@@ -1139,6 +1238,7 @@ const T = {
     'l-br-add-exempt': 'Ten dodatek <strong>nie</strong> wchodzi do mojego brutto pod PIT i ZUS (stosowane zwolnienie z art.&nbsp;21 — potwierdź z HR/księgową).',
     'h-br-add': 'Typowa stała dopłata do stawki umownej to nadal <strong>wynagrodzenie podlegające opodatkowaniu</strong>. <a href="https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU19910800350" target="_blank" rel="noopener">Ustawa o PIT</a> ma <strong>domknięty katalog</strong> zwolnień (art.&nbsp;21), np. konkretne zwroty kosztów / zasady rekompensat pracy zdalnej — nie sam label „compensation”. <strong>Domyślnie:</strong> dodatek opodatkowujemy razem z pensją. <strong>Po zaznaczeniu:</strong> w modelu dopisujemy kwotę tylko do <strong>netto</strong> (bez ZUS/PIT pracownika od tej części) — tylko jeśli tak realnie rozlicza płaca.',
     'lbl_taxed_addon': 'w brutto', 'lbl_exempt_addon': 'poza brutto', 'lbl_bonus_extra': 'premia',
+    'lbl_noncash_addon': 'opodatk., nie wypłacane',
     'h-bonus': 'Premie zmienne (wg miesiąca)',
     'h-bonus2': 'Dodatkowe <strong>brutto podatkowe</strong> wpisz w <strong>miesiącu wypłaty</strong> (premia projektowa, roczna w grudniu itd.). Wchodzi w <strong>ZUS</strong>, <strong>zdrowotną</strong> i <strong>PIT</strong> tego miesiąca. <strong>Podatek skumulowany:</strong> zwiększa narastającą podstawę roku — tabela liczy jak dla pensji bez premii: po przekroczeniu <strong>120 000 zł</strong> skumulowanego dochodu kolejne miesiące mają <strong>32%</strong> od nadwyżki; limity PIT-0 / ulgi na powrót też z progresją roczną. <strong>Limit ZUS 30×</strong> też biegnie po skumulowanym brutto. <strong>50% KUP autorskie</strong> jest tu liczone tylko od <strong>stałej składowej</strong>, nie od dopłaty premiowej — <a href="https://www.portalkadrowy.pl/aktualnosci/nsa-do-premii-mozna-stosowac-50-koszty-16394.html" target="_blank" rel="noopener">Portal Kadrowy (NSA)</a>, <a href="https://www.portalkadrowy.pl/aktualnosci/premii-za-wykorzystanie-pracowniczego-utworu-nie-obejmuja-autorskie-koszty-14639.html" target="_blank" rel="noopener">komentarz</a>. Pełne KUP z paska przy nietypowej wypłacie — <strong>KUP ręcznie</strong>.',
     'h-bonus-once': '<strong>Brutto premii tylko w tym miesiącu</strong> (w pozostałych 0). Roczna? Wpisz w <em>grudniu</em> (albo w miesiącu faktycznej wypłaty).',
@@ -1190,9 +1290,47 @@ const T = {
     'l-other': 'Inne potrącenia (zł/miesiąc)',
     'h-vac': 'Urlop, L4 (zwolnienie) i nieobecności',
     'h-vac2': 'Urlop i dni L4 (chorobowe płatne przez pracodawcę) zmniejszają KUP w trybie <strong>proporcjonalnym</strong> (chyba że włączysz pełnomiesięczne KUP). L4 obniża też brutto w modelu: <strong>uproszczone 80%</strong> wynagrodzenia za te dni (pełne zasady zasiłku są złożone). Święta pozostają po pełnej stawce i nie obniżają KUP.',
-    'h-vac3': 'Siatka: <strong>V</strong> = urlop, <strong>L</strong> = L4 (pn–pt). W miesiącu V + L nie może przekroczyć liczby dni pn–pt minus święta.',
+    'h-vac3': 'Siatka: <strong>U</strong> = urlop, <strong>L4</strong> = zwolnienie, <strong>NT</strong> = dni robocze <em>nie</em> zgłoszone jako praca twórcza. Liczba w nawiasie to wymiar czasu pracy w tym miesiącu; <strong>+PH</strong> oznacza święta w dni robocze — są płatne i już wyłączone z wymiaru.',
     'vg-l-v': 'U',
     'vg-l-l': 'L4',
+    'vg-l-c': 'NT',
+    'vg-ph-tip': 'Święta w dni robocze — płatne, już poza wymiarem czasu pracy',
+    'l-br-noncash': 'Świadczenia opodatkowane finansowane przez pracodawcę (zł/mies.)',
+    'h-br-noncash': 'Pozycje z paska typu <strong>„ER Medicover”</strong> albo <strong>„ER Multisport”</strong>. Płaci je pracodawca, ale doliczane są do podstawy ZUS i podatku — podnoszą składki, a nigdy nie trafiają na konto. Wpisz sumę pozycji <em>ER</em>.',
+    'l-ytd': 'Stan narastający na start (opcjonalnie)',
+    'h-ytd': 'Przepisz z ramki <strong>„Narastająco w roku”</strong> na pasku płac, jeśli część roku podatkowego została wypłacona przed pierwszym miesiącem modelu — np. gdy pracodawca płaci z miesięcznym opóźnieniem. Przesuwa to limit ZUS i próg 32% na właściwy miesiąc. Zostaw 0 dla pełnego roku.',
+    'l-ytd-er': 'Narastająco podstawa składek E-R (zł)',
+    'l-ytd-tb': 'Narastająco podstawa podatku (zł)',
+    'l-wyp': 'Składka wypadkowa pracodawcy (%)',
+    'h-wyp': 'Zależy od branży (PKD) i liczby ubezpieczonych, więc nie ma bezpiecznej wartości domyślnej — wpływa tylko na <strong>koszt pracodawcy</strong>, nigdy na Twoje netto. Biuro i IT to zwykle <strong>0,67%</strong>; 1,67% to górna granica. Odczytaj z paska: <strong>„Płatnik / Wypadkowe” ÷ brutto</strong>.',
+    'kb-title': 'Roczny budżet KUP — ile dni wolnych jest za darmo',
+    'kb-intro': 'Dwanaście pełnych miesięcy KUP dałoby <strong>{kup}</strong>, czyli <strong>{over}</strong> ponad roczny limit 120 000 zł. Ta nadwyżka to bufor: dzień bez KUP nie niszczy kosztów, tylko przesuwa je na późniejszy miesiąc, który i tak trafiłby w limit. Ten miesiąc spada, późniejszy rośnie, rok bez zmian.',
+    'kb-under': 'Dwanaście pełnych miesięcy KUP to {kup}, poniżej rocznego limitu 120 000 zł. Każdy dzień wolny kosztuje więc koszty, których nie odzyskasz — nie ma bufora, który by to wchłonął.',
+    'kb-buffer': 'Darmowe dni w roku',
+    'kb-used': 'Wpisane dni (U + L4 + NT)',
+    'kb-left': 'Jeszcze za darmo',
+    'kb-days': 'dni',
+    'kb-ok': 'Masz jeszcze około <strong>{n} dni</strong>, zanim dni wolne zaczną realnie kosztować.',
+    'kb-gone': '<strong>Bufor wyczerpany.</strong> Każdy kolejny dzień wolny lub niezgłoszony jako twórczy kosztuje tyle, ile pokazano poniżej dla danego miesiąca.',
+    'kb-cost': 'Koszt netto jednego dodatkowego dnia wolnego, wg miesiąca',
+    'kb-note': 'Miesiące na czerwono są opodatkowane 32%, więc dzień tam kosztuje prawie trzy razy tyle co w miesiącu 12%. Urlop nadal jest płatny — tracisz korzyść podatkową z KUP za ten dzień, nie wynagrodzenie.',
+    'h-recon': 'Sprawdź model z prawdziwym paskiem płac',
+    'h-recon2': 'Przepisz sześć liczb z jednego <em>kwitka wypłaty</em>, a kalkulator odtworzy ten miesiąc od zera. Jeśli wszystkie pozycje się zgadzają, ustawienia odpowiadają Twojej rzeczywistej liście płac. Najczęściej myli się udział pracy twórczej — ustala go kadra płacowa, nie lista rozwijana powyżej.',
+    'l-rc-gross': 'Brutto opodatkowane — „Podstawa” składki emerytalnej (zł)',
+    'l-rc-noncash': 'W tym świadczenia pracodawcy (pozycje ER, zł)',
+    'l-rc-kup': '„Koszty” z paska (zł)',
+    'l-rc-cumtb': 'Narastająco podstawa podatku PRZED tym miesiącem (zł)',
+    'l-rc-netaddon': 'Pozycje nieopodatkowane netto, ze znakiem (zł)',
+    'l-rc-netto': '„Netto do wypłaty” (zł)',
+    'btn-recon-apply': 'Użyj tych liczb w kalkulatorze',
+    'rc-line': 'Pozycja', 'rc-model': 'Model', 'rc-slip': 'Pasek', 'rc-diff': 'Różnica',
+    'rc-social': 'ZUS społeczne', 'rc-health': 'Zdrowotna', 'rc-tb': 'Podstawa podatku',
+    'rc-tax': 'Zaliczka', 'rc-net': 'Netto',
+    'rc-ok': 'Zgadza się z paskiem co do grosza.',
+    'rc-off': 'Jeszcze się nie zgadza — sprawdź brutto i wpisany stan narastający.',
+    'rc-share': 'Wyliczony udział pracy twórczej',
+    'rc-share-note': 'KUP ÷ (50% × (brutto − ZUS społeczne)). Ustaw „% czasu na pracę twórczą” na tę wartość lub przełącz KUP na „z paska płac”.',
+    'rc-need': 'Podaj brutto opodatkowane i netto, aby porównać.',
     'b2b-h-bill': 'Święta a fakturowanie',
     'b2b-l-bill': 'Jak miesięczna faktura ma się do dni roboczych?',
     'b2b-h-bill-note': 'Nie ma jednej reguły prawnej: na B2B święta nie są automatycznie płatnym wolnym jak w części modeli UoP. Często jest stała opłata miesięczna; innym razem liczy się tylko „dni robocze”. Wybierz wariant zgodny z umową.',
@@ -1329,7 +1467,10 @@ async function loadReleaseMeta() {
 function applyLang() {
   const ids = ['title','sub','footer-ver-lbl','footer-history-sum','footer-release-note','tab-uop','tab-rev','tab-b2b','uop-sub-hint','h-uop-det',
     'b2b-e1','b2b-e2','b2b-warn-title','b2b-warn-body','b2b-h-job','b2b-l-role','b2b-h-role',
-    'opt-2027','l-cap','l-brutto','l-br-add','l-br-add-exempt','h-br-add','h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
+    'opt-2027','l-cap','l-brutto','l-br-add','l-br-add-exempt','h-br-add','l-br-noncash','h-br-noncash',
+    'l-ytd','h-ytd','l-ytd-er','l-ytd-tb','l-wyp','h-wyp',
+    'h-recon','h-recon2','l-rc-gross','l-rc-noncash','l-rc-kup','l-rc-cumtb','l-rc-netaddon','l-rc-netto','btn-recon-apply',
+    'h-kup-sec','l-kup-type','ko-auto','ko-manual','ko-none',
     'l-kup-pct','h-kup-pct','ko-custom','l-kup-pln','h-kup-pln','kn-t1','kn-t2',
     'h-reliefs','l-pit0','po-no','po-yes','h-pit0','l-ppk','ppk-no','h-ppk',
     'l-powrot','pr-no','pr-yes','h-powrot',
@@ -1372,8 +1513,8 @@ function applyLang() {
     bill.options[1].text = t('b2b-bill-wd');
     bill.options[2].text = t('b2b-bill-fx');
   }
-  // ZUS panel and KUP preview need re-render
-  liveKup(); updateZusPanel();
+  // ZUS panel, KUP preview and payslip check need re-render
+  liveKup(); updateZusPanel(); renderRecon();
   buildBonusGrid();
   buildVacGrid();
   buildB2BVacGrid();
@@ -1401,27 +1542,13 @@ function applyLang() {
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const CAPS = {2024:234720, 2025:260190, 2026:282600};
-// Work days (Mon-Fri only, no holiday adjustment — matches employer payroll practice)
-const WD = {
-  2024:[22,21,22,21,23,20,23,22,21,23,21,21],  // Note: these are Mon-Fri counts
-  2025:[23,20,21,22,22,21,23,21,22,23,20,23],
-  2026:[22,20,22,22,21,22,23,21,22,22,21,23],
-  2027:[21,20,22,22,21,22,22,22,22,21,21,23]
-};
-// Public holidays per month (weekdays only — affect KUP since employee doesn't work those days)
-const PH = {
-  // Weekday (Mon-Fri) public holidays per month — computed from full holiday list
-  // 13 holidays total: Jan1, Jan6, Easter Sun, Easter Mon, May1, May3, Pentecost(Sun), Corpus Christi, Aug15, Nov1, Nov11, Dec25, Dec26
-  // Only Mon-Fri occurrences reduce available working days
-  2024:[1,0,0,1,3,0,0,1,0,0,2,2], // Jan1(Mon), EasterMon Apr1(Mon), May1(Wed)+May3(Fri)+CorpusChr May30(Thu), Aug15(Thu), Nov1(Fri)+Nov11(Mon), Dec25(Wed)+Dec26(Thu)
-  2025:[2,0,0,1,1,1,0,1,0,0,1,2], // Jan1(Wed)+Jan6(Mon), EasterMon Apr21(Mon), May1(Thu), CorpusChr Jun19(Thu), Aug15(Fri), Nov11(Tue), Dec25(Thu)+Dec26(Fri)
-  2026:[2,0,0,1,1,1,0,0,0,0,1,1], // Jan1(Thu)+Jan6(Tue), EasterMon Apr6(Mon), May1(Fri), CorpusChr Jun4(Thu), Nov11(Wed), Dec25(Fri)
-  2027:[2,0,1,0,2,0,0,0,0,0,2,0]  // Jan1(Fri)+Jan6(Wed), EasterMon Mar29(Mon), May3(Mon)+CorpusChr May27(Thu), Nov1(Mon)+Nov11(Thu)
-};
+// Working time comes from PayrollCore (payroll.js): Mon–Fri minus weekday public
+// holidays minus Saturday-holiday days off in lieu (art. 130 § 2 KP). Verified
+// against 2026 payslips: July 184 h = 23 d, August 160 h = 20 d.
 const PIT0_LIMIT = 85528;
 const KUP_ANNUAL = 120000;
 const TAX_BRACKET = 120000;
-const MIN_WAGE_2025 = 4666, MIN_WAGE_2026 = 4666; // approximate
+const MIN_WAGE_2025 = 4666, MIN_WAGE_2026 = 4806;
 const CHILD_LIMIT_SINGLE = 56000;
 const CHILD_LIMIT_MARRIED = 112000;
 
@@ -1588,51 +1715,55 @@ function onFamily4Change() {
  * One pass: ZUS, KUP, tax base per month. pitExempt = PIT-0 / powrót / 4+ (no 50% KUP).
  * brGrossTax = monthly taxable gross (contract + taxed addon).
  */
-function uopBuildYearSlices(brContract, brGrossTax, taxedAddon, exemptAddon, pitExempt, ppkPct, ben, rok, cap, kupType, kf, kupFullMonth, vac, l4a) {
+function uopBuildYearSlices(cfg) {
+  const {
+    brContract, brGrossTax, taxedAddon, exemptAddon, nonCashAddon = 0,
+    pitExempt, ppkPct, rok, cap, kupType, kf, kupFullMonth, kupPct,
+    vac, l4a, noCre = [], ytd = { erBase: 0, kup: 0 }, wypRate = readWypRate()
+  } = cfg;
   const wd = getWD(rok), ph = getPH(rok);
   const mid = [];
   const empOut = [];
-  let cumBr = 0, cumKUP = 0, cumTB = 0;
+  // Opening balances let the model start mid-year from a payslip's "Narastająco
+  // w roku", which is what makes the ZUS cap and the 32% bracket land in the
+  // right month when payroll pays a month in arrears.
+  let cumBr = Math.max(0, ytd.erBase || 0);
+  let cumKUP = Math.max(0, ytd.kup || 0);
+  let cumTB = 0;
   for (let m = 0; m < 12; m++) {
     const totalDays = wd[m];
     const holidayDays = ph[m];
-    const maxAb = totalDays - holidayDays;
+    // Holidays are already outside totalDays, so absences cap at totalDays.
+    const maxAb = totalDays;
     let vacDays = Math.min(Math.max(0, vac[m]), maxAb);
     let l4Days = Math.min(Math.max(0, l4a[m]), maxAb - vacDays);
+    let nonCreDays = Math.min(Math.max(0, noCre[m] || 0), maxAb - vacDays - l4Days);
     const sickPayFactor = l4Days > 0 ? (1 - 0.2 * l4Days / totalDays) : 1;
     const brMbase = Math.round(brGrossTax * sickPayFactor * 100) / 100;
     const bonusExtra = bonusForMonth(m);
     const brM = brMbase + bonusExtra;
-    const creativeDays = kupFullMonth ? totalDays : Math.max(0, totalDays - vacDays - l4Days);
-    const nc = cumBr + brM;
-    let em = 0, re = 0, capH = false;
-    if (cumBr >= cap) { capH = true; }
-    else if (nc > cap) { const p = cap - cumBr; em = p * 0.0976; re = p * 0.015; capH = true; }
-    else { em = brM * 0.0976; re = brM * 0.015; }
-    const ch = brM * 0.0245;
-    const zusS = em + re + ch;
-    const zdBase = brM - zusS;
-    const zd = zdBase * 0.09;
+    const creativeDays = kupFullMonth
+      ? totalDays
+      : Math.max(0, totalDays - vacDays - l4Days - nonCreDays);
+    const z = PayrollCore.zusSlice(brM, cumBr, cap);
+    const em = z.em, re = z.re, ch = z.ch, capH = z.capped;
+    const zusS = z.social;
+    const zd = z.health;
     const ppk = brM * (ppkPct / 100);
     let kup_m = 250, kEx = false;
     const useKUP = !pitExempt;
+    const kupSliceShare = (bonusExtra > 0 && brM > 0) ? Math.min(1, brMbase / brM) : 1;
+    // KUP this month would be worth this much with no absences at all — the
+    // baseline the annual-budget panel measures days off against.
+    let kupNoAbsence;
+    if (kupType === 'auto') {
+      kupNoAbsence = Math.max(0, brM - zusS) * kupSliceShare * (kupPct / 100) * 0.50;
+    } else {
+      kupNoAbsence = kf * (kupType === 'manual' && bonusExtra > 0 ? kupSliceShare : 1);
+    }
+    if (!useKUP) kupNoAbsence = 0;
     if (useKUP && cumKUP < KUP_ANNUAL) {
-      let raw;
-      const kupSliceShare = (bonusExtra > 0 && brM > 0) ? Math.min(1, brMbase / brM) : 1;
-      if (kupType === 'manual') {
-        raw = kupFullMonth ? kf : kf * (creativeDays / totalDays);
-        if (bonusExtra > 0) raw *= kupSliceShare;
-      } else if (kupType === 'auto') {
-        let pct = document.getElementById('kup-pct').value;
-        if (pct === '0') pct = parseFloat(document.getElementById('kup-pct-c').value) || 80;
-        else pct = parseFloat(pct);
-        const baseK = Math.max(0, brM - zusS) * kupSliceShare;
-        raw = baseK * (pct / 100) * 0.50;
-        if (!kupFullMonth) raw *= creativeDays / totalDays;
-      } else {
-        const flat = kupFull(brGrossTax);
-        raw = kupFullMonth ? flat : flat * (creativeDays / totalDays);
-      }
+      const raw = kupFullMonth ? kupNoAbsence : kupNoAbsence * (creativeDays / totalDays);
       const rem = KUP_ANNUAL - cumKUP;
       kup_m = Math.min(raw, rem);
       if (kup_m < raw - 0.5) kEx = true;
@@ -1643,27 +1774,66 @@ function uopBuildYearSlices(brContract, brGrossTax, taxedAddon, exemptAddon, pit
     const tb = Math.max(0, brM - zusS - kup_m);
     cumTB += tb;
     mid.push({
-      m, brContract, brGrossTax, brMbase, bonusExtra, brM, taxedAddon, exemptAddon,
-      em, re, ch, zusS, zd, kup_m, tb, ppk, capH, kEx,
-      vacDays, l4Days, creativeDays, totalDays, holidayDays
+      m, brContract, brGrossTax, brMbase, bonusExtra, brM, taxedAddon, exemptAddon, nonCashAddon,
+      em, re, ch, zusS, zd, kup_m, kupNoAbsence, tb, ppk, capH, kEx,
+      vacDays, l4Days, nonCreDays, creativeDays, totalDays, holidayDays
     });
-    cumBr = nc;
-    const e_em = capH ? 0 : brM * 0.0976;
-    const e_re = capH ? 0 : brM * 0.065;
-    const e_wyp = brM * 0.0167;
-    const e_fp = brM * 0.0245;
-    const e_fg = brM * 0.001;
-    const e_ppk = brM * 0.015;
-    const e_tot = brM + e_em + e_re + e_wyp + e_fp + e_fg + e_ppk;
-    empOut.push({ m, br: brM, e_em, e_re, e_wyp, e_fp, e_fg, e_ppk, e_tot, capH });
+    cumBr += brM;
+    const ec = PayrollCore.employerCost({ gross: brM, wypRate, ppkPct, capped: capH });
+    empOut.push({
+      m, br: brM, e_em: ec.em, e_re: ec.re, e_wyp: ec.wyp,
+      e_fp: ec.fp, e_fg: ec.fgsp, e_ppk: ec.ppk, e_tot: ec.total, capH
+    });
   }
   return { mid, empOut, annualTB: cumTB };
 }
 
+/**
+ * Employer accident-insurance rate, %. Varies by industry (PKD) and headcount,
+ * so it cannot be hardcoded: office/IT employers are commonly at 0,67%, while
+ * 1,67% is the high end. Read it off a payslip — "Płatnik / Wypadkowe" ÷ gross.
+ */
+function readWypRate() {
+  const v = parseFloat(document.getElementById('wyp-rate')?.value);
+  return Number.isFinite(v) && v >= 0 && v <= 10 ? v : 1.67;
+}
+
+/** Employer cost multiplier: gross + employer ZUS, FP, FGŚP and optional PPK. */
+function employerMultiplier() {
+  const ppkEmp = (parseFloat(document.getElementById('ppk')?.value) || 0) > 0 ? 0.015 : 0;
+  return 1 + 0.0976 + 0.065 + readWypRate() / 100 + 0.0245 + 0.001 + ppkEmp;
+}
+
+/** Selected creative-work share, %. Reads the dropdown or its custom override. */
+function readKupPct() {
+  let pct = document.getElementById('kup-pct').value;
+  if (pct === '0') pct = parseFloat(document.getElementById('kup-pct-c').value) || 80;
+  else pct = parseFloat(pct);
+  return pct;
+}
+
+/** Opening year-to-date balances, taken from a payslip's "Narastająco w roku". */
+function readYtd() {
+  const erBase = Math.max(0, parseFloat(document.getElementById('ytd-er-base')?.value) || 0);
+  const taxBase = Math.max(0, parseFloat(document.getElementById('ytd-tax-base')?.value) || 0);
+  // KUP already used this year is implied: base − social ZUS − taxable base.
+  const social = erBase * PayrollCore.ZUS_SOCIAL_RATE;
+  const kup = Math.max(0, erBase - social - taxBase);
+  return { erBase, taxBase, kup, hasAny: erBase > 0 || taxBase > 0 };
+}
+
 function getYear() { return parseInt(document.getElementById('rok').value) || 2026; }
 function getCap() { const y=getYear(); return CAPS[y]||(parseFloat(document.getElementById('cap-custom').value)||282600); }
-function getWD(y) { return WD[y]||WD[2026]; }
-function getPH(y) { return PH[y]||PH[2026]; }
+function getWT(y) { return PayrollCore.workingTime(y || 2026); }
+/** Statutory working time (wymiar czasu pracy) — holidays already removed. */
+function getWD(y) { return getWT(y).workDays; }
+/** Weekday public holidays — paid, shown for information only. */
+function getPH(y) { return getWT(y).holidays; }
+/** Plain Mon–Fri count, holidays included. Used by the B2B billable-day pool. */
+function getWeekdays(y) {
+  const w = getWT(y);
+  return w.workDays.map((d, i) => d + w.holidays[i] + w.satHolidays[i]);
+}
 
 function cloneRokOptionsToSticky() {
   const rok = document.getElementById('rok');
@@ -1741,15 +1911,22 @@ function checkPit0Kup() {
   document.getElementById('pit0-kup-warn').style.display = (pit0 && kup) ? '' : 'none';
 }
 
-/** Contract base + optional add-on; exempt add-on is excluded from ZUS/PIT base in the model when checkbox set. */
+/**
+ * Contract base + add-ons.
+ *  - taxedAddon   taxable and paid in cash
+ *  - exemptAddon  outside the ZUS/PIT base, paid in cash (checkbox)
+ *  - nonCashAddon employer-funded taxable benefits ("ER Medicover", "ER Multisport"…):
+ *                 they raise the ZUS and PIT base but are never paid out
+ */
 function readTaxableGrossParts() {
   const brContract = parseFloat(document.getElementById('brutto').value) || 0;
   const brAdd = Math.max(0, parseFloat(document.getElementById('br-add').value) || 0);
   const exempt = !!document.getElementById('br-add-exempt')?.checked;
+  const nonCashAddon = Math.max(0, parseFloat(document.getElementById('br-noncash')?.value) || 0);
   const taxedAddon = exempt ? 0 : brAdd;
   const exemptAddon = exempt ? brAdd : 0;
-  const brGrossTax = brContract + taxedAddon;
-  return { brContract, brAdd, exempt, taxedAddon, exemptAddon, brGrossTax };
+  const brGrossTax = brContract + taxedAddon + nonCashAddon;
+  return { brContract, brAdd, exempt, taxedAddon, exemptAddon, nonCashAddon, brGrossTax };
 }
 
 /** One-off bonus in month m + annual bonus if scheduled for that month (taxable gross, PLN). */
@@ -1908,19 +2085,194 @@ function buildVacGrid() {
   const MNS = t('monthsS');
   const lv = t('vg-l-v'), ll = t('vg-l-l');
   let html = '';
+  const lc = t('vg-l-c');
   for (let m=0;m<12;m++) {
-    const maxAb = wd[m] - ph[m];
+    // Public holidays are already outside the statutory working time, so the
+    // whole month's working days are available for absences.
+    const maxAb = wd[m];
     const pv = parseInt(document.getElementById('v'+m)?.value)||0;
     const pl = parseInt(document.getElementById('l'+m)?.value)||0;
+    const pc = parseInt(document.getElementById('c'+m)?.value)||0;
+    const phNote = ph[m] > 0 ? `<span class="vg-sub" title="${t('vg-ph-tip')}"> +${ph[m]}PH</span>` : '';
     html += `<div class="vg-month">
-      <label>${MNS[m]}<span class="vg-sub">(${maxAb})</span></label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <label>${MNS[m]}<span class="vg-sub">(${maxAb})</span>${phNote}</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
         <div class="vg-cell"><span class="vg-sub">${lv}</span><input type="number" id="v${m}" value="${pv}" min="0" max="${maxAb}" aria-label="${MNS[m]} vacation" oninput="touchUopInputs()"></div>
         <div class="vg-cell"><span class="vg-sub">${ll}</span><input type="number" id="l${m}" value="${pl}" min="0" max="${maxAb}" aria-label="${MNS[m]} L4" oninput="touchUopInputs()"></div>
+        <div class="vg-cell"><span class="vg-sub">${lc}</span><input type="number" id="c${m}" value="${pc}" min="0" max="${maxAb}" aria-label="${MNS[m]} non-creative days" oninput="touchUopInputs()"></div>
       </div>
     </div>`;
   }
   document.getElementById('vac-grid').innerHTML = html;
+}
+
+// ─── ANNUAL KUP BUDGET ────────────────────────────────────────────────────────
+
+/**
+ * How many days off the 120 000 zł annual KUP limit absorbs for free, and what
+ * each day beyond that costs. Rendered after every Calculate.
+ */
+function renderKupBudget(mid, ytd) {
+  const box = document.getElementById('kup-budget');
+  if (!box) return;
+  const kupType = document.getElementById('kup-type').value;
+  if (kupType === 'none' || !mid || !mid.length) { box.style.display = 'none'; return; }
+
+  const b = PayrollCore.kupBudget({
+    months: mid.map((r) => ({
+      fullKup: r.kupNoAbsence,
+      workDays: r.totalDays,
+      daysOff: r.vacDays + r.l4Days + r.nonCreDays,
+      rate32: !!r.rate32
+    })),
+    kupUsed: (ytd && ytd.kup) || 0
+  });
+
+  if (!b.capped) {
+    box.style.display = 'block';
+    box.className = 'ibox ibox-gray';
+    box.innerHTML = `<div style="font-size:12px;line-height:1.65">
+      <strong>${t('kb-title')}</strong><br>
+      ${t('kb-under').replace('{kup}', fv(b.uncapped))}
+    </div>`;
+    return;
+  }
+
+  const MN = t('monthsS');
+  const left = b.daysLeft;
+  const good = left > 0;
+  const chips = mid.map((r, i) => {
+    const c = b.costPerDay[i];
+    return `<span style="display:inline-block;padding:2px 7px;margin:2px 4px 2px 0;border-radius:6px;
+      background:${r.rate32 ? '#fef2f2' : '#f1f5f9'};border:1px solid ${r.rate32 ? '#fecaca' : '#e2e8f0'};
+      font-size:10px;white-space:nowrap">${MN[i]} <strong>${fd(c)}</strong></span>`;
+  }).join('');
+
+  box.style.display = 'block';
+  box.className = good ? 'ibox ibox-blue' : 'ibox ibox-yellow';
+  box.innerHTML = `
+    <div style="font-size:12px;line-height:1.65">
+      <strong>${t('kb-title')}</strong><br>
+      ${t('kb-intro').replace('{kup}', fv(b.uncapped)).replace('{over}', fv(b.headroom))}
+    </div>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;margin:10px 0 8px">
+      <div><div style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em">${t('kb-buffer')}</div>
+           <div style="font-size:17px;font-weight:800">${b.headroomDays.toFixed(1)} ${t('kb-days')}</div></div>
+      <div><div style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em">${t('kb-used')}</div>
+           <div style="font-size:17px;font-weight:800">${b.daysOff.toFixed(0)} ${t('kb-days')}</div></div>
+      <div><div style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em">${t('kb-left')}</div>
+           <div style="font-size:17px;font-weight:800;color:${good ? '#15803d' : '#b91c1c'}">${left > 0 ? left.toFixed(1) : '0'} ${t('kb-days')}</div></div>
+    </div>
+    <div style="font-size:11px;color:#475569;line-height:1.6">
+      ${good ? t('kb-ok').replace('{n}', left.toFixed(1)) : t('kb-gone')}
+    </div>
+    <div style="margin-top:9px">
+      <div style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">${t('kb-cost')}</div>
+      ${chips}
+    </div>
+    <div style="font-size:10px;color:#64748b;line-height:1.55;margin-top:8px">${t('kb-note')}</div>`;
+}
+
+// ─── PAYSLIP RECONCILIATION ───────────────────────────────────────────────────
+
+function readRecon() {
+  const n = (id) => parseFloat(document.getElementById(id)?.value) || 0;
+  return {
+    gross: Math.max(0, n('rc-gross')),
+    nonCash: Math.max(0, n('rc-noncash')),
+    kup: Math.max(0, n('rc-kup')),
+    cumTb: Math.max(0, n('rc-cumtb')),
+    netAddon: n('rc-netaddon'),
+    netto: Math.max(0, n('rc-netto'))
+  };
+}
+
+/** Rebuild one payslip month from its own numbers and diff it line by line. */
+function renderRecon() {
+  const box = document.getElementById('recon-out');
+  if (!box) return;
+  const inp = readRecon();
+  if (inp.gross <= 0 || inp.netto <= 0) {
+    box.style.display = 'block';
+    box.innerHTML = `<span style="font-size:12px;color:#475569">${t('rc-need')}</span>`;
+    return;
+  }
+  const r = PayrollCore.month({
+    gross: inp.gross,
+    nonCash: inp.nonCash,
+    kup: inp.kup,
+    cumErBase: 0,          // the cap is reflected by the gross the user typed
+    cumTaxBase: inp.cumTb,
+    cap: Number.MAX_SAFE_INTEGER,
+    ppkPct: parseFloat(document.getElementById('ppk')?.value) || 0,
+    deductions: 0,
+    netAddon: inp.netAddon
+  });
+  const share = PayrollCore.honorariumShare(inp.kup, inp.gross, r.social);
+  const diff = r.netto - inp.netto;
+  const ok = Math.abs(diff) < 0.005;
+
+  // Grosz precision here on purpose — the point of this panel is an exact match.
+  const gr = (n) => (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).replace('.', ',');
+  const row = (label, model, slip) => {
+    const d = slip === null ? null : model - slip;
+    const col = d === null ? '#64748b' : (Math.abs(d) < 0.005 ? '#15803d' : '#b91c1c');
+    return `<tr>
+      <td style="padding:3px 10px 3px 0">${label}</td>
+      <td style="padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums">${gr(model)}</td>
+      <td style="padding:3px 10px;text-align:right;font-variant-numeric:tabular-nums;color:#64748b">${slip === null ? '—' : gr(slip)}</td>
+      <td style="padding:3px 0 3px 10px;text-align:right;font-variant-numeric:tabular-nums;color:${col};font-weight:700">${d === null ? '—' : (d > 0.005 ? '+' : '') + gr(d)}</td>
+    </tr>`;
+  };
+
+  box.style.display = 'block';
+  box.innerHTML = `
+    <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.5">
+      <thead><tr style="color:#64748b;font-size:10px;text-transform:uppercase;letter-spacing:.04em">
+        <th style="text-align:left;padding-bottom:5px">${t('rc-line')}</th>
+        <th style="text-align:right;padding-bottom:5px">${t('rc-model')}</th>
+        <th style="text-align:right;padding-bottom:5px">${t('rc-slip')}</th>
+        <th style="text-align:right;padding-bottom:5px">${t('rc-diff')}</th>
+      </tr></thead>
+      <tbody>
+        ${row(t('rc-social'), r.social, null)}
+        ${row(t('rc-health'), r.health, null)}
+        ${row(t('rc-tb'), r.taxBase, null)}
+        ${row(t('rc-tax'), r.tax, null)}
+        ${row(t('rc-net'), r.netto, inp.netto)}
+      </tbody>
+    </table>
+    <div style="margin-top:10px;padding:8px 11px;border-radius:7px;font-size:12px;font-weight:700;
+                background:${ok ? '#f0fdf4' : '#fef2f2'};color:${ok ? '#166534' : '#991b1b'};
+                border:1px solid ${ok ? '#bbf7d0' : '#fecaca'}">
+      ${ok ? '✓ ' + t('rc-ok') : '✗ ' + t('rc-off')}
+    </div>
+    ${inp.kup > 0 ? `<div style="margin-top:10px;font-size:12px;line-height:1.6">
+      <strong>${t('rc-share')}: ${(share * 100).toFixed(2).replace('.', LANG === 'en' ? '.' : ',')}%</strong><br>
+      <span style="color:#64748b;font-size:11px">${t('rc-share-note')}</span>
+    </div>` : ''}`;
+}
+
+/** Copy the reconciled payslip into the main inputs. */
+function applyReconToInputs() {
+  const inp = readRecon();
+  if (inp.gross <= 0) return;
+  const $ = (id) => document.getElementById(id);
+  $('brutto').value = String(Math.max(0, inp.gross - inp.nonCash));
+  $('br-noncash').value = String(inp.nonCash);
+  if (inp.cumTb > 0) $('ytd-tax-base').value = String(inp.cumTb);
+  if (inp.kup > 0) {
+    $('kup-type').value = 'manual';
+    $('kup-manual').value = String(inp.kup);
+    onKupType();
+  }
+  // Non-taxable items: positive part is a net add-on, negative part a deduction.
+  if (inp.netAddon > 0) { $('br-add').value = String(inp.netAddon); $('br-add-exempt').checked = true; }
+  else if (inp.netAddon < 0) { $('oth').value = String(Math.abs(inp.netAddon)); }
+  liveKup();
+  syncStickySalaryToBar();
+  touchUopInputs();
+  calc();
 }
 
 function buildBonusGrid() {
@@ -1974,7 +2326,7 @@ function renderHeroResults() {
 
 // ─── CALCULATION ──────────────────────────────────────────────────────────────
 function calc() {
-  const { brContract, taxedAddon, exemptAddon, brGrossTax } = readTaxableGrossParts();
+  const { brContract, taxedAddon, exemptAddon, nonCashAddon, brGrossTax } = readTaxableGrossParts();
   const br = brGrossTax;
   const rok = getYear();
   const cap = getCap();
@@ -1996,14 +2348,18 @@ function calc() {
 
   const vac = Array.from({length:12}, (_, i) => parseInt(document.getElementById('v'+i)?.value) || 0);
   const l4a = Array.from({length:12}, (_, i) => parseInt(document.getElementById('l'+i)?.value) || 0);
+  const noCre = Array.from({length:12}, (_, i) => parseInt(document.getElementById('c'+i)?.value) || 0);
   const kupFullMonth = !!(document.getElementById('kup-full-month')?.checked)
     && document.getElementById('kup-type').value !== 'none';
+  const ytd = readYtd();
 
   const zeroTaxLimit = pitExempt ? PIT0_LIMIT : 0;
 
-  const { mid, empOut, annualTB } = uopBuildYearSlices(
-    brContract, br, taxedAddon, exemptAddon, pitExempt, ppkPct, ben, rok, cap, kupType, kf, kupFullMonth, vac, l4a
-  );
+  const { mid, empOut, annualTB } = uopBuildYearSlices({
+    brContract, brGrossTax: br, taxedAddon, exemptAddon, nonCashAddon,
+    pitExempt, ppkPct, rok, cap, kupType, kf, kupFullMonth,
+    kupPct: readKupPct(), vac, l4a, noCre, ytd
+  });
 
   const spouseForChild = familyMode === 'joint' ? spouseAnnualTB : 0;
   const childFull = childReliefAnnual(nChild, familyMode, annualTB, spouseForChild);
@@ -2011,7 +2367,7 @@ function calc() {
 
   RES = [];
   EMP = empOut;
-  let cumTB = 0, cumIncome = 0, empCumTB = 0;
+  let cumTB = ytd.taxBase, cumIncome = 0, empCumTB = ytd.taxBase;
 
   for (let m = 0; m < 12; m++) {
     const r = mid[m];
@@ -2023,21 +2379,13 @@ function calc() {
       if (cumIncome <= zeroTaxLimit) {
         tax = 0;
       } else if (cumIncome - r.brM < zeroTaxLimit) {
+        // First taxable month: only the part above the PIT-0 ceiling is taxed.
         const over = cumIncome - zeroTaxLimit;
-        const overTB = Math.max(0, over - r.kup_m);
-        const prevC = cumTB;
-        if (prevC >= TAX_BRACKET) { tax = Math.max(0, overTB * 0.32 - 300); p32 = true; }
-        else if (prevC + overTB > TAX_BRACKET) {
-          const i12 = TAX_BRACKET - prevC, i32 = overTB - i12, fr = overTB > 0 ? i12 / overTB : 0;
-          tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
-        } else tax = Math.max(0, overTB * 0.12 - 300);
+        const a = PayrollCore.advance(Math.max(0, over - r.kup_m), cumTB);
+        tax = a.tax; p32 = a.rate32;
       } else {
-        const prevC = cumTB;
-        if (prevC >= TAX_BRACKET) { tax = Math.max(0, tb * 0.32 - 300); p32 = true; }
-        else if (prevC + tb > TAX_BRACKET) {
-          const i12 = TAX_BRACKET - prevC, i32 = tb - i12, fr = tb > 0 ? i12 / tb : 0;
-          tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
-        } else tax = Math.max(0, tb * 0.12 - 300);
+        const a = PayrollCore.advance(tb, cumTB);
+        tax = a.tax; p32 = a.rate32;
       }
     } else if (useJointSplit) {
       const coupleBefore = empCumTB + m * spM;
@@ -2046,29 +2394,29 @@ function calc() {
       p32 = (coupleAfter / 2) > TAX_BRACKET;
       empCumTB += tb;
     } else {
-      const prevC = cumTB;
-      if (prevC >= TAX_BRACKET) { tax = Math.max(0, tb * 0.32 - 300); p32 = true; }
-      else if (prevC + tb > TAX_BRACKET) {
-        const i12 = TAX_BRACKET - prevC, i32 = tb - i12, fr = tb > 0 ? i12 / tb : 0;
-        tax = Math.max(0, i12 * 0.12 - 300 * fr) + i32 * 0.32; p32 = true;
-      } else tax = Math.max(0, tb * 0.12 - 300);
+      const a = PayrollCore.advance(tb, cumTB);
+      tax = a.tax; p32 = a.rate32;
       empCumTB += tb;
     }
 
     cumTB += tb;
     tax = Math.max(0, tax - childM);
+    r.rate32 = p32;
 
-    const netto = r.brM - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
+    const netto = r.brM - r.nonCashAddon - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
     const dim = m >= 10 && (p32 || r.kEx);
 
     RES.push({
       m, br: r.brContract, brGrossTax: r.brGrossTax, brMbase: r.brMbase, bonusExtra: r.bonusExtra, brM: r.brM,
-      taxedAddon: r.taxedAddon, exemptAddon: r.exemptAddon, em: r.em, re: r.re, ch: r.ch, zusS: r.zusS, zd: r.zd,
+      taxedAddon: r.taxedAddon, exemptAddon: r.exemptAddon, nonCashAddon: r.nonCashAddon,
+      em: r.em, re: r.re, ch: r.ch, zusS: r.zusS, zd: r.zd,
       kup: r.kup_m, tb, tax, ppk: r.ppk, ben, netto, capH: r.capH, p32, kEx: r.kEx, dim,
-      vacDays: r.vacDays, l4Days: r.l4Days, creativeDays: r.creativeDays, totalDays: r.totalDays, holidayDays: r.holidayDays
+      vacDays: r.vacDays, l4Days: r.l4Days, nonCreDays: r.nonCreDays,
+      creativeDays: r.creativeDays, totalDays: r.totalDays, holidayDays: r.holidayDays
     });
   }
 
+  renderKupBudget(mid, ytd);
   renderAlerts();
   renderHeroResults();
   renderMetrics();
@@ -2190,13 +2538,14 @@ function renderDet() {
     if ((r.taxedAddon||0) > 0 || (r.exemptAddon||0) > 0) {
       const p = [];
       if (r.taxedAddon > 0) p.push(`+${fv(r.taxedAddon)} ${t('lbl_taxed_addon')}`);
+      if (r.nonCashAddon > 0) p.push(`+${fv(r.nonCashAddon)} ${t('lbl_noncash_addon')}`);
       if (r.exemptAddon > 0) p.push(`+${fv(r.exemptAddon)} ${t('lbl_exempt_addon')}`);
       addonLine = `<div style="font-size:9px;color:#64748b;line-height:1.35;margin-top:3px">${p.join(' · ')}</div>`;
     }
     const tipPh = LANG==='en'
       ? 'Weekday public holidays in this calendar month — not vacation from your grid'
       : 'Święta państwowe w dni robocze w tym miesiącu — nie urlop z siatki';
-    let vacCell = `${r.vacDays||0}V${r.l4Days?'·'+r.l4Days+'L':''}`;
+    let vacCell = `${r.vacDays||0}V${r.l4Days?'·'+r.l4Days+'L':''}${r.nonCreDays?'·'+r.nonCreDays+'NC':''}`;
     if (r.holidayDays>0) {
       vacCell += ` <span style="font-size:10px;color:#64748b;white-space:nowrap" title="${tipPh}">· ${r.holidayDays} PH</span>`;
     }
@@ -2461,7 +2810,8 @@ function goMain(name) {
 function calcReverse() {
   const targetNetto = parseFloat(document.getElementById('rev-netto').value)||0;
   const targetMonth = parseInt(document.getElementById('rev-month').value)||0;
-  const { taxedAddon, exemptAddon } = readTaxableGrossParts();
+  const { taxedAddon, exemptAddon, nonCashAddon } = readTaxableGrossParts();
+  const ytd = readYtd();
   const payrollTarget = Math.max(0, targetNetto - exemptAddon);
   const rok = getYear();
   const ben = (parseFloat(document.getElementById('med').value)||0)
@@ -2499,14 +2849,17 @@ function calcReverse() {
     const kupTypeRv = document.getElementById('kup-type').value;
     const vac = Array.from({ length: 12 }, (_, i) => parseInt(document.getElementById('v'+i)?.value) || 0);
     const l4a = Array.from({ length: 12 }, (_, i) => parseInt(document.getElementById('l'+i)?.value) || 0);
-    const { mid, annualTB } = uopBuildYearSlices(
-      brContract, brG, taxedAddon, exemptAddon, pitExemptRv, ppkPct, ben, rok, cap, kupTypeRv, kf, kupFullMonth, vac, l4a
-    );
+    const noCre = Array.from({ length: 12 }, (_, i) => parseInt(document.getElementById('c'+i)?.value) || 0);
+    const { mid, annualTB } = uopBuildYearSlices({
+      brContract, brGrossTax: brG, taxedAddon, exemptAddon, nonCashAddon,
+      pitExempt: pitExemptRv, ppkPct, rok, cap, kupType: kupTypeRv, kf, kupFullMonth,
+      kupPct: readKupPct(), vac, l4a, noCre, ytd
+    });
     const spouseForChildRv = familyModeRv === 'joint' ? spouseAnnualRv : 0;
     const childFullRv = childReliefAnnual(nChildRv, familyModeRv, annualTB, spouseForChildRv);
     const childMRv = childFullRv / 12;
     const zeroTaxLimit = pitExemptRv ? PIT0_LIMIT : 0;
-    let cumTB = 0, cumIncome = 0, empCumTB = 0;
+    let cumTB = ytd.taxBase, cumIncome = 0, empCumTB = ytd.taxBase;
     for (let m = 0; m <= targetMonth; m++) {
       const r = mid[m];
       const tb = r.tb;
@@ -2517,20 +2870,9 @@ function calcReverse() {
           tax = 0;
         } else if (cumIncome - r.brM < zeroTaxLimit) {
           const over = cumIncome - zeroTaxLimit;
-          const overTB = Math.max(0, over - r.kup_m);
-          const pv = cumTB;
-          if (pv >= TAX_BRACKET) tax = Math.max(0, overTB * 0.32 - 300);
-          else if (pv + overTB > TAX_BRACKET) {
-            const i1 = TAX_BRACKET - pv, i3 = overTB - i1, fr = overTB > 0 ? i1 / overTB : 0;
-            tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
-          } else tax = Math.max(0, overTB * 0.12 - 300);
+          tax = PayrollCore.advance(Math.max(0, over - r.kup_m), cumTB).tax;
         } else {
-          const pv = cumTB;
-          if (pv >= TAX_BRACKET) tax = Math.max(0, tb * 0.32 - 300);
-          else if (pv + tb > TAX_BRACKET) {
-            const i1 = TAX_BRACKET - pv, i3 = tb - i1, fr = tb > 0 ? i1 / tb : 0;
-            tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
-          } else tax = Math.max(0, tb * 0.12 - 300);
+          tax = PayrollCore.advance(tb, cumTB).tax;
         }
       } else if (useJointSplitRv) {
         const coupleBefore = empCumTB + m * spMRv;
@@ -2538,17 +2880,14 @@ function calcReverse() {
         tax = jointTaxYTD(coupleAfter) - jointTaxYTD(coupleBefore);
         empCumTB += tb;
       } else {
-        const pv = cumTB;
-        if (pv >= TAX_BRACKET) tax = Math.max(0, tb * 0.32 - 300);
-        else if (pv + tb > TAX_BRACKET) {
-          const i1 = TAX_BRACKET - pv, i3 = tb - i1, fr = tb > 0 ? i1 / tb : 0;
-          tax = Math.max(0, i1 * 0.12 - 300 * fr) + i3 * 0.32;
-        } else tax = Math.max(0, tb * 0.12 - 300);
+        tax = PayrollCore.advance(tb, cumTB).tax;
         empCumTB += tb;
       }
       cumTB += tb;
       tax = Math.max(0, tax - childMRv);
-      if (m === targetMonth) return r.brM - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
+      if (m === targetMonth) {
+        return r.brM - r.nonCashAddon - r.zusS - r.zd - tax - r.ppk - ben + exemptAddon;
+      }
     }
     return 0;
   }
@@ -2579,14 +2918,14 @@ function calcReverse() {
       </div>
       <div class="metric">
         <div class="ml">${en?'EMPLOYER TOTAL COST':'KOSZT PRACODAWCY'}</div>
-        <div class="mv">${fv(Math.round((br+taxedAddon)*1.2259))}</div>
+        <div class="mv">${fv(Math.round((br+taxedAddon)*employerMultiplier()))}</div>
         <div class="ms">${en?'approx. incl. employer ZUS':'przybliż. ze składkami pracodawcy'}</div>
       </div>
     </div>
     <div class="al al-b" style="font-size:11px">
       ${en
-        ? 'To reach <strong>'+fv(targetNetto)+'</strong> total take-home in <strong>'+MN[targetMonth]+'</strong>, you need <strong>contract gross '+fv(br)+'</strong>'+(taxedAddon>0?' + <strong>'+fv(taxedAddon)+'</strong> taxed add-on':'')+(exemptAddon>0?'; plus <strong>'+fv(exemptAddon)+'</strong> outside gross (per checkbox)':'')+'. Employer cost ≈ <strong>'+fv(Math.round((br+taxedAddon)*1.2259))+'</strong> (taxable payroll).'
-        : 'By mieć <strong>'+fv(targetNetto)+'</strong> łącznie „na rękę” w <strong>'+MN[targetMonth]+'</strong>, potrzebujesz <strong>brutta umownego '+fv(br)+'</strong>'+(taxedAddon>0?' + <strong>'+fv(taxedAddon)+'</strong> opodatk. dodatek':'')+(exemptAddon>0?'; plus <strong>'+fv(exemptAddon)+'</strong> poza brutto (wg zaznaczenia)':'')+'. Koszt pracodawcy ≈ <strong>'+fv(Math.round((br+taxedAddon)*1.2259))+'</strong> (od kwot podatkowych).'
+        ? 'To reach <strong>'+fv(targetNetto)+'</strong> total take-home in <strong>'+MN[targetMonth]+'</strong>, you need <strong>contract gross '+fv(br)+'</strong>'+(taxedAddon>0?' + <strong>'+fv(taxedAddon)+'</strong> taxed add-on':'')+(exemptAddon>0?'; plus <strong>'+fv(exemptAddon)+'</strong> outside gross (per checkbox)':'')+'. Employer cost ≈ <strong>'+fv(Math.round((br+taxedAddon)*employerMultiplier()))+'</strong> (taxable payroll).'
+        : 'By mieć <strong>'+fv(targetNetto)+'</strong> łącznie „na rękę” w <strong>'+MN[targetMonth]+'</strong>, potrzebujesz <strong>brutta umownego '+fv(br)+'</strong>'+(taxedAddon>0?' + <strong>'+fv(taxedAddon)+'</strong> opodatk. dodatek':'')+(exemptAddon>0?'; plus <strong>'+fv(exemptAddon)+'</strong> poza brutto (wg zaznaczenia)':'')+'. Koszt pracodawcy ≈ <strong>'+fv(Math.round((br+taxedAddon)*employerMultiplier()))+'</strong> (od kwot podatkowych).'
       }
     </div>
   `;
@@ -2639,7 +2978,7 @@ const ZUS_RATES = {
   em: 0.1952,  // 19.52% both sides (self-employed pays full)
   re: 0.08,    // 8.00% both sides
   ch: 0.0245,  // 2.45% voluntary (chorobowe)
-  wyp: 0.0167, // 1.67% wypadkowe
+  wyp: 0.0167, // B2B wypadkowa (JDG default; UoP side uses the wyp-rate input)
   fp: 0.0245,  // 2.45% Fundusz Pracy (only when base >= min wage)
 };
 
@@ -2897,8 +3236,8 @@ function onB2bRoleKeydown(ev) {
 
 function buildB2BVacGrid() {
   const rok = parseInt(document.getElementById('b2b-rok')?.value) || 2026;
-  const wd  = WD[rok] || WD[2026];
-  const ph  = PH[rok] || PH[2026];
+  const wd  = getWeekdays(rok);
+  const ph  = getPH(rok);
   const MNS = t('monthsS');
   const billMode = document.getElementById('b2b-bill')?.value || 'minus_ph';
   let html  = '';
@@ -2987,8 +3326,8 @@ function renderB2BBillExample() {
   const mi = Math.min(11, Math.max(0, parseInt(sel?.value, 10) || 0));
   const inv = parseFloat(document.getElementById('b2b-inv')?.value) || 0;
   const billMode = document.getElementById('b2b-bill')?.value || 'minus_ph';
-  const wdArr = WD[rok] || WD[2026];
-  const phArr = PH[rok] || PH[2026];
+  const wdArr = getWeekdays(rok);
+  const phArr = getPH(rok);
   const totalDays = wdArr[mi];
   const phw = phArr[mi];
   const availDays = billMode === 'minus_ph' ? totalDays - phw : totalDays;
@@ -3051,8 +3390,8 @@ function calcB2B() {
   const MN      = t('months');
 
   const cfg = B2B_CONFIG[rok] || B2B_CONFIG[2026];
-  const wd  = WD[rok] || WD[2026];
-  const ph  = PH[rok] || PH[2026];
+  const wd  = getWeekdays(rok);
+  const ph  = getPH(rok);
   const billMode = document.getElementById('b2b-bill')?.value || 'minus_ph';
 
   // ── Fixed monthly ZUS social (paid every month regardless of days worked)
@@ -3151,7 +3490,7 @@ function calcB2B() {
 
   // ── UoP hint
   const br = readTaxableGrossParts().brGrossTax || 0;
-  const empCost = br > 0 ? Math.round(br * 1.2259) : 0;
+  const empCost = br > 0 ? Math.round(br * employerMultiplier()) : 0;
   const hint = document.getElementById('b2b-emp-hint');
   if (hint) {
     hint.textContent = br > 0
@@ -3285,6 +3624,13 @@ function clearAllInputs() {
   const $ = (id) => document.getElementById(id);
   $('brutto').value = '0';
   $('br-add').value = '0';
+  $('br-noncash').value = '0';
+  $('ytd-er-base').value = '0';
+  $('wyp-rate').value = '1.67';
+  $('ytd-tax-base').value = '0';
+  ['rc-gross','rc-noncash','rc-kup','rc-cumtb','rc-netaddon','rc-netto'].forEach((id) => {
+    const el = $(id); if (el) el.value = '0';
+  });
   $('cap-custom').value = '0';
   $('rok').value = '2026';
   $('b2b-rok').value = '2026';
@@ -3333,6 +3679,7 @@ function clearAllInputs() {
   checkPit0Kup();
   syncFamilySpouseWrap();
 
+  renderRecon();
   buildVacGrid();
   buildBonusGrid();
   buildB2BVacGrid();

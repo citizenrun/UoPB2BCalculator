@@ -1,5 +1,21 @@
 # Changelog
 
+## [Unreleased]
+- fix: apply the full 300 zł ulga in the month the 32% bracket is crossed (was pro-rata — overstated tax by ~41 zł)
+- fix: round the taxable base and the tax advance to whole złoty (art. 63 § 1 Ordynacji podatkowej)
+- fix: employer-funded taxable benefits (ER Medicover, ER Multisport) now raise the ZUS/PIT base without being paid out
+- fix: compute statutory working time per year instead of hardcoding it — adds Wigilia (24 Dec, statutory from 2025) and the Saturday day-off-in-lieu rule (art. 130 § 2 KP); August 2026 is 20 days, not 21
+- fix: absences are capped by the month's working days instead of double-subtracting public holidays
+- fix: minimum wage 2026 is 4 806 zł, not 4 666 zł
+- fix: employer accident insurance (wypadkowe) is now an input — it varies by PKD and headcount, and the hardcoded 1,67% overstated employer cost by 1% of gross for an office/IT employer actually at 0,67%
+- fix: employer PPK (1,5%) is no longer charged when the employee has opted out
+- fix: employer loaded-cost multiplier is derived from the accident rate and PPK status instead of the hardcoded 1,2259, which also corrects the "fair B2B invoice equivalent" in the UoP↔B2B comparison
+- feat: annual KUP budget panel — how many days off the 120 000 zł limit absorbs for free, how many you have left, and the net cost of one extra day in each month
+- feat: payslip reconciliation panel — rebuild one month from six payslip numbers, diff it line by line, and back-solve the real creative-work share
+- feat: per-month `NC` column for working days not reported as creative work
+- feat: year-to-date opening balances from `Narastająco w roku`, to realign the ZUS cap and the 32% bracket when payroll pays a month in arrears
+- refactor: payroll core extracted to `public/payroll.js`, covered by `tests/payroll.validation.test.mjs` against two real 2026 payslips
+
 ## [0.1.5] - 2026-04-15
 - chore: update workspace rules and bump release to v0.1.4
 

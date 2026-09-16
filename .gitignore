@@ -11,3 +11,9 @@ test-results/
 *.log
 .env
 .env.*
+
+# IDE
+.idea/
+
+# Personal Claude Code settings (launch.json is shared, local settings are not)
+.claude/settings.local.json

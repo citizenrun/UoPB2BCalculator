@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.6] - 2026-09-16
+- chore: ignore PDFs so payslips cannot be published by accident
+
+
 ## [Unreleased]
 - fix: apply the full 300 zł ulga in the month the 32% bracket is crossed (was pro-rata — overstated tax by ~41 zł)
 - fix: round the taxable base and the tax advance to whole złoty (art. 63 § 1 Ordynacji podatkowej)

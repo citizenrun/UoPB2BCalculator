@@ -17,3 +17,9 @@ test-results/
 
 # Personal Claude Code settings (launch.json is shared, local settings are not)
 .claude/settings.local.json
+
+# Payslips and other personal documents used for calibration.
+# Never commit these — this repo deploys publicly to GitHub Pages, and payslips
+# carry PESEL and salary data. Extract the figures into
+# .cursor/skills/uop-kalkulator/SKILL.md instead, then delete the source file.
+*.pdf

@@ -9,6 +9,9 @@
 
 
 ## [Unreleased]
+- feat: Lemon Squeezy webhook issues, renews and revokes licence keys — HMAC-SHA256 verified against the raw body, idempotent on retries, and it never echoes the key in its response
+- feat: `public/_headers` adds a CSP and security headers for Cloudflare Pages (ignored by GitHub Pages, so it is safe to land before the migration)
+- feat: Cloudflare Pages deploy workflow, `workflow_dispatch` only until the project exists
 - **licence: relicensed from MIT to AGPL-3.0** for the open core; `worker/` is proprietary (LICENSE-paid). Versions up to v0.1.6 remain MIT
 - feat: payslip reconciliation moved behind a licensed Cloudflare Worker endpoint — the client posts figures and receives results, the rules are no longer shipped to the browser
 - feat: cookieless, no-op-by-default analytics (`public/analytics.js`), honouring DNT and GPC; records page views and fixed event names only

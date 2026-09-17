@@ -11,6 +11,7 @@
  *   wrangler deploy
  */
 import { reconcile } from './reconcile.mjs';
+import { verifySignature, applyEvent } from './licences.mjs';
 
 const CORS = (origin) => ({
   'Access-Control-Allow-Origin': origin,
@@ -57,6 +58,30 @@ export default {
     if (request.method !== 'POST') return json({ error: 'method not allowed' }, 405, cors);
 
     const url = new URL(request.url);
+
+    // Webhooks authenticate by HMAC, not by licence key, and are never called
+    // from a browser — so no CORS headers and no licence check here.
+    if (url.pathname === '/v1/webhook/lemonsqueezy') {
+      const raw = await request.text();
+      const ok = await verifySignature(
+        raw, request.headers.get('X-Signature'), env.LS_WEBHOOK_SECRET
+      );
+      if (!ok) return json({ error: 'bad signature' }, 401);
+      let payload;
+      try {
+        payload = JSON.parse(raw);
+      } catch {
+        return json({ error: 'invalid JSON body' }, 400);
+      }
+      const res = await applyEvent(payload, env);
+      // Never echo the issued key in the response — it goes to the buyer via
+      // the merchant of record, not back down the webhook connection.
+      return json(
+        res.ok ? { ok: true, action: res.action } : { error: res.error },
+        res.ok ? 200 : (res.status || 400)
+      );
+    }
+
     if (url.pathname !== '/v1/reconcile') return json({ error: 'not found' }, 404, cors);
 
     const lic = await checkLicence(request.headers.get('X-Licence-Key'), env);

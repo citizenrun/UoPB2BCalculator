@@ -12,3 +12,9 @@ ALLOWED_ORIGINS = "https://citizenrun.github.io,http://localhost:5173"
 # [[kv_namespaces]]
 # binding = "LICENCE_KEYS"
 # id = "<fill in after creating the namespace>"
+
+# Webhook signing secret from the Lemon Squeezy store settings.
+# Never put it in this file — it is committed. Set it as a secret:
+#   wrangler secret put LS_WEBHOOK_SECRET
+# For `wrangler dev`, put it in worker/.dev.vars (gitignored):
+#   LS_WEBHOOK_SECRET = "..."

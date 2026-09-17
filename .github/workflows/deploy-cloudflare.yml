@@ -1,0 +1,47 @@
+# Deploy the free tier to Cloudflare Pages.
+#
+# Replaces deploy-pages.yml once the Cloudflare project exists. Kept disabled
+# (workflow_dispatch only) until then, so nothing breaks mid-migration.
+#
+# Required repository secrets:
+#   CLOUDFLARE_API_TOKEN   — token with the "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID  — from the Cloudflare dashboard sidebar
+#
+# To cut over: add `push: branches: [main]` below and delete deploy-pages.yml.
+name: Deploy to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npm run build
+
+      # public/_headers is copied into dist/ by Vite, which is what turns the
+      # CSP and cache rules into real HTTP headers on Pages.
+      - name: Check _headers survived the build
+        run: test -f dist/_headers || (echo "dist/_headers missing" && exit 1)
+
+      - name: Publish
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=uop-calculator

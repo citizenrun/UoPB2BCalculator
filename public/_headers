@@ -1,0 +1,32 @@
+#
+# Cloudflare Pages reads this file and sets real HTTP headers.
+# GitHub Pages ignores it, so it is safe to land before the migration.
+#
+# CSP note: index.html still uses an inline <script>, inline style="" and
+# onclick="" handlers, so script-src needs 'unsafe-inline'. That means this CSP
+# does NOT stop injected inline script — what it does stop is the realistic
+# attack: loading script, styles or fonts from somewhere else, exfiltrating to
+# an arbitrary origin, embedding the page in a frame, or posting a form off-site.
+# Removing the inline handlers later would let this tighten to a nonce.
+#
+# connect-src must list the paid Worker origin. Update it when you move the
+# Worker to a custom domain.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.goatcounter.com; connect-src 'self' https://*.workers.dev; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# Hashed build assets are safe to cache hard; the HTML is not.
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+/payroll.js
+  Cache-Control: public, max-age=3600
+/analytics.js
+  Cache-Control: public, max-age=3600
+/job-rules.json
+  Cache-Control: public, max-age=3600
+/release.json
+  Cache-Control: no-store

@@ -106,9 +106,24 @@ that produce them are never shipped to the client. Nothing is stored.
 ```bash
 cd worker
 npx wrangler kv namespace create LICENCE_KEYS   # once, then fill the id in wrangler.toml
-npx wrangler dev                                # local
+npx wrangler secret put LS_WEBHOOK_SECRET       # from the Lemon Squeezy store settings
+npx wrangler dev                                # local (reads worker/.dev.vars)
 npx wrangler deploy
 ```
+
+Routes:
+
+| Route | Auth | Purpose |
+|---|---|---|
+| `POST /v1/reconcile` | `X-Licence-Key` header | the paid payslip check |
+| `POST /v1/webhook/lemonsqueezy` | HMAC-SHA256 `X-Signature` | issues, renews and revokes keys |
+
+The webhook is idempotent — a retried event reuses the key already issued for
+that order — and never returns the key in its response. The buyer receives it
+from the merchant of record.
+
+Stored per key: plan, expiry, order id, status. Not stored: name, email,
+address, or anything else about the buyer.
 
 Point the front end at it by setting `window.PAID_ENDPOINT` before
 `index.html`'s main script, e.g. in a small inline tag:

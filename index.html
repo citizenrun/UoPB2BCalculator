@@ -1115,8 +1115,9 @@ const T = {
     'rc-error': 'Could not reach the payslip check.',
     'rc-locked-t': 'Payslip check — Advanced',
     'rc-locked-b': 'Rebuilds one month from six numbers off your payslip, diffs it line by line, and back-solves the creative-work share your payroll actually used. Everything else on this page stays free. Your figures are sent only when you run the check, and nothing is stored.',
-    'rc-buy': 'Get Advanced',
-    'rc-buy-url': '#pricing',
+    'rc-soon': 'Coming soon',
+    'rc-notify': 'Tell me you want it',
+    'rc-notify-url': 'mailto:hello@polandsalary.com?subject=Payslip%20check%20-%20interested',
     'rc-have-key': 'I have a licence key',
     'rc-key-prompt': 'Paste your licence key:',
     'b2b-h-bill': 'Public holidays &amp; invoicing',
@@ -1344,8 +1345,9 @@ const T = {
     'rc-error': 'Nie udało się połączyć z usługą sprawdzania paska.',
     'rc-locked-t': 'Sprawdzenie paska — Advanced',
     'rc-locked-b': 'Odtwarza miesiąc z sześciu liczb z paska, porównuje pozycja po pozycji i wylicza udział pracy twórczej, którego naprawdę użyła lista płac. Reszta strony pozostaje bezpłatna. Twoje dane wysyłamy tylko w momencie sprawdzenia i niczego nie przechowujemy.',
-    'rc-buy': 'Kup Advanced',
-    'rc-buy-url': '#pricing',
+    'rc-soon': 'Wkrótce',
+    'rc-notify': 'Napisz, że tego chcesz',
+    'rc-notify-url': 'mailto:hello@polandsalary.com?subject=Sprawdzenie%20paska%20-%20zainteresowany',
     'rc-have-key': 'Mam klucz licencyjny',
     'rc-key-prompt': 'Wklej klucz licencyjny:',
     'b2b-h-bill': 'Święta a fakturowanie',
@@ -2254,7 +2256,8 @@ async function renderRecon() {
     box.innerHTML = `<div style="font-size:12px;line-height:1.65">
       <strong>${t('rc-locked-t')}</strong><br>${t('rc-locked-b')}
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <a class="btn" style="display:inline-block;text-decoration:none" href="${t('rc-buy-url')}" target="_blank" rel="noopener noreferrer" onclick="window.Analytics&&Analytics.event('recon-buy-click')">${t('rc-buy')}</a>
+        <span style="display:inline-flex;align-items:center;padding:8px 14px;border-radius:8px;background:#f1f5f9;border:1px dashed #cbd5e1;color:#475569;font-size:12px;font-weight:700;letter-spacing:.02em">${t('rc-soon')}</span>
+        <a class="btn" style="display:inline-block;text-decoration:none;background:#fff;color:#0f172a;border:1px solid #cbd5e1" href="${t('rc-notify-url')}" onclick="window.Analytics&&Analytics.event('recon-notify-click')">${t('rc-notify')}</a>
         <button type="button" class="btn" style="background:#fff;color:#0f172a;border:1px solid #cbd5e1" onclick="setLicenceKey()">${t('rc-have-key')}</button>
       </div></div>`;
     return;

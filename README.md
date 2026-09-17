@@ -75,6 +75,55 @@ No deploy secrets are required for this workflow; `GITHUB_TOKEN` is enough.
 - **Rules:** [`.cursor/rules/calculator-project.mdc`](.cursor/rules/calculator-project.mdc) — stack, main files, verify commands.
 - **Skill:** [`.cursor/skills/uop-kalkulator/SKILL.md`](.cursor/skills/uop-kalkulator/SKILL.md) — Polish payroll domain (UoP + B2B/ryczałt), formulas, calibration notes.
 
-## License
+## Licence
 
-MIT — see [LICENSE](LICENSE).
+This repository is dual-licensed.
+
+| Part | Licence |
+|---|---|
+| Everything except `worker/` | **AGPL-3.0** — see [LICENSE](LICENSE) |
+| `worker/` (paid modules) | **Proprietary** — see [LICENSE-paid](LICENSE-paid) |
+
+The free calculator is open source under the AGPL: you may use, modify and
+self-host it, but if you run a modified copy as a public service you must
+publish your changes.
+
+Versions up to and including **v0.1.6 were released under MIT** and remain
+available under those terms. The licence change applies from v0.1.7 onward.
+
+### Free vs paid
+
+The free tier is the whole calculator: monthly net table, ZUS 30x cap, the
+12%/32% bracket, KUP, the annual KUP budget, employer cost and the B2B
+comparison. It runs entirely in your browser and sends nothing anywhere.
+
+The **payslip check** (Advanced) runs on a licensed endpoint in `worker/`. The
+browser posts the figures you type off a payslip and receives results; the rules
+that produce them are never shipped to the client. Nothing is stored.
+
+## Paid module (worker/)
+
+```bash
+cd worker
+npx wrangler kv namespace create LICENCE_KEYS   # once, then fill the id in wrangler.toml
+npx wrangler dev                                # local
+npx wrangler deploy
+```
+
+Point the front end at it by setting `window.PAID_ENDPOINT` before
+`index.html`'s main script, e.g. in a small inline tag:
+
+```html
+<script>window.PAID_ENDPOINT = 'https://uop-calculator-paid.<you>.workers.dev';</script>
+```
+
+With no endpoint or no licence key the panel renders a locked state and makes no
+requests.
+
+## Analytics
+
+`public/analytics.js` is a no-op until you set `SITE` to a GoatCounter
+subdomain. It is cookieless, honours Do Not Track and Global Privacy Control,
+and records page views and fixed event names only — never anything typed into
+the calculator. No consent banner is required while that holds; keep it that
+way.

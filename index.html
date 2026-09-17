@@ -968,6 +968,7 @@ details.b2b-details th{background:#f9fafb;font-weight:700}
 </div></div>
 
 <script src="payroll.js"></script>
+<script src="analytics.js"></script>
 <script>
 // ─── TRANSLATIONS ─────────────────────────────────────────────────────────────
 const T = {
@@ -1110,6 +1111,14 @@ const T = {
     'rc-share': 'Back-solved creative-work share',
     'rc-share-note': 'KUP ÷ (50% × (gross − social ZUS)). Set “% of time spent on creative work” to this, or switch KUP to “enter from my payslip”.',
     'rc-need': 'Enter the taxable gross and the net paid to compare.',
+    'rc-checking': 'Checking your payslip…',
+    'rc-error': 'Could not reach the payslip check.',
+    'rc-locked-t': 'Payslip check — Advanced',
+    'rc-locked-b': 'Rebuilds one month from six numbers off your payslip, diffs it line by line, and back-solves the creative-work share your payroll actually used. Everything else on this page stays free. Your figures are sent only when you run the check, and nothing is stored.',
+    'rc-buy': 'Get Advanced',
+    'rc-buy-url': '#pricing',
+    'rc-have-key': 'I have a licence key',
+    'rc-key-prompt': 'Paste your licence key:',
     'b2b-h-bill': 'Public holidays &amp; invoicing',
     'b2b-l-bill': 'How should your monthly invoice follow working days?',
     'b2b-h-bill-note': 'There is no single legal rule: on B2B, public holidays are not automatic paid leave like on some UoP setups. Many contracts use a fixed monthly fee; others bill only “working days”. Choose what matches your client agreement.',
@@ -1331,6 +1340,14 @@ const T = {
     'rc-share': 'Wyliczony udział pracy twórczej',
     'rc-share-note': 'KUP ÷ (50% × (brutto − ZUS społeczne)). Ustaw „% czasu na pracę twórczą” na tę wartość lub przełącz KUP na „z paska płac”.',
     'rc-need': 'Podaj brutto opodatkowane i netto, aby porównać.',
+    'rc-checking': 'Sprawdzam pasek…',
+    'rc-error': 'Nie udało się połączyć z usługą sprawdzania paska.',
+    'rc-locked-t': 'Sprawdzenie paska — Advanced',
+    'rc-locked-b': 'Odtwarza miesiąc z sześciu liczb z paska, porównuje pozycja po pozycji i wylicza udział pracy twórczej, którego naprawdę użyła lista płac. Reszta strony pozostaje bezpłatna. Twoje dane wysyłamy tylko w momencie sprawdzenia i niczego nie przechowujemy.',
+    'rc-buy': 'Kup Advanced',
+    'rc-buy-url': '#pricing',
+    'rc-have-key': 'Mam klucz licencyjny',
+    'rc-key-prompt': 'Wklej klucz licencyjny:',
     'b2b-h-bill': 'Święta a fakturowanie',
     'b2b-l-bill': 'Jak miesięczna faktura ma się do dni roboczych?',
     'b2b-h-bill-note': 'Nie ma jednej reguły prawnej: na B2B święta nie są automatycznie płatnym wolnym jak w części modeli UoP. Często jest stała opłata miesięczna; innym razem liczy się tylko „dni robocze”. Wybierz wariant zgodny z umową.',
@@ -2187,30 +2204,86 @@ function readRecon() {
   };
 }
 
+/* ── Paid tier ───────────────────────────────────────────────────────────────
+ * Reconciliation runs on the licensed endpoint, not in the browser: the client
+ * posts the figures off a payslip and receives results, never the rules. With
+ * no licence key the panel renders a locked state and nothing is sent.
+ * Endpoint and key live in localStorage so there are no accounts to hold. */
+const PAID_ENDPOINT = window.PAID_ENDPOINT || '';
+
+function licenceKey() {
+  try { return localStorage.getItem('uopcalc.licence') || ''; } catch (e) { return ''; }
+}
+function paidAvailable() { return !!(PAID_ENDPOINT && licenceKey()); }
+
+/** Prompt for a licence key and re-render. Called from the locked panel. */
+function setLicenceKey() {
+  const cur = licenceKey();
+  const v = window.prompt(t('rc-key-prompt'), cur);
+  if (v === null) return;
+  try { localStorage.setItem('uopcalc.licence', v.trim()); } catch (e) { /* private mode */ }
+  renderRecon();
+}
+
+async function fetchReconcile(inp) {
+  const res = await fetch(PAID_ENDPOINT.replace(/\/$/, '') + '/v1/reconcile', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Licence-Key': licenceKey() },
+    body: JSON.stringify({
+      gross: inp.gross, nonCash: inp.nonCash, kup: inp.kup,
+      cumTaxBase: inp.cumTb, netAddon: inp.netAddon, netto: inp.netto,
+      ppkPct: parseFloat(document.getElementById('ppk')?.value) || 0
+    })
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok || !body.ok) throw new Error(body.error || ('HTTP ' + res.status));
+  return body;
+}
+
 /** Rebuild one payslip month from its own numbers and diff it line by line. */
-function renderRecon() {
+async function renderRecon() {
   const box = document.getElementById('recon-out');
   if (!box) return;
   const inp = readRecon();
+  const applyBtn = document.getElementById('btn-recon-apply');
+  if (applyBtn) applyBtn.style.display = paidAvailable() ? '' : 'none';
+
+  if (!paidAvailable()) {
+    box.style.display = 'block';
+    box.className = 'ibox ibox-gray';
+    box.innerHTML = `<div style="font-size:12px;line-height:1.65">
+      <strong>${t('rc-locked-t')}</strong><br>${t('rc-locked-b')}
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" style="display:inline-block;text-decoration:none" href="${t('rc-buy-url')}" target="_blank" rel="noopener noreferrer" onclick="window.Analytics&&Analytics.event('recon-buy-click')">${t('rc-buy')}</a>
+        <button type="button" class="btn" style="background:#fff;color:#0f172a;border:1px solid #cbd5e1" onclick="setLicenceKey()">${t('rc-have-key')}</button>
+      </div></div>`;
+    return;
+  }
+
   if (inp.gross <= 0 || inp.netto <= 0) {
     box.style.display = 'block';
+    box.className = 'ibox ibox-blue';
     box.innerHTML = `<span style="font-size:12px;color:#475569">${t('rc-need')}</span>`;
     return;
   }
-  const r = PayrollCore.month({
-    gross: inp.gross,
-    nonCash: inp.nonCash,
-    kup: inp.kup,
-    cumErBase: 0,          // the cap is reflected by the gross the user typed
-    cumTaxBase: inp.cumTb,
-    cap: Number.MAX_SAFE_INTEGER,
-    ppkPct: parseFloat(document.getElementById('ppk')?.value) || 0,
-    deductions: 0,
-    netAddon: inp.netAddon
-  });
-  const share = PayrollCore.honorariumShare(inp.kup, inp.gross, r.social);
-  const diff = r.netto - inp.netto;
-  const ok = Math.abs(diff) < 0.005;
+
+  box.style.display = 'block';
+  box.className = 'ibox ibox-blue';
+  box.innerHTML = `<span style="font-size:12px;color:#475569">${t('rc-checking')}</span>`;
+
+  let r;
+  try {
+    r = await fetchReconcile(inp);
+  } catch (err) {
+    box.className = 'ibox ibox-gray';
+    box.innerHTML = `<div style="font-size:12px;color:#991b1b">${t('rc-error')} <span style="color:#64748b">(${escHtml(err.message)})</span>
+      <div style="margin-top:8px"><button type="button" class="btn" style="background:#fff;color:#0f172a;border:1px solid #cbd5e1" onclick="setLicenceKey()">${t('rc-have-key')}</button></div></div>`;
+    return;
+  }
+
+  const share = r.share || 0;
+  const diff = r.diff;
+  const ok = r.matches;
 
   // Grosz precision here on purpose — the point of this panel is an exact match.
   const gr = (n) => (Math.abs(n) < 0.005 ? 0 : n).toFixed(2).replace('.', ',');
@@ -2416,6 +2489,7 @@ function calc() {
     });
   }
 
+  if (window.Analytics) Analytics.event('calc-uop');
   renderKupBudget(mid, ytd);
   renderAlerts();
   renderHeroResults();

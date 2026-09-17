@@ -1,0 +1,32 @@
+Proprietary Licence — paid modules
+Copyright (c) 2026 Serhii Dielieu. All rights reserved.
+
+This licence covers the contents of the `worker/` directory and any other file
+in this repository that carries the header "Proprietary — see LICENSE-paid".
+Everything else in this repository is licensed under the GNU Affero General
+Public License v3.0; see LICENSE.
+
+These files are NOT free or open-source software. No permission is granted to
+use, copy, modify, merge, publish, distribute, sublicense, or sell them, in
+source or compiled form, in whole or in part, except as follows:
+
+1. Evaluation. You may read and run these files locally for the sole purpose of
+   evaluating or contributing to this project at the copyright holder's
+   invitation. You may not deploy them, publicly or privately, as a service.
+
+2. Paid use. Access to the hosted service built from these files is governed by
+   the terms of purchase agreed at the point of sale, not by this file.
+
+3. No derived works. You may not redistribute these files, or any work derived
+   from them, under any licence, including the AGPL that covers the rest of
+   this repository.
+
+The AGPL-covered portion of this project is independent: it runs without these
+files and is not a derived work of them. Combining the two in this repository
+does not place these files under the AGPL.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. THIS SOFTWARE PERFORMS TAX-RELATED CALCULATIONS FOR INFORMATIONAL
+PURPOSES ONLY AND DOES NOT CONSTITUTE TAX, LEGAL, OR FINANCIAL ADVICE. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY
+ARISING FROM THE USE OF THIS SOFTWARE OR RELIANCE ON ITS OUTPUT.

@@ -1,0 +1,14 @@
+name = "uop-calculator-paid"
+main = "index.mjs"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Comma-separated. The first entry is the fallback CORS origin.
+ALLOWED_ORIGINS = "https://citizenrun.github.io,http://localhost:5173"
+
+# Licence keys issued by the payment provider's webhook.
+# Values are JSON: {"expires":"2027-01-01","plan":"advanced"}
+# Create with: wrangler kv namespace create LICENCE_KEYS
+# [[kv_namespaces]]
+# binding = "LICENCE_KEYS"
+# id = "<fill in after creating the namespace>"

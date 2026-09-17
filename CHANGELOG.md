@@ -9,6 +9,9 @@
 
 
 ## [Unreleased]
+- **licence: relicensed from MIT to AGPL-3.0** for the open core; `worker/` is proprietary (LICENSE-paid). Versions up to v0.1.6 remain MIT
+- feat: payslip reconciliation moved behind a licensed Cloudflare Worker endpoint — the client posts figures and receives results, the rules are no longer shipped to the browser
+- feat: cookieless, no-op-by-default analytics (`public/analytics.js`), honouring DNT and GPC; records page views and fixed event names only
 - fix: apply the full 300 zł ulga in the month the 32% bracket is crossed (was pro-rata — overstated tax by ~41 zł)
 - fix: round the taxable base and the tax advance to whole złoty (art. 63 § 1 Ordynacji podatkowej)
 - fix: employer-funded taxable benefits (ER Medicover, ER Multisport) now raise the ZUS/PIT base without being paid out

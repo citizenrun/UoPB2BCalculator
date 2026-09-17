@@ -1,5 +1,9 @@
 /**
- * Payroll core — pure functions, no DOM.
+ * Payroll core — pure functions, no DOM. AGPL-3.0, see LICENSE.
+ *
+ * Free tier only. Payslip reconciliation is a paid module and lives in
+ * worker/reconcile.mjs (proprietary, see LICENSE-paid); it is never shipped
+ * to the browser.
  *
  * Loaded by index.html as a classic script (exposes window.PayrollCore) and
  * evaluated directly by tests/payroll.validation.test.mjs.
@@ -189,18 +193,6 @@ var PayrollCore = (function () {
     return { tax: tax, base: base, crossed: crossed, rate32: rate32 };
   }
 
-  // ── KUP ────────────────────────────────────────────────────────────────────
-
-  /**
-   * Back-solve the honorarium share actually used by payroll, from a payslip.
-   * KUP = 50% × share × (gross − social ZUS)  →  share = KUP / (0.5 × base)
-   */
-  function honorariumShare(kup, gross, social) {
-    var base = gross - social;
-    if (base <= 0) return 0;
-    return kup / (0.5 * base);
-  }
-
   // ── Annual KUP budget ──────────────────────────────────────────────────────
 
   /**
@@ -280,48 +272,6 @@ var PayrollCore = (function () {
     };
   }
 
-  // ── Full month ─────────────────────────────────────────────────────────────
-
-  /**
-   * Net pay for one month.
-   *
-   * `gross` is the taxable gross — it includes employer-funded taxable benefits
-   * (e.g. "ER Medicover", "ER Multisport"), which raise the ZUS and PIT base but
-   * are never paid out. Those are passed separately as `nonCash` and removed
-   * from the cash side, which is what makes the payslips reconcile exactly.
-   *
-   * @param p.gross      taxable gross (cash gross + nonCash)
-   * @param p.nonCash    taxable benefits funded by the employer, not paid in cash
-   * @param p.kup        deductible costs for the month
-   * @param p.cumErBase  cumulative emerytalna/rentowa base before this month
-   * @param p.cumTaxBase cumulative taxable base before this month
-   * @param p.cap        ZUS 30× annual cap
-   * @param p.ppkPct     employee PPK rate, %
-   * @param p.deductions fixed net deductions (Medicover, Multisport, …)
-   * @param p.netAddon   non-taxable net items, signed (e.g. +50 internet allowance)
-   */
-  function month(p) {
-    var gross = p.gross || 0;
-    var nonCash = p.nonCash || 0;
-    var z = zusSlice(gross, p.cumErBase || 0, p.cap);
-    var taxBase = Math.max(0, gross - z.social - (p.kup || 0));
-    var a = advance(taxBase, p.cumTaxBase || 0, p);
-    var ppk = gross * ((p.ppkPct || 0) / 100);
-    var netto = gross - nonCash - z.social - z.health - a.tax - ppk
-      - (p.deductions || 0) + (p.netAddon || 0);
-    return {
-      gross: gross, nonCash: nonCash,
-      em: z.em, re: z.re, ch: z.ch,
-      social: z.social, health: z.health, healthBase: z.healthBase,
-      capped: z.capped,
-      kup: p.kup || 0,
-      taxBase: taxBase, taxBaseRounded: a.base,
-      tax: a.tax, rate32: a.rate32, crossed: a.crossed,
-      ppk: ppk,
-      netto: netto
-    };
-  }
-
   return {
     ZUS: ZUS,
     ZUS_SOCIAL_RATE: ZUS_SOCIAL_RATE,
@@ -333,10 +283,8 @@ var PayrollCore = (function () {
     workingTime: workingTimeCached,
     zusSlice: zusSlice,
     advance: advance,
-    honorariumShare: honorariumShare,
     kupBudget: kupBudget,
-    employerCost: employerCost,
-    month: month
+    employerCost: employerCost
   };
 })();
 

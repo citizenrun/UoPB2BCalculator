@@ -2,16 +2,24 @@ name = "uop-calculator-paid"
 main = "index.mjs"
 compatibility_date = "2026-09-01"
 
+# Served from the apex domain rather than *.workers.dev — corporate DNS filters
+# (Cisco Umbrella among them) block workers.dev wholesale, which would make the
+# paid panel unreachable for exactly the office workers this is aimed at.
+[[routes]]
+pattern = "api.polandsalary.com"
+custom_domain = true
+
 [vars]
 # Comma-separated. The first entry is the fallback CORS origin.
-ALLOWED_ORIGINS = "https://citizenrun.github.io,http://localhost:5173"
+ALLOWED_ORIGINS = "https://polandsalary.com,https://www.polandsalary.com,http://localhost:5173"
 
 # Licence keys issued by the payment provider's webhook.
-# Values are JSON: {"expires":"2027-01-01","plan":"advanced"}
-# Create with: wrangler kv namespace create LICENCE_KEYS
-# [[kv_namespaces]]
-# binding = "LICENCE_KEYS"
-# id = "<fill in after creating the namespace>"
+# Values are JSON: {"plan":"Advanced","expires":"2027-01-01","orderId":"…","status":"active"}
+# An `order:<id>` pointer maps each order to its key, which is what makes the
+# webhook idempotent across provider retries.
+[[kv_namespaces]]
+binding = "LICENCE_KEYS"
+id = "7eeb2852f571433c8985a85cfee76abd"
 
 # Webhook signing secret from the Lemon Squeezy store settings.
 # Never put it in this file — it is committed. Set it as a secret:

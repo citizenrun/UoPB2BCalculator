@@ -2209,7 +2209,7 @@ function readRecon() {
  * posts the figures off a payslip and receives results, never the rules. With
  * no licence key the panel renders a locked state and nothing is sent.
  * Endpoint and key live in localStorage so there are no accounts to hold. */
-const PAID_ENDPOINT = window.PAID_ENDPOINT || '';
+const PAID_ENDPOINT = window.PAID_ENDPOINT || 'https://api.polandsalary.com';
 
 function licenceKey() {
   try { return localStorage.getItem('uopcalc.licence') || ''; } catch (e) { return ''; }

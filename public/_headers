@@ -9,10 +9,10 @@
 # an arbitrary origin, embedding the page in a frame, or posting a form off-site.
 # Removing the inline handlers later would let this tighten to a nonce.
 #
-# connect-src must list the paid Worker origin. Update it when you move the
-# Worker to a custom domain.
+# connect-src lists the paid Worker origin. It is a custom domain rather than
+# *.workers.dev because corporate DNS filters block workers.dev wholesale.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.goatcounter.com; connect-src 'self' https://*.workers.dev; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.goatcounter.com; connect-src 'self' https://api.polandsalary.com; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()

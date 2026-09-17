@@ -71,15 +71,32 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx wrangler pages deploy dist --project-name=polandsalary --branch=main
 
+      # Runs even if an earlier step failed, so a deploy never leaves the repo
+      # claiming an older version than the site is serving.
+      #
+      # The push is retried: a transient GitHub 503 here previously published
+      # v0.1.9 to the site while main stayed on v0.1.8. Rebase between attempts
+      # in case another run landed first.
       - name: Commit version and changelog
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add package.json CHANGELOG.md public/release.json
           if git diff --staged --quiet; then
             echo "Nothing to commit"
-          else
-            VER=$(node -p "require('./package.json').version")
-            git commit -m "chore(release): v${VER} [skip ci]"
-            git push
+            exit 0
           fi
+          VER=$(node -p "require('./package.json').version")
+          git commit -m "chore(release): v${VER} [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed on attempt ${attempt}"
+              exit 0
+            fi
+            echo "push failed (attempt ${attempt}); rebasing and retrying"
+            git pull --rebase --autostash origin main || true
+            sleep $((attempt * 5))
+          done
+          echo "::error::could not push the release commit after 5 attempts; main is behind the deployed site"
+          exit 1

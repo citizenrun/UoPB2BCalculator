@@ -78,6 +78,8 @@ No deploy secrets are required for this workflow; `GITHUB_TOKEN` is enough.
 
 ## Licence
 
+Copyright © 2026 Serhii Dielieu.
+
 This repository is dual-licensed.
 
 | Part | Licence |
@@ -89,8 +91,8 @@ The free calculator is open source under the AGPL: you may use, modify and
 self-host it, but if you run a modified copy as a public service you must
 publish your changes.
 
-Versions up to and including **v0.1.6 were released under MIT** and remain
-available under those terms. The licence change applies from v0.1.7 onward.
+Versions up to and including **v0.1.7 were released under MIT** and remain
+available under those terms. The licence change applies from v0.1.8 onward.
 
 ### Free vs paid
 

@@ -1,41 +1,62 @@
-# Deploy the free tier to Cloudflare Pages.
+# Build and publish the free tier to Cloudflare Pages.
 #
-# Replaces deploy-pages.yml once the Cloudflare project exists. Kept disabled
-# (workflow_dispatch only) until then, so nothing breaks mid-migration.
+# Replaces deploy-pages.yml. Keeps the same release ritual: test, bump the patch
+# version, prepend a CHANGELOG entry, refresh public/release.json, then build and
+# deploy. The bump is committed back with [skip ci] so it does not re-trigger.
+#
+# Note the base path differs from the old GitHub Pages workflow: the site is now
+# served from the apex of polandsalary.com, not from /<repo>/, so the default
+# relative base in vite.config.js is correct and no --base override is needed.
 #
 # Required repository secrets:
-#   CLOUDFLARE_API_TOKEN   — token with the "Cloudflare Pages: Edit" permission
-#   CLOUDFLARE_ACCOUNT_ID  — from the Cloudflare dashboard sidebar
+#   CLOUDFLARE_API_TOKEN   — a token with the "Cloudflare Pages: Edit" permission
+#   CLOUDFLARE_ACCOUNT_ID  — b404e2a3f07436d852ffd600267391a1
 #
-# To cut over: add `push: branches: [main]` below and delete deploy-pages.yml.
+# The paid Worker in worker/ is deployed separately and deliberately: it is
+# proprietary, it holds a licence-key namespace, and it should not redeploy on
+# every push to the free tier.
 name: Deploy to Cloudflare Pages
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: cloudflare-pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
+    if: ${{ !(github.event_name == 'push' && github.event.head_commit != null && contains(github.event.head_commit.message, '[skip ci]')) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: "22"
           cache: npm
 
       - run: npm ci
       - run: npm run test:unit
-      - run: npm run build
 
-      # public/_headers is copied into dist/ by Vite, which is what turns the
-      # CSP and cache rules into real HTTP headers on Pages.
+      - run: node scripts/build-job-rules.mjs
+
+      - name: Prepare release metadata
+        env:
+          DEPLOY_RELEASE: "1"
+          RELEASE_SUMMARY: ${{ github.event.head_commit.message }}
+        run: node scripts/release-meta.mjs
+
+      - run: npx vite build
+
+      # public/_headers is what turns the CSP and cache rules into real HTTP
+      # headers on Pages. If Vite ever stops copying it, fail loudly rather than
+      # shipping a site with no security headers.
       - name: Check _headers survived the build
         run: test -f dist/_headers || (echo "dist/_headers missing" && exit 1)
 
@@ -44,4 +65,17 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=uop-calculator
+          command: pages deploy dist --project-name=polandsalary --branch=main
+
+      - name: Commit version and changelog
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json CHANGELOG.md public/release.json
+          if git diff --staged --quiet; then
+            echo "Nothing to commit"
+          else
+            VER=$(node -p "require('./package.json').version")
+            git commit -m "chore(release): v${VER} [skip ci]"
+            git push
+          fi

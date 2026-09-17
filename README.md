@@ -1,12 +1,13 @@
 # UoP B2B Calculator
 
-[![Live version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fcitizenrun.github.io%2FUoPB2BCalculator%2Frelease.json&query=%24.version&label=live%20version&prefix=v&style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/release.json) [![Live site](https://img.shields.io/badge/Pages-live-0366d6?style=flat-square)](https://citizenrun.github.io/UoPB2BCalculator/)
+[![Live version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fpolandsalary.com%2Frelease.json&query=%24.version&label=live%20version&prefix=v&style=flat-square)](https://polandsalary.com/release.json) [![Live site](https://img.shields.io/badge/polandsalary.com-live-f38020?style=flat-square)](https://polandsalary.com)
 
-*Same source as the in-app footer: [`release.json`](https://citizenrun.github.io/UoPB2BCalculator/release.json) on GitHub Pages (not `package.json` on `main`). Repo `package.json` is updated by the deploy job’s release commit and can briefly disagree if that push fails or Shields caches an old GitHub response.*
+*Same source as the in-app footer: [`release.json`](https://polandsalary.com/release.json) on Cloudflare Pages (not `package.json` on `main`). Repo `package.json` is updated by the deploy job’s release commit and can briefly disagree if that push fails or Shields caches an old GitHub response.*
 
 Polish **umowa o pracę (UoP)** salary calculator: bilingual (PL/EN), month-by-month net, ZUS cap, KUP modes, calibration data, and employer-cost view. Single-page static app.
 
-**Live site (GitHub Pages):** [citizenrun.github.io/UoPB2BCalculator](https://citizenrun.github.io/UoPB2BCalculator/)
+**Live site:** [polandsalary.com](https://polandsalary.com) — free tier, Cloudflare Pages
+**Paid API:** `api.polandsalary.com` — the Worker in `worker/`
 
 ## Quick start
 
@@ -27,7 +28,7 @@ npm run build
 
 Static files are written to `dist/`. Deploy `dist/` to any static host (GitHub Pages, Netlify, Cloudflare Pages, S3, etc.).
 
-For GitHub **project** pages (`https://<user>.github.io/<repo>/`), the workflow below passes `--base=/<repo>/` automatically. For other hosts, `npm run build` with `base: './'` in `vite.config.js` is usually enough.
+The site is served from the apex of `polandsalary.com`, so the relative `base: './'` in `vite.config.js` is correct and CI passes no `--base` override.
 
 ## Testing
 
@@ -56,7 +57,7 @@ GitHub Actions: **`.github/workflows/ci.yml`** runs **unit + Playwright** on **p
 2. Under **Build and deployment** → **Source**, choose **GitHub Actions** (not “Deploy from a branch”).
 3. Push to `main` to build and deploy (or re-run the latest **Deploy to GitHub Pages** job in **Actions** if a run failed).
 
-After the first successful run, Settings → Pages shows the site URL. This repo is published at **`https://citizenrun.github.io/UoPB2BCalculator/`** (Vite build uses `base: '/UoPB2BCalculator/'` in CI via `vite build --base=/…/`).
+Deploys run on push to `main` via `.github/workflows/deploy-cloudflare.yml`, which tests, bumps the patch version, refreshes `release.json`, builds, and publishes to Cloudflare Pages.
 
 ### `gh` CLI (optional)
 

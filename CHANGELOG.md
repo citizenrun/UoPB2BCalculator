@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.9] - 2026-09-17
+- ci: retry the release push so the repo cannot fall behind the site
+
+
 ## [0.1.8] - 2026-09-17
 - docs: keep the copyright attribution the AGPL text does not carry
 

@@ -1,6 +1,13 @@
 {
-  "version": "0.1.8",
+  "version": "0.1.9",
   "history": [
+    {
+      "version": "0.1.9",
+      "date": "2026-09-17",
+      "changes": [
+        "ci: retry the release push so the repo cannot fall behind the site"
+      ]
+    },
     {
       "version": "0.1.8",
       "date": "2026-09-17",

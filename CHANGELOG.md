@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.1.8] - 2026-09-17
+- docs: keep the copyright attribution the AGPL text does not carry
+
+
 ## [0.1.7] - 2026-09-16
 - Correct copyright name in LICENSE file
 
